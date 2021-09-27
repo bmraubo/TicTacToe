@@ -6,7 +6,7 @@ class TestDummy(unittest.TestCase):
         self.assertEqual(True,True)
 
     def tst_ci_workflow(self):
-        self.assertEqual(True, False)
+        self.assertEqual(True, True)
 
 if __name__ == '__main__':
     unittest.main()
