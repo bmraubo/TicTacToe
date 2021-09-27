@@ -28,6 +28,6 @@ jobs:
           python-version: 3.9
 
       # Run tests
-      - name: Run unittest against app.spec.py
+      - name: Run unittest against tests.py
         run: |
           python -m unittest tests.py
