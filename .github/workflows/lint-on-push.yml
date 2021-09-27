@@ -1,6 +1,6 @@
 name: lint-on-push
 
-on: [push]
+on: push
 
 jobs:
   lint-on-push:
