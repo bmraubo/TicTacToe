@@ -8,5 +8,5 @@ class TestDummy(unittest.TestCase):
     def tst_ci_workflow(self):
         self.assertEqual(True, True)
 
-if __name__ == '__main__':
-    unittest.main()
+
+unittest.main()
