@@ -30,4 +30,4 @@ jobs:
       # Run tests
       - name: Run unittest against test_app.py
         run: |
-          python -m unittest test_app.py
+          python3 -m unittest test_app.py

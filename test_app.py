@@ -7,5 +7,6 @@ class TestDummy(unittest.TestCase):
 
     def test_ci_workflow(self):
         self.assertEqual(True, False)
-
-unittest.main()
+        
+if __name__ == '__main__':
+    unittest.main()
