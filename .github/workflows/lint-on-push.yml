@@ -18,7 +18,7 @@ jobs:
       - name: install dependencies
         run: |
         python3 -m pip3 install --upgrade pip
-        python3 -m pip3 install -r requirements.txt
+        python3 -m pip3 install black
 
       # Lint with Black - should check all python files in dependency
       - name: Run Black
