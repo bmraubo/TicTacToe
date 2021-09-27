@@ -8,5 +8,4 @@ class TestDummy(unittest.TestCase):
     def test_ci_workflow(self):
         self.assertEqual(True, True)
 
-
 unittest.main()
