@@ -16,7 +16,7 @@ jobs:
 
       # install dependencies
       - name: install dependencies
-        run: |
+        run:
         python3 -m pip3 install --upgrade pip
         python3 -m pip3 install black
 
