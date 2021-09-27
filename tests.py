@@ -6,6 +6,6 @@ class TestDummy(unittest.TestCase):
         self.assertEqual(True,True)
 
     def test_ci_workflow(self):
-        self.assertEqual(True, True)
+        self.assertEqual(True, False)
 
 unittest.main()
