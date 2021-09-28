@@ -20,6 +20,14 @@ class TestApplication(unittest.TestCase):
         output = captured_output.getvalue().strip()
         self.assertEqual(output, "Welcome to Tic Tac Toe")
 
+    def test_game_instructions(self):
+        captured_output = StringIO()
+        sys.stdout = captured_output
+        Info.game_instructions()
+        validate_instructions = "Each square on the board have a value from 1-9. Select which square you would like to play by inputting the correct value when promoted."
+        output = captured_output.getvalue().strip()
+        self.assertEqual(output, validate_instructions)
+
 
 if __name__ == "__main__":
     unittest.main()
