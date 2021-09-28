@@ -7,6 +7,25 @@ class Info:
         print(instructions)
 
 
+class Board:
+    def __init__(self):
+        self.board = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        self.markers = {"X": None, "O": None}
+        self.players = []
+
+    def create_player(self, name):
+        self.players.append(Player(name))
+
+    def assign_players(self):
+        # assigns players to X and O
+        pass
+
+
+class Player:
+    def __init__(self, name):
+        self.name = name
+
+
 if __name__ == "__main__":
     Info.welcome_message()
     Info.game_instructions()
