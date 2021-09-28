@@ -40,6 +40,15 @@ class TestApplication(unittest.TestCase):
         self.assertEqual(test_board.markers["X"], None)
         self.assertEqual(test_board.markers["O"], None)
 
+    def test_print_board(self):
+        test_board = Board()
+        initial_board = "+---+---+---+\n| 1 | 2 | 3 |\n+---+---+---+\n| 4 | 5 | 6 |\n+---+---+---+\n| 7 | 8 | 9 |\n+---+---+---+"
+        captured_output = StringIO()
+        sys.stdout = captured_output
+        test_board.draw_board()
+        output = captured_output.getvalue().strip()
+        self.assertEqual(output, initial_board)
+
     # Create Players
     def test_create_player(self):
         test_board = Board()

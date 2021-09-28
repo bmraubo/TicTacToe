@@ -21,6 +21,17 @@ class Board:
         self.markers["X"] = self.players[0]
         self.markers["O"] = self.players[1]
 
+    def draw_board(self):
+        # draws the current board state
+        divider = "+---+---+---+"
+        print(divider)
+        print(f"| {self.board[0][0]} | {self.board[0][1]} | {self.board[0][2]} |")
+        print(divider)
+        print(f"| {self.board[1][0]} | {self.board[1][1]} | {self.board[1][2]} |")
+        print(divider)
+        print(f"| {self.board[2][0]} | {self.board[2][1]} | {self.board[2][2]} |")
+        print(divider)
+
 
 class Player:
     def __init__(self, name):
