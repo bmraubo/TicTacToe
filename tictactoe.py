@@ -18,7 +18,8 @@ class Board:
 
     def assign_players(self):
         # assigns players to X and O
-        pass
+        self.markers["X"] = self.players[0]
+        self.markers["O"] = self.players[1]
 
 
 class Player:

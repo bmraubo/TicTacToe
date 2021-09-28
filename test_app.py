@@ -53,11 +53,11 @@ class TestApplication(unittest.TestCase):
     # Assign Players
     def test_player_assignment(self):
         test_board = Board()
-        test_player1 = Player("Marx")
-        test_player2 = Player("Engels")
-        test_board.assign_players(test_player1, test_player2)
-        self.assertEqual(test_board.markers["X"], test_player1)
-        self.assertEqual(test_board.markers["O"], test_player2)
+        test_board.create_player("Marx")
+        test_board.create_player("Engels")
+        test_board.assign_players()
+        self.assertEqual(test_board.markers["X"], test_board.players[0])
+        self.assertEqual(test_board.markers["O"], test_board.players[1])
 
 
 if __name__ == "__main__":
