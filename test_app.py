@@ -30,15 +30,11 @@ class TestApplication(unittest.TestCase):
         output = captured_output.getvalue().strip()
         self.assertEqual(output, validate_instructions)
 
-    # Test Players
-
-    # Test assign player to marker
-
     # Testing Game Board
 
     # Draw Board
     def test_initialize_board(self):
-        expected_board = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        expected_board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
         test_board = Board()
         self.assertEqual(test_board.board, expected_board)
         self.assertEqual(test_board.markers["X"], None)
