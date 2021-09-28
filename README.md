@@ -12,6 +12,10 @@ $ git clone https://github.com/bmraubo/TicTacToe.git
 # Go into repository
 $ cd TicTacToe
 
+# Install dependencies
+$ python3 -m pip install --upgrade pip
+$ pip3 install -r requirements.txt
+
 # Run the application
 $ python3 tictactoe.py
 
