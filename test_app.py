@@ -57,7 +57,9 @@ class TestApplication(unittest.TestCase):
         test_board.create_player("Engels")
         test_board.assign_players()
         self.assertEqual(test_board.markers["X"], test_board.players[0])
+        self.assertEqual(test_board.markers["X"].name, "Marx")
         self.assertEqual(test_board.markers["O"], test_board.players[1])
+        self.assertEqual(test_board.markers["O"].name, "Engels")
 
 
 if __name__ == "__main__":
