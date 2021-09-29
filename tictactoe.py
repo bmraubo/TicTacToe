@@ -72,9 +72,7 @@ class TicTacToe:
                 self.make_move(player, int(player_move))
                 self.draw_board()
                 moves_made += 1
-                if self.win_check(player):
-                    break  # Declare the winner and quit the app
-        # if 9 moves have been played, the game is a draw
+                self.end_game(moves_made, player)
 
     def win_check(self, player):
         def tally(player, arrangement):
@@ -99,6 +97,16 @@ class TicTacToe:
             return True
         else:
             return False
+
+    def end_game(self, moves_made, player):
+        if self.win_check(player):
+            print(f"{player.name} has won the game")
+            print("Game is closing gracefully")
+            exit()
+        elif moves_made == 9:
+            print("It's a draw")
+            print("Game is closing gracefully")
+            exit()
 
 
 class Player:
