@@ -106,15 +106,42 @@ class TestApplication(unittest.TestCase):
 
 
 class TestWinCheck(unittest.TestCase):
+    def test_no_win(self):
+        test_board = TicTacToe()
+        test_players = [["Marx", "human"], ["Engels", "human"]]
+        test_board.create_players(test_players)
+        test_board.assign_players()
+        self.assertFalse(test_board.win_check(test_board.players[0]))
+
     def test_win_column(self):
         # Set up a game
         test_board = TicTacToe()
         test_players = [["Marx", "human"], ["Engels", "human"]]
         test_board.create_players(test_players)
         test_board.assign_players()
+        test_board.board[0][1] = "X"
+        test_board.board[1][1] = "X"
+        test_board.board[2][1] = "X"
+        self.assertTrue(test_board.win_check(test_board.players[0]))
+
+    def test_win_row(self):
+        test_board = TicTacToe()
+        test_players = [["Marx", "human"], ["Engels", "human"]]
+        test_board.create_players(test_players)
+        test_board.assign_players()
         test_board.board[0][0] = "X"
-        test_board.board[1][0] = "X"
-        test_board.board[2][0] = "X"
+        test_board.board[0][1] = "X"
+        test_board.board[0][2] = "X"
+        self.assertTrue(test_board.win_check(test_board.players[0]))
+
+    def test_row_diagonal(self):
+        test_board = TicTacToe()
+        test_players = [["Marx", "human"], ["Engels", "human"]]
+        test_board.create_players(test_players)
+        test_board.assign_players()
+        test_board.board[0][0] = "X"
+        test_board.board[1][1] = "X"
+        test_board.board[2][2] = "X"
         self.assertTrue(test_board.win_check(test_board.players[0]))
 
 
