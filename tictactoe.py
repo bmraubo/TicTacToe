@@ -100,7 +100,7 @@ class TicTacToe:
 
     def end_game(self, moves_made, player):
         if self.win_check(player):
-            print(f"{player.name} has won the game")
+            print(f"{player.name} has won the game\N{Party Popper}")
             print("Game is closing gracefully")
             exit()
         elif moves_made == 9:
