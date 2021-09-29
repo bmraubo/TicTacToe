@@ -44,6 +44,16 @@ class TicTacToe:
     def make_move(self, player, move):
         self.board[(move - 1) // 3][(move - 1) % 3] = self.markers[player]
 
+    def validate_player_move(self, player_move):
+        if player_move < 1 or player_move > 9:
+            return False
+        elif str(player_move) != (
+            self.board[(player_move - 1) // 3][(player_move - 1) % 3]
+        ):
+            return False
+        else:
+            return True
+
     def play_game(self):
         for player in self.players:
             player_move = input(f"{player.name}, please enter move: ")

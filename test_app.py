@@ -77,6 +77,30 @@ class TestApplication(unittest.TestCase):
         test_board.make_move(test_board.players[0], int(test_input))
         self.assertEqual(test_board.board[0][0], "X")
 
+    def test_validate_player_move(self):
+        # If player inputs value that has been used or is outside of range, returns False
+        # Set up game
+        test_board = TicTacToe()
+        test_players = [["Marx", "human"], ["Engels", "human"]]
+        test_board.create_players(test_players)
+        test_board.assign_players()
+        # Test input out of range
+        player_move = 10
+        self.assertFalse(test_board.validate_player_move(player_move))
+        player_move = 0
+        self.assertFalse(test_board.validate_player_move(player_move))
+        player_move = 9
+        self.assertTrue(test_board.validate_player_move(player_move))
+        player_move = 1
+        self.assertTrue(test_board.validate_player_move(player_move))
+        # Test move already played
+        test_input = 1
+        test_board.make_move(test_board.players[0], int(test_input))
+        player_move = 1
+        self.assertFalse(test_board.validate_player_move(player_move))
+        player_move = 2
+        self.assertTrue(test_board.validate_player_move(player_move))
+
 
 if __name__ == "__main__":
     unittest.main()
