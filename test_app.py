@@ -1,6 +1,7 @@
 import unittest
 import sys
 from io import StringIO
+from unittest.mock import patch
 from tictactoe import *
 
 
@@ -14,7 +15,7 @@ class TestDummy(unittest.TestCase):
 
 class TestApplication(unittest.TestCase):
 
-    # Testing Info functions
+    # Testing UserInterface functions
     def test_welcome_message(self):
         captured_output = StringIO()
         sys.stdout = captured_output
@@ -52,14 +53,15 @@ class TestApplication(unittest.TestCase):
     # Players
     def test_create_player(self):
         test_board = TicTacToe()
-        test_board.create_player("Marx", "human")
+        test_players = [["Marx", "human"], ["Engels", "human"]]
+        test_board.create_players(test_players)
         self.assertEqual(test_board.players[0].name, "Marx")
         self.assertEqual(test_board.players[0].type, "human")
 
     def test_player_assignment(self):
         test_board = TicTacToe()
-        test_board.create_player("Marx", "human")
-        test_board.create_player("Engels", "human")
+        test_players = [["Marx", "human"], ["Engels", "human"]]
+        test_board.create_players(test_players)
         test_board.assign_players()
         self.assertEqual(test_board.markers[test_board.players[0]], "X")
         self.assertEqual(test_board.markers[test_board.players[1]], "O")
@@ -67,12 +69,12 @@ class TestApplication(unittest.TestCase):
     def test_make_move(self):
         # Set up game
         test_board = TicTacToe()
-        test_board.create_player("Marx", "human")
-        test_board.create_player("Engels", "human")
+        test_players = [["Marx", "human"], ["Engels", "human"]]
+        test_board.create_players(test_players)
         test_board.assign_players()
         # Test move
-        test_input = 1
-        test_board.make_move(test_board.players[0], test_input)
+        test_input = "1"
+        test_board.make_move(test_board.players[0], int(test_input))
         self.assertEqual(test_board.board[0][0], "X")
 
 
