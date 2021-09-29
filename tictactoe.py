@@ -46,10 +46,12 @@ class TicTacToe:
 
     def validate_player_move(self, player_move):
         if player_move < 1 or player_move > 9:
+            print("This value is not between 1 and 9")
             return False
         elif str(player_move) != (
             self.board[(player_move - 1) // 3][(player_move - 1) % 3]
         ):
+            print("This move has already been played")
             return False
         else:
             return True
