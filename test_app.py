@@ -85,20 +85,20 @@ class TestApplication(unittest.TestCase):
         test_board.create_players(test_players)
         test_board.assign_players()
         # Test input out of range
-        player_move = 10
+        player_move = "10"
         self.assertFalse(test_board.validate_player_move(player_move))
-        player_move = 0
+        player_move = "0"
         self.assertFalse(test_board.validate_player_move(player_move))
-        player_move = 9
+        player_move = "9"
         self.assertTrue(test_board.validate_player_move(player_move))
-        player_move = 1
+        player_move = "1"
         self.assertTrue(test_board.validate_player_move(player_move))
         # Test move already played
-        test_input = 1
+        test_input = "1"
         test_board.make_move(test_board.players[0], int(test_input))
-        player_move = 1
+        player_move = "1"
         self.assertFalse(test_board.validate_player_move(player_move))
-        player_move = 2
+        player_move = "2"
         self.assertTrue(test_board.validate_player_move(player_move))
 
 
