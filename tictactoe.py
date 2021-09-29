@@ -56,7 +56,10 @@ class TicTacToe:
 
     def play_game(self):
         for player in self.players:
-            player_move = input(f"{player.name}, please enter move: ")
+            valid_move = False
+            while valid_move == False:
+                player_move = input(f"{player.name}, please enter move: ")
+                valid_move = self.validate_player_move(int(player_move))
             self.make_move(player, int(player_move))
             self.draw_board()
 
