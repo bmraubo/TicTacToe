@@ -62,13 +62,51 @@ class TicTacToe:
             return False
 
     def play_game(self):
-        for player in self.players:
-            valid_move = False
-            while valid_move == False:
-                player_move = input(f"{player.name}, please enter move: ")
-                valid_move = self.validate_player_move(player_move)
-            self.make_move(player, int(player_move))
-            self.draw_board()
+        moves_made = 0
+        while moves_made < 9:
+            for player in self.players:
+                valid_move = False
+                while valid_move == False:
+                    player_move = input(f"{player.name}, please enter move: ")
+                    valid_move = self.validate_player_move(player_move)
+                self.make_move(player, int(player_move))
+                self.draw_board()
+                moves_made += 1
+                self.end_game(moves_made, player)
+
+    def win_check(self, player):
+        def tally(player, arrangement):
+            for poss in range(len(arrangement)):
+                if arrangement[poss].count(self.markers[player]) == 3:
+                    return True
+
+        columns = [
+            [self.board[0][0], self.board[1][0], self.board[2][0]],
+            [self.board[0][1], self.board[1][1], self.board[2][1]],
+            [self.board[0][2], self.board[1][2], self.board[2][2]],
+        ]
+        diagonals = [
+            [self.board[0][0], self.board[1][1], self.board[2][2]],
+            [self.board[0][2], self.board[1][1], self.board[2][0]],
+        ]
+        if tally(player, self.board):
+            return True
+        elif tally(player, columns):
+            return True
+        elif tally(player, diagonals):
+            return True
+        else:
+            return False
+
+    def end_game(self, moves_made, player):
+        if self.win_check(player):
+            print(f"{player.name} has won the game\N{Party Popper}")
+            print("Game is closing gracefully")
+            exit()
+        elif moves_made == 9:
+            print("It's a draw")
+            print("Game is closing gracefully")
+            exit()
 
 
 class Player:

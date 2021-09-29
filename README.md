@@ -57,5 +57,19 @@ So clean.
 
 ### Gameplay loop
 
-Starting with X, each player has a chance to input a move, which is then validated. Valid moves are played. A win check would go here... after each move is played. Currently, the play_game method completes one loop before running out of road for demo purposes. 
+Starting with X, each player has a chance to input a move, which is then validated. Valid moves are played. Moves are rejected if that move has already been played, if the value entered is outside the permitted range, and potential ValueErrors are handled.
+
+Moves are played until a winning condition is met, or until 9 moves have been played. 
+
+### Win state check and game exit
+
+After every move is played, the game checks whether the player making the move has won the game. The end_game functions checks whether the game should end by running win_check and declaring a winner if win_check returns True, or declaring a draw if 9 moves have been played. 
+
+The order of logic means win_check will be conducted before a draw is declared, in case someone wins on the last move. 
+
+The win_state check includes a nested tally() function that takes in an arrangement of board values. When checking rows, it checks each object in the board list - nothing needs to be changed. Checking columns and diagonals requires a specific arrangement of board values, which are defined as the columns and diagonals variables within the win_state function.
+
+If the game has reached the end by win or draw, it exits gracefully, and tells the user that it is doing so.
+
+
 
