@@ -40,5 +40,22 @@ A get_player_info() function runs in UserInterface class (formerly Info class) a
 
 In order to make making a move easier, I have used the Player object as the key in the markers dictionary, and assigned the markers as values to those keys. I have a feeling that markers and players could be combined, but I am saving that for refactoring.
 
-The board is displayed using the draw_board() method, which uses `TicTacToe.board` as the authoritative source of the current board state. Initially, the available spaces will be filled with the values 1-9 - the use of the index makes no sense given the board set up as a 3x3 matrix (which makes checking win state easier down the line), and is more natural for a non-technically minded player to understand. 
+The board is displayed using the draw_board() method, which uses `TicTacToe.board` as the authoritative source of the current board state. Initially, the available spaces will be filled with the values 1-9 - the use of the index makes no sense given the board set up as a 3x3 matrix (which makes checking win state easier down the line), and is more natural for a non-technically minded player to understand.
+
+### User input and validation
+
+The game takes user input as a string and validates it using the validate_player_move method which checks for Out of Range, Value errors and if the move has already been played. Feedback is given to the user to inform them of what went wrong. The user can try again to input a valid move. 
+
+The move is then played using the make_move method, which uses floor division and modulo to determine which square is to be replaced with the player marker (X or O). Quite proud of this one:
+
+```
+def make_move(self, player, move):
+        self.board[(move - 1) // 3][(move - 1) % 3] = self.markers[player]
+```
+
+So clean.
+
+### Gameplay loop
+
+Starting with X, each player has a chance to input a move, which is then validated. Valid moves are played. A win check would go here... after each move is played. Currently, the play_game method completes one loop before running out of road for demo purposes. 
 
