@@ -65,10 +65,12 @@ class TestApplication(unittest.TestCase):
         self.assertEqual(test_board.markers[test_board.players[1]], "O")
 
     def test_make_move(self):
+        # Set up game
         test_board = TicTacToe()
         test_board.create_player("Marx", "human")
         test_board.create_player("Engels", "human")
         test_board.assign_players()
+        # Test move
         test_input = 1
         test_board.make_move(test_board.players[0], test_input)
         self.assertEqual(test_board.board[0][0], "X")
