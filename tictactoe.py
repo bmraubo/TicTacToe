@@ -1,4 +1,4 @@
-class Info:
+class UserInterface:
     def welcome_message():
         print("Welcome to Tic Tac Toe")
 
@@ -6,20 +6,29 @@ class Info:
         instructions = "Each square on the board have a value from 1-9. Select which square you would like to play by inputting the correct value when promoted."
         print(instructions)
 
+    def get_player_info():
+        player_list = []
+        while len(player_list) != 2:
+            player_name = input(f"Enter Player {len(player_list)+1} Name: ")
+            player_type = "human"
+            player_list.append([player_name, player_type])
+        return player_list
+
 
 class TicTacToe:
     def __init__(self):
         self.board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
-        self.markers = {"X": None, "O": None}
+        self.markers = {}
         self.players = []
 
-    def create_player(self, name):
-        self.players.append(Player(name))
+    def create_players(self, players):
+        for player in players:
+            self.players.append(Player(player))
 
     def assign_players(self):
         # assigns players to X and O
-        self.markers["X"] = self.players[0]
-        self.markers["O"] = self.players[1]
+        self.markers[self.players[0]] = "X"
+        self.markers[self.players[1]] = "O"
 
     def draw_board(self):
         # draws the current board state
@@ -32,12 +41,28 @@ class TicTacToe:
         print(f"| {self.board[2][0]} | {self.board[2][1]} | {self.board[2][2]} |")
         print(divider)
 
+    def make_move(self, player, move):
+        self.board[(move - 1) // 3][(move - 1) % 3] = self.markers[player]
+
+    def play_game(self):
+        for player in self.players:
+            player_move = input(f"{player.name}, please enter move: ")
+            self.make_move(player, int(player_move))
+            self.draw_board()
+
 
 class Player:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, player_info):
+        self.name = player_info[0]
+        self.type = player_info[1]
 
 
 if __name__ == "__main__":
-    Info.welcome_message()
-    Info.game_instructions()
+    UserInterface.welcome_message()
+    UserInterface.game_instructions()
+    game = TicTacToe()
+    player_list = UserInterface.get_player_info()
+    game.create_players(player_list)
+    game.assign_players()
+    game.draw_board()
+    game.play_game()
