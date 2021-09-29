@@ -37,8 +37,8 @@ class TestApplication(unittest.TestCase):
         expected_board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
         test_board = TicTacToe()
         self.assertEqual(test_board.board, expected_board)
-        self.assertEqual(test_board.markers["X"], None)
-        self.assertEqual(test_board.markers["O"], None)
+        self.assertEqual(test_board.markers, {})
+        self.assertEqual(test_board.players, [])
 
     def test_print_board(self):
         test_board = TicTacToe()
@@ -61,10 +61,17 @@ class TestApplication(unittest.TestCase):
         test_board.create_player("Marx", "human")
         test_board.create_player("Engels", "human")
         test_board.assign_players()
-        self.assertEqual(test_board.markers["X"], test_board.players[0])
-        self.assertEqual(test_board.markers["X"].name, "Marx")
-        self.assertEqual(test_board.markers["O"], test_board.players[1])
-        self.assertEqual(test_board.markers["O"].name, "Engels")
+        self.assertEqual(test_board.markers[test_board.players[0]], "X")
+        self.assertEqual(test_board.markers[test_board.players[1]], "O")
+
+    def test_make_move(self):
+        test_board = TicTacToe()
+        test_board.create_player("Marx", "human")
+        test_board.create_player("Engels", "human")
+        test_board.assign_players()
+        test_input = 1
+        test_board.make_move(test_board.players[0], test_input)
+        self.assertEqual(test_board.board[0][0], "X")
 
 
 if __name__ == "__main__":

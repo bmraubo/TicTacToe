@@ -10,7 +10,7 @@ class Info:
 class TicTacToe:
     def __init__(self):
         self.board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
-        self.markers = {"X": None, "O": None}
+        self.markers = {}
         self.players = []
 
     def create_player(self, name, type):
@@ -18,8 +18,8 @@ class TicTacToe:
 
     def assign_players(self):
         # assigns players to X and O
-        self.markers["X"] = self.players[0]
-        self.markers["O"] = self.players[1]
+        self.markers[self.players[0]] = "X"
+        self.markers[self.players[1]] = "O"
 
     def draw_board(self):
         # draws the current board state
@@ -31,6 +31,9 @@ class TicTacToe:
         print(divider)
         print(f"| {self.board[2][0]} | {self.board[2][1]} | {self.board[2][2]} |")
         print(divider)
+
+    def make_move(self, player, move):
+        self.board[(move - 1) // 3][(move - 1) % 3] = self.markers[player]
 
 
 class Player:
