@@ -30,7 +30,7 @@ class TestApplication(unittest.TestCase):
         output = captured_output.getvalue().strip()
         self.assertEqual(output, validate_instructions)
 
-    # Testing Game Board
+    # Game Board
 
     # Draw Board
     def test_initialize_board(self):
@@ -49,13 +49,12 @@ class TestApplication(unittest.TestCase):
         output = captured_output.getvalue().strip()
         self.assertEqual(output, initial_board)
 
-    # Create Players
+    # Players
     def test_create_player(self):
         test_board = Board()
         test_board.create_player("Marx")
         self.assertEqual(test_board.players[0].name, "Marx")
 
-    # Assign Players
     def test_player_assignment(self):
         test_board = Board()
         test_board.create_player("Marx")
