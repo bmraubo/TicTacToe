@@ -13,8 +13,8 @@ class TicTacToe:
         self.markers = {"X": None, "O": None}
         self.players = []
 
-    def create_player(self, name):
-        self.players.append(Player(name))
+    def create_player(self, name, type):
+        self.players.append(Player(name, type))
 
     def assign_players(self):
         # assigns players to X and O
@@ -34,8 +34,9 @@ class TicTacToe:
 
 
 class Player:
-    def __init__(self, name):
+    def __init__(self, name, type):
         self.name = name
+        self.type = type
 
 
 if __name__ == "__main__":

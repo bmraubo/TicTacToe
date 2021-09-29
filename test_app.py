@@ -52,13 +52,14 @@ class TestApplication(unittest.TestCase):
     # Players
     def test_create_player(self):
         test_board = TicTacToe()
-        test_board.create_player("Marx")
+        test_board.create_player("Marx", "human")
         self.assertEqual(test_board.players[0].name, "Marx")
+        self.assertEqual(test_board.players[0].type, "human")
 
     def test_player_assignment(self):
         test_board = TicTacToe()
-        test_board.create_player("Marx")
-        test_board.create_player("Engels")
+        test_board.create_player("Marx", "human")
+        test_board.create_player("Engels", "human")
         test_board.assign_players()
         self.assertEqual(test_board.markers["X"], test_board.players[0])
         self.assertEqual(test_board.markers["X"].name, "Marx")
