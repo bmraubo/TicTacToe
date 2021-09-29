@@ -44,9 +44,24 @@ class TicTacToe:
     def make_move(self, player, move):
         self.board[(move - 1) // 3][(move - 1) % 3] = self.markers[player]
 
+    def validate_player_move(self, player_move):
+        if player_move < 1 or player_move > 9:
+            print("This value is not between 1 and 9")
+            return False
+        elif str(player_move) != (
+            self.board[(player_move - 1) // 3][(player_move - 1) % 3]
+        ):
+            print("This move has already been played")
+            return False
+        else:
+            return True
+
     def play_game(self):
         for player in self.players:
-            player_move = input(f"{player.name}, please enter move: ")
+            valid_move = False
+            while valid_move == False:
+                player_move = input(f"{player.name}, please enter move: ")
+                valid_move = self.validate_player_move(int(player_move))
             self.make_move(player, int(player_move))
             self.draw_board()
 
