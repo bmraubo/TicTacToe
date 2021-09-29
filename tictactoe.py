@@ -70,6 +70,16 @@ class TicTacToe:
             self.make_move(player, int(player_move))
             self.draw_board()
 
+    def win_check(self, player):
+        points = 0
+        for value in range(3):
+            if self.board[value][0] == self.markers[player]:
+                points += 1
+        if points == 3:
+            return True
+        else:
+            return False
+
 
 class Player:
     def __init__(self, player_info):
