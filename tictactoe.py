@@ -62,16 +62,22 @@ class TicTacToe:
             return False
 
     def play_game(self):
-        for player in self.players:
-            valid_move = False
-            while valid_move == False:
-                player_move = input(f"{player.name}, please enter move: ")
-                valid_move = self.validate_player_move(player_move)
-            self.make_move(player, int(player_move))
-            self.draw_board()
+        moves_made = 0
+        while moves_made < 9:
+            for player in self.players:
+                valid_move = False
+                while valid_move == False:
+                    player_move = input(f"{player.name}, please enter move: ")
+                    valid_move = self.validate_player_move(player_move)
+                self.make_move(player, int(player_move))
+                self.draw_board()
+                moves_made += 1
+                if self.win_check(player):
+                    break  # Declare the winner and quit the app
+        # if 9 moves have been played, the game is a draw
 
     def win_check(self, player):
-        def tally(arrangement):
+        def tally(player, arrangement):
             for poss in range(len(arrangement)):
                 if arrangement[poss].count(self.markers[player]) == 3:
                     return True
@@ -85,11 +91,11 @@ class TicTacToe:
             [self.board[0][0], self.board[1][1], self.board[2][2]],
             [self.board[0][2], self.board[1][1], self.board[2][0]],
         ]
-        if tally(self.board):
+        if tally(player, self.board):
             return True
-        elif tally(columns):
+        elif tally(player, columns):
             return True
-        elif tally(diagonals):
+        elif tally(player, diagonals):
             return True
         else:
             return False
