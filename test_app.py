@@ -35,13 +35,13 @@ class TestApplication(unittest.TestCase):
     # Draw Board
     def test_initialize_board(self):
         expected_board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
-        test_board = Board()
+        test_board = TicTacToe()
         self.assertEqual(test_board.board, expected_board)
         self.assertEqual(test_board.markers["X"], None)
         self.assertEqual(test_board.markers["O"], None)
 
     def test_print_board(self):
-        test_board = Board()
+        test_board = TicTacToe()
         initial_board = "+---+---+---+\n| 1 | 2 | 3 |\n+---+---+---+\n| 4 | 5 | 6 |\n+---+---+---+\n| 7 | 8 | 9 |\n+---+---+---+"
         captured_output = StringIO()
         sys.stdout = captured_output
@@ -51,12 +51,12 @@ class TestApplication(unittest.TestCase):
 
     # Players
     def test_create_player(self):
-        test_board = Board()
+        test_board = TicTacToe()
         test_board.create_player("Marx")
         self.assertEqual(test_board.players[0].name, "Marx")
 
     def test_player_assignment(self):
-        test_board = Board()
+        test_board = TicTacToe()
         test_board.create_player("Marx")
         test_board.create_player("Engels")
         test_board.assign_players()
