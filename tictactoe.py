@@ -71,6 +71,11 @@ class TicTacToe:
             self.draw_board()
 
     def win_check(self, player):
+        def tally(arrangement):
+            for poss in range(len(arrangement)):
+                if arrangement[poss].count(self.markers[player]) == 3:
+                    return True
+
         columns = [
             [self.board[0][0], self.board[1][0], self.board[2][0]],
             [self.board[0][1], self.board[1][1], self.board[2][1]],
@@ -80,16 +85,14 @@ class TicTacToe:
             [self.board[0][0], self.board[1][1], self.board[2][2]],
             [self.board[0][2], self.board[1][1], self.board[2][0]],
         ]
-        for row in range(3):
-            if self.board[row].count(self.markers[player]) == 3:
-                return True
-        for column in range(3):
-            if columns[column].count(self.markers[player]) == 3:
-                return True
-        for diagonal in range(len(diagonals)):
-            if diagonals[diagonal].count(self.markers[player]) == 3:
-                return True
-        return False
+        if tally(self.board):
+            return True
+        elif tally(columns):
+            return True
+        elif tally(diagonals):
+            return True
+        else:
+            return False
 
 
 class Player:
