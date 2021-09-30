@@ -13,7 +13,7 @@ class TestDummy(unittest.TestCase):
         self.assertEqual(True, True)
 
 
-class TestApplication(unittest.TestCase):
+class TestIntroMessages(unittest.TestCase):
 
     # Testing UserInterface functions
     def test_welcome_message(self):
@@ -31,8 +31,8 @@ class TestApplication(unittest.TestCase):
         output = captured_output.getvalue().strip()
         self.assertEqual(output, validate_instructions)
 
-    # Game Board
 
+class TestGameplay(unittest.TestCase):
     # Draw Board
     def test_initialize_board(self):
         expected_board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
@@ -50,7 +50,7 @@ class TestApplication(unittest.TestCase):
         output = captured_output.getvalue().strip()
         self.assertEqual(output, initial_board)
 
-    # Players
+    # Initialise and Assign Players
     def test_create_player(self):
         test_board = TicTacToe()
         test_players = [["Marx", "human"], ["Engels", "human"]]
@@ -66,6 +66,7 @@ class TestApplication(unittest.TestCase):
         self.assertEqual(test_board.markers[test_board.players[0]], "X")
         self.assertEqual(test_board.markers[test_board.players[1]], "O")
 
+    # Test Move Making
     def test_make_move(self):
         # Set up game
         test_board = TicTacToe()
@@ -107,6 +108,7 @@ class TestApplication(unittest.TestCase):
 
 class TestWinCheck(unittest.TestCase):
     def test_no_win(self):
+        # test win check where no win or draw state exists
         test_board = TicTacToe()
         test_players = [["Marx", "human"], ["Engels", "human"]]
         test_board.create_players(test_players)
@@ -114,6 +116,7 @@ class TestWinCheck(unittest.TestCase):
         self.assertFalse(test_board.win_check(test_board.players[0]))
 
     def test_win_column(self):
+        # testing Win state in column
         # Set up a game
         test_board = TicTacToe()
         test_players = [["Marx", "human"], ["Engels", "human"]]
@@ -125,6 +128,7 @@ class TestWinCheck(unittest.TestCase):
         self.assertTrue(test_board.win_check(test_board.players[0]))
 
     def test_win_row(self):
+        # Testing win state in Row
         test_board = TicTacToe()
         test_players = [["Marx", "human"], ["Engels", "human"]]
         test_board.create_players(test_players)
@@ -135,6 +139,7 @@ class TestWinCheck(unittest.TestCase):
         self.assertTrue(test_board.win_check(test_board.players[0]))
 
     def test_row_diagonal(self):
+        # Testing diagonal win states
         test_board = TicTacToe()
         test_players = [["Marx", "human"], ["Engels", "human"]]
         test_board.create_players(test_players)
