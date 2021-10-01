@@ -36,3 +36,30 @@ class Board:
         except ValueError:
             print(f"Value Error: {move} is not between 1-9")
             return False
+
+    def win_check(self, marker):
+        # nested function to check if a win condition is met
+        def tally(marker, arrangement):
+            for poss in range(len(arrangement)):
+                if arrangement[poss].count(marker) == 3:
+                    return True
+
+        # Columns described to be fed as input into tally()
+        columns = [
+            [self.board[0][0], self.board[1][0], self.board[2][0]],
+            [self.board[0][1], self.board[1][1], self.board[2][1]],
+            [self.board[0][2], self.board[1][2], self.board[2][2]],
+        ]
+        # Diagonals described to be fed as input into tally()
+        diagonals = [
+            [self.board[0][0], self.board[1][1], self.board[2][2]],
+            [self.board[0][2], self.board[1][1], self.board[2][0]],
+        ]
+        if tally(marker, self.board):
+            return True
+        elif tally(marker, columns):
+            return True
+        elif tally(marker, diagonals):
+            return True
+        else:
+            return False

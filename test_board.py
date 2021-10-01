@@ -57,6 +57,41 @@ class TestBoard(unittest.TestCase):
         player_move = "2"
         self.assertTrue(test_board.validate_move(player_move))
 
+    # Testing win check
+    def test_no_win(self):
+        # test win check where no win or draw state exists
+        test_board = Board()
+        test_marker = "X"
+        self.assertFalse(test_board.win_check(test_marker))
+
+    def test_win_column(self):
+        # testing Win state in column
+        # Set up a game
+        test_board = Board()
+        test_marker = "X"
+        test_board.board[0][1] = "X"
+        test_board.board[1][1] = "X"
+        test_board.board[2][1] = "X"
+        self.assertTrue(test_board.win_check(test_marker))
+
+    def test_win_row(self):
+        # Testing win state in Row
+        test_board = Board()
+        test_marker = "X"
+        test_board.board[0][0] = "X"
+        test_board.board[0][1] = "X"
+        test_board.board[0][2] = "X"
+        self.assertTrue(test_board.win_check(test_marker))
+
+    def test_row_diagonal(self):
+        # Testing diagonal win states
+        test_board = Board()
+        test_marker = "X"
+        test_board.board[0][0] = "X"
+        test_board.board[1][1] = "X"
+        test_board.board[2][2] = "X"
+        self.assertTrue(test_board.win_check(test_marker))
+
 
 if __name__ == "__main__":
     unittest.main()
