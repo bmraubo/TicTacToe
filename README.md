@@ -71,5 +71,14 @@ The win_state check includes a nested tally() function that takes in an arrangem
 
 If the game has reached the end by win or draw, it exits gracefully, and tells the user that it is doing so.
 
+### Some Refactoring...
+
+The TicTacToe class was getting too big; it handles the player creation, the board, the win validation, and the game logic. Players may be a separate class, but it does very little but allow for identifiable objects that store the name and player type of the player and can be assigned with markers.
+
+- Restore UserInterface class <- should this also include drawing the board? Validating the move? Definitely asking for the move.
+- Get rid of markers from TicTacToe and give Player the marker attribute.
+- Revisit the player class. If we could change the way that players are added then modularity could be increased. Since the potential for different board sizes could be in the game, why not the potential for different number of players
+- Give markers colour assignments. If we add more players we will need more markers. 
+
 
 
