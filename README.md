@@ -20,7 +20,7 @@ $ pip3 install -r requirements.txt
 $ python3 tictactoe.py
 
 # Run tests
-$ python3 -m unittest test_app.py
+$ python3 -m unittest -v 
 ```
 
 ## How it works
@@ -70,6 +70,25 @@ The order of logic means win_check will be conducted before a draw is declared, 
 The win_state check includes a nested tally() function that takes in an arrangement of board values. When checking rows, it checks each object in the board list - nothing needs to be changed. Checking columns and diagonals requires a specific arrangement of board values, which are defined as the columns and diagonals variables within the win_state function.
 
 If the game has reached the end by win or draw, it exits gracefully, and tells the user that it is doing so.
+
+### Some Refactoring...
+
+The TicTacToe class was getting too big; it handles the player creation, the board, the win validation, and the game logic. Players may be a separate class, but it does very little but allow for identifiable objects that store the name and player type of the player and can be assigned with markers.
+
+As a first step the refactor:
+
+- Separates work done by TicTacToe class to the Board and TicTacToe class. TicTacToe class deals with setting up and executing the gameplay loop. It still deals with player creation, but that will likely need to be revisited.
+- The has been restored and tasked with creating and drawing the board, making modifications to the board (through making and validating the player moves), and conducting checks on the board to see if there is a winner. 
+- Classes are now contained within separate files, with corresponding testing documents. ReadMe instructions updated to reflect this, as has the GitHub actions workflow.
+
+Next refactoring steps:
+- Decide whether User Interface should take over responsibility for requesting and validating player moves.
+- Get rid of markers from TicTacToe and give Player the marker attribute.
+- Revisit the player class. If we could change the way that players are added then modularity could be increased. Since the potential for different board sizes could be in the game, why not the potential for different number of players
+- Give markers colour assignments. If we add more players we will need more markers.
+
+Further functionality:
+- Allow creating board of N*N size, as well as unlimited? number of players, each with their own marker. Distinguish markers by colour. 
 
 
 
