@@ -64,6 +64,6 @@ class TicTacToe:
 
 
 if __name__ == "__main__":
-    game = TicTacToe()
+    game = TicTacToe(4, 4)
 
     game.play_game()

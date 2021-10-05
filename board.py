@@ -1,6 +1,8 @@
 class Board:
     def __init__(self, height, width):
         self.board = {}
+        self.height = height
+        self.width = width
         self.generate_board(height, width)
 
     def generate_board(self, height, width):
@@ -10,20 +12,24 @@ class Board:
 
     def draw_board(self):
         # draws the current board state
-        divider = "+---+---+---+"
-        print(divider)
-        print(
-            f"| {self.access_board('1')} | {self.access_board('2')} | {self.access_board('3')} |"
-        )
-        print(divider)
-        print(
-            f"| {self.access_board('4')} | {self.access_board('5')} | {self.access_board('6')} |"
-        )
-        print(divider)
-        print(
-            f"| {self.access_board('7')} | {self.access_board('8')} | {self.access_board('9')} |"
-        )
-        print(divider)
+        def print_row(self, start, width, display_size_modifer):
+
+            string = "|"
+            for num in range(start, width + start):
+                prefix = " " * (display_size_modifer - len(str(num)) - 1)
+                string = string + f"{prefix}{self.access_board(num)} |"
+            return string
+
+        highest_value = self.height * self.width
+        display_size_modifer = len(str(highest_value)) + 2
+        border_element = ("-" * display_size_modifer) + "+"
+        start = 1
+
+        print(f"+{border_element*self.width}")
+        while start < self.width * self.height:
+            print(print_row(self, start, self.width, display_size_modifer))
+            start += self.width
+            print(f"+{border_element*self.width}")
 
     def access_board(self, value, new_value=None):
         # checks value in board data, if new_value is present, changes board data to that value
