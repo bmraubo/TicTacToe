@@ -4,8 +4,8 @@ from player import Player
 
 
 class TicTacToe:
-    def __init__(self):
-        self.board = Board()
+    def __init__(self, height, width):
+        self.board = Board(height, width)
         self.markers = {}
         self.players = []
 

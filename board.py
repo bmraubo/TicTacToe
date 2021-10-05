@@ -1,16 +1,12 @@
 class Board:
-    def __init__(self):
-        self.board = {
-            "1": "1",
-            "2": "2",
-            "3": "3",
-            "4": "4",
-            "5": "5",
-            "6": "6",
-            "7": "7",
-            "8": "8",
-            "9": "9",
-        }
+    def __init__(self, height, width):
+        self.board = {}
+        self.generate_board(height, width)
+
+    def generate_board(self, height, width):
+        total_squares = list(range(1, height * width + 1))
+        for num in total_squares:
+            self.access_board(num, new_value=num)
 
     def draw_board(self):
         # draws the current board state
@@ -34,7 +30,7 @@ class Board:
         if new_value == None:
             return self.board[str(value)]
         else:
-            self.board[str(value)] = new_value
+            self.board[str(value)] = str(new_value)
             return self.board[str(value)]
 
     def validate_move(self, move):
