@@ -19,16 +19,14 @@ class Board:
         )
         print(divider)
 
-    def check_value(self, value):
+    def check_value(self, value, new_value=None):
         row = (int(value) - 1) // 3
         column = (int(value) - 1) % 3
-        return self.board[row][column]
-
-    def make_move(self, marker, move):
-        # Takes user move input and translates it into board location
-        row = (move - 1) // 3
-        column = (move - 1) % 3
-        self.board[row][column] = marker
+        if new_value == None:
+            return self.board[row][column]
+        else:
+            self.board[row][column] = new_value
+            return self.board[row][column]
 
     def validate_move(self, move):
         # Handles ValueError if non-integer is entered

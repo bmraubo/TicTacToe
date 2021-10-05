@@ -15,6 +15,14 @@ class TestBoard(unittest.TestCase):
         value = "4"
         self.assertEqual(test_board.check_value(value), "4")
 
+    def test_check_value_new_value(self):
+        # Set up game
+        test_board = Board()
+        # Test move
+        test_input = "1"
+        marker = "X"
+        self.assertEqual(test_board.check_value(test_input, new_value=marker), "X")
+
     def test_print_board(self):
         test_board = Board()
         initial_board = "+---+---+---+\n| 1 | 2 | 3 |\n+---+---+---+\n| 4 | 5 | 6 |\n+---+---+---+\n| 7 | 8 | 9 |\n+---+---+---+"
@@ -23,15 +31,6 @@ class TestBoard(unittest.TestCase):
         test_board.draw_board()
         output = captured_output.getvalue().strip()
         self.assertEqual(output, initial_board)
-
-    def test_make_move(self):
-        # Set up game
-        test_board = Board()
-        # Test move
-        test_input = "1"
-        marker = "X"
-        test_board.make_move(marker, int(test_input))
-        self.assertEqual(test_board.board[0][0], "X")
 
     def test_validate_move_valueerror(self):
         # Test for value error exception handling
@@ -56,7 +55,8 @@ class TestBoard(unittest.TestCase):
         # Rejects move if it has already been played
         test_board = Board()
         test_input = "1"
-        test_board.make_move("X", int(test_input))
+        marker = "X"
+        test_board.check_value(test_input, new_value=marker)
         player_move = "1"
         self.assertFalse(test_board.validate_move(player_move))
         player_move = "2"
