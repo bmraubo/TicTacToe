@@ -20,6 +20,7 @@ class Board:
         print(divider)
 
     def access_board(self, value, new_value=None):
+        # checks value in board data, if new_value is present, changes board data to that value
         row = (int(value) - 1) // 3
         column = (int(value) - 1) % 3
         if new_value == None:
