@@ -88,7 +88,15 @@ Next refactoring steps:
 - Give markers colour assignments. If we add more players we will need more markers.
 
 Further functionality:
-- Allow creating board of N*N size, as well as unlimited? number of players, each with their own marker. Distinguish markers by colour. 
+- Allow creating board of N*N size, as well as unlimited? number of players, each with their own marker. Distinguish markers by colour.
+
+## w/c 04 October 2021 Redesign
+
+### Redesigning to allow for new data structures
+
+The previous refactor means that only the Board class will have to be changed to facilitate the use of a new data structure.
+
+To further encapsulate the data structure, a check_value() method will be added that will be the sole means of communication between the data structure and the methods that require data. Any references to the 2D matrix will be removed from the Board methods, and replaced by calling check_value for the relevant fields. 
 
 
 
