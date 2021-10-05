@@ -74,27 +74,27 @@ class TestBoard(unittest.TestCase):
         # Set up a game
         test_board = Board()
         test_marker = "X"
-        test_board.board[0][1] = "X"
-        test_board.board[1][1] = "X"
-        test_board.board[2][1] = "X"
+        test_board.access_board("1", new_value=test_marker)
+        test_board.access_board("4", new_value=test_marker)
+        test_board.access_board("7", new_value=test_marker)
         self.assertTrue(test_board.win_check(test_marker))
 
     def test_win_row(self):
         # Testing win state in Row
         test_board = Board()
         test_marker = "X"
-        test_board.board[0][0] = "X"
-        test_board.board[0][1] = "X"
-        test_board.board[0][2] = "X"
+        test_board.access_board("1", new_value=test_marker)
+        test_board.access_board("2", new_value=test_marker)
+        test_board.access_board("3", new_value=test_marker)
         self.assertTrue(test_board.win_check(test_marker))
 
     def test_row_diagonal(self):
         # Testing diagonal win states
         test_board = Board()
         test_marker = "X"
-        test_board.board[0][0] = "X"
-        test_board.board[1][1] = "X"
-        test_board.board[2][2] = "X"
+        test_board.access_board("1", new_value=test_marker)
+        test_board.access_board("5", new_value=test_marker)
+        test_board.access_board("9", new_value=test_marker)
         self.assertTrue(test_board.win_check(test_marker))
 
 
