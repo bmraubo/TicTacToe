@@ -13,6 +13,11 @@ class Board:
         print(f"| {self.board[2][0]} | {self.board[2][1]} | {self.board[2][2]} |")
         print(divider)
 
+    def check_value(self, value):
+        row = (int(value) - 1) // 3
+        column = (int(value) - 1) % 3
+        return self.board[row][column]
+
     def make_move(self, marker, move):
         # Takes user move input and translates it into board location
         row = (move - 1) // 3
