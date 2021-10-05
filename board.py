@@ -37,6 +37,7 @@ class Board:
                 print(f"{move} is not between 1 and 9")
                 return False
             # If the move has already been played, user is asked to try again
+            # this board check could be removed, but that would add too much complexity
             elif str(move) != self.access_board(move):
                 print(f"{move} has already been played")
                 return False
@@ -55,14 +56,14 @@ class Board:
 
         # Columns described to be fed as input into tally()
         columns = [
-            [self.board[0][0], self.board[1][0], self.board[2][0]],
-            [self.board[0][1], self.board[1][1], self.board[2][1]],
-            [self.board[0][2], self.board[1][2], self.board[2][2]],
+            [self.access_board("1"), self.access_board("4"), self.access_board("7")],
+            [self.access_board("2"), self.access_board("5"), self.access_board("8")],
+            [self.access_board("3"), self.access_board("6"), self.access_board("9")],
         ]
         # Diagonals described to be fed as input into tally()
         diagonals = [
-            [self.board[0][0], self.board[1][1], self.board[2][2]],
-            [self.board[0][2], self.board[1][1], self.board[2][0]],
+            [self.access_board("1"), self.access_board("5"), self.access_board("9")],
+            [self.access_board("3"), self.access_board("5"), self.access_board("7")],
         ]
         if tally(marker, self.board):
             return True
