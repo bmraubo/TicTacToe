@@ -6,11 +6,17 @@ class Board:
         # draws the current board state
         divider = "+---+---+---+"
         print(divider)
-        print(f"| {self.board[0][0]} | {self.board[0][1]} | {self.board[0][2]} |")
+        print(
+            f"| {self.check_value('1')} | {self.check_value('2')} | {self.check_value('3')} |"
+        )
         print(divider)
-        print(f"| {self.board[1][0]} | {self.board[1][1]} | {self.board[1][2]} |")
+        print(
+            f"| {self.check_value('4')} | {self.check_value('5')} | {self.check_value('6')} |"
+        )
         print(divider)
-        print(f"| {self.board[2][0]} | {self.board[2][1]} | {self.board[2][2]} |")
+        print(
+            f"| {self.check_value('7')} | {self.check_value('8')} | {self.check_value('9')} |"
+        )
         print(divider)
 
     def check_value(self, value):
