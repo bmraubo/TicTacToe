@@ -1,6 +1,16 @@
 class Board:
     def __init__(self):
-        self.board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
+        self.board = {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+        }
 
     def draw_board(self):
         # draws the current board state
@@ -21,13 +31,11 @@ class Board:
 
     def access_board(self, value, new_value=None):
         # checks value in board data, if new_value is present, changes board data to that value
-        row = (int(value) - 1) // 3
-        column = (int(value) - 1) % 3
         if new_value == None:
-            return self.board[row][column]
+            return self.board[str(value)]
         else:
-            self.board[row][column] = new_value
-            return self.board[row][column]
+            self.board[str(value)] = new_value
+            return self.board[str(value)]
 
     def validate_move(self, move):
         # Handles ValueError if non-integer is entered

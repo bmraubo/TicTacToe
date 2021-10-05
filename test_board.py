@@ -6,7 +6,17 @@ from board import Board
 
 class TestBoard(unittest.TestCase):
     def test_initialize_board(self):
-        expected_board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
+        expected_board = {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+        }
         test_board = Board()
         self.assertEqual(test_board.board, expected_board)
 
