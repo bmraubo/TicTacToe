@@ -10,18 +10,18 @@ class TestBoard(unittest.TestCase):
         test_board = Board()
         self.assertEqual(test_board.board, expected_board)
 
-    def test_check_value(self):
+    def test_access_board(self):
         test_board = Board()
         value = "4"
-        self.assertEqual(test_board.check_value(value), "4")
+        self.assertEqual(test_board.access_board(value), "4")
 
-    def test_check_value_new_value(self):
+    def test_access_board_new_value(self):
         # Set up game
         test_board = Board()
         # Test move
         test_input = "1"
         marker = "X"
-        self.assertEqual(test_board.check_value(test_input, new_value=marker), "X")
+        self.assertEqual(test_board.access_board(test_input, new_value=marker), "X")
 
     def test_print_board(self):
         test_board = Board()
@@ -56,7 +56,7 @@ class TestBoard(unittest.TestCase):
         test_board = Board()
         test_input = "1"
         marker = "X"
-        test_board.check_value(test_input, new_value=marker)
+        test_board.access_board(test_input, new_value=marker)
         player_move = "1"
         self.assertFalse(test_board.validate_move(player_move))
         player_move = "2"

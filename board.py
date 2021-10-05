@@ -7,19 +7,19 @@ class Board:
         divider = "+---+---+---+"
         print(divider)
         print(
-            f"| {self.check_value('1')} | {self.check_value('2')} | {self.check_value('3')} |"
+            f"| {self.access_board('1')} | {self.access_board('2')} | {self.access_board('3')} |"
         )
         print(divider)
         print(
-            f"| {self.check_value('4')} | {self.check_value('5')} | {self.check_value('6')} |"
+            f"| {self.access_board('4')} | {self.access_board('5')} | {self.access_board('6')} |"
         )
         print(divider)
         print(
-            f"| {self.check_value('7')} | {self.check_value('8')} | {self.check_value('9')} |"
+            f"| {self.access_board('7')} | {self.access_board('8')} | {self.access_board('9')} |"
         )
         print(divider)
 
-    def check_value(self, value, new_value=None):
+    def access_board(self, value, new_value=None):
         row = (int(value) - 1) // 3
         column = (int(value) - 1) % 3
         if new_value == None:
@@ -37,7 +37,7 @@ class Board:
                 print(f"{move} is not between 1 and 9")
                 return False
             # If the move has already been played, user is asked to try again
-            elif str(move) != self.check_value(move):
+            elif str(move) != self.access_board(move):
                 print(f"{move} has already been played")
                 return False
             else:
