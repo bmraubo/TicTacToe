@@ -41,7 +41,9 @@ class TicTacToe:
                     player_move = input(f"{player.name}, please enter move: ")
                     valid_move = self.board.validate_move(player_move)
                 # Valid moves are made
-                self.board.check_value(int(player_move), new_value=self.markers[player])
+                self.board.access_board(
+                    int(player_move), new_value=self.markers[player]
+                )
                 # Board is re-drawn based on the new move
                 self.board.draw_board()
                 moves_made += 1
