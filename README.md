@@ -100,9 +100,13 @@ To further encapsulate the data structure, a check_value() method will be added 
 
 Due to a *small* oversight, make_move() would also have to access the board data. So make_move has been killed and replaced by a conditional statement within check_value... check_value now takes the value to be checked, and an optional new_value (which defaults to None). If there is no new_value, check_value will return the current value of that position on the board. However, if there is a new value, check_value will replace the old value with the new one, and return that. 
 
-Perhaps check_value should be renamed to better reflect its greater role. query_board? access_board?
+Perhaps check_value should be renamed to better reflect its greater role. query_board? **access_board?**
 
+So references to the 2D matrix have been replaced with calls to access_board. This also meant that an additional description of the rows had to be added to win_check, as previously the method would rely on the 'as is' board implementation to check rows.
 
+### Changing data structure
+
+With the above changes made, I have changed the initialize_board test to expect a dictionary, and modified access_board to look up keys in a dictionary. All tests pass.
 
 
 
