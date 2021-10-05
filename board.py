@@ -39,7 +39,7 @@ class Board:
                 print(f"{move} is not between 1 and 9")
                 return False
             # If the move has already been played, user is asked to try again
-            elif str(move) != (self.board[(move - 1) // 3][(move - 1) % 3]):
+            elif str(move) != self.check_value(move):
                 print(f"{move} has already been played")
                 return False
             else:
