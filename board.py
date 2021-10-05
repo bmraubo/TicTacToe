@@ -55,6 +55,13 @@ class Board:
                 if arrangement[poss].count(marker) == 3:
                     return True
 
+        # Rows described to prevent having to query Board directly
+        rows = [
+            [self.access_board("1"), self.access_board("2"), self.access_board("3")],
+            [self.access_board("4"), self.access_board("5"), self.access_board("6")],
+            [self.access_board("7"), self.access_board("8"), self.access_board("9")],
+        ]
+
         # Columns described to be fed as input into tally()
         columns = [
             [self.access_board("1"), self.access_board("4"), self.access_board("7")],
@@ -66,7 +73,7 @@ class Board:
             [self.access_board("1"), self.access_board("5"), self.access_board("9")],
             [self.access_board("3"), self.access_board("5"), self.access_board("7")],
         ]
-        if tally(marker, self.board):
+        if tally(marker, rows):
             return True
         elif tally(marker, columns):
             return True
