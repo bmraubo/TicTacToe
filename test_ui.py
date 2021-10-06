@@ -19,7 +19,7 @@ class TestUserInterface(unittest.TestCase):
         # Tests Display of Game Instructions
         captured_output = StringIO()
         sys.stdout = captured_output
-        UserInterface.game_instructions()
+        UserInterface.game_instructions(3)
         validate_instructions = "Each square on the board have a value from 1-9. Select which square you would like to play by inputting the correct value when promoted."
         output = captured_output.getvalue().strip()
         self.assertEqual(output, validate_instructions)
