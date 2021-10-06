@@ -17,7 +17,7 @@ class Board:
             return self.board[str(value)]
 
     # creates data structure for board of requested size
-    def generate_board(self, size):
+    def generate_board(self):
         total_squares = list(range(1, self.highest_value + 1))
         for num in total_squares:
             self.access_board(num, new_value=num)
