@@ -134,13 +134,19 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(arrangements["columns"], expected_columns)
         self.assertEqual(arrangements["diagonals"], expected_diagonals)
 
-    def test_no_win(self):
+    def test_no_win_3x3(self):
         # test win check where no win or draw state exists
         test_board = Board(3, 3)
         test_marker = "X"
         self.assertFalse(test_board.win_check(test_marker))
 
-    def test_win_column(self):
+    def test_no_win_4x4(self):
+        # test win check where no win or draw state exists
+        test_board = Board(4, 4)
+        test_marker = "X"
+        self.assertFalse(test_board.win_check(test_marker))
+
+    def test_win_column_3x3(self):
         # testing Win state in column
         # Set up a game
         test_board = Board(3, 3)
@@ -150,7 +156,18 @@ class TestBoard(unittest.TestCase):
         test_board.access_board("7", new_value=test_marker)
         self.assertTrue(test_board.win_check(test_marker))
 
-    def test_win_row(self):
+    def test_win_column_4x4(self):
+        # testing Win state in column
+        # Set up a game
+        test_board = Board(4, 4)
+        test_marker = "X"
+        test_board.access_board("1", new_value=test_marker)
+        test_board.access_board("5", new_value=test_marker)
+        test_board.access_board("9", new_value=test_marker)
+        test_board.access_board("13", new_value=test_marker)
+        self.assertTrue(test_board.win_check(test_marker))
+
+    def test_win_row_3x3(self):
         # Testing win state in Row
         test_board = Board(3, 3)
         test_marker = "X"
@@ -159,13 +176,33 @@ class TestBoard(unittest.TestCase):
         test_board.access_board("3", new_value=test_marker)
         self.assertTrue(test_board.win_check(test_marker))
 
-    def test_row_diagonal(self):
+    def test_win_row_4x4(self):
+        # Testing win state in Row
+        test_board = Board(4, 4)
+        test_marker = "X"
+        test_board.access_board("1", new_value=test_marker)
+        test_board.access_board("2", new_value=test_marker)
+        test_board.access_board("3", new_value=test_marker)
+        test_board.access_board("4", new_value=test_marker)
+        self.assertTrue(test_board.win_check(test_marker))
+
+    def test_row_diagonal_3x3(self):
         # Testing diagonal win states
         test_board = Board(3, 3)
         test_marker = "X"
         test_board.access_board("1", new_value=test_marker)
         test_board.access_board("5", new_value=test_marker)
         test_board.access_board("9", new_value=test_marker)
+        self.assertTrue(test_board.win_check(test_marker))
+
+    def test_row_diagonal_4x4(self):
+        # Testing diagonal win states
+        test_board = Board(4, 4)
+        test_marker = "X"
+        test_board.access_board("1", new_value=test_marker)
+        test_board.access_board("6", new_value=test_marker)
+        test_board.access_board("11", new_value=test_marker)
+        test_board.access_board("16", new_value=test_marker)
         self.assertTrue(test_board.win_check(test_marker))
 
 
