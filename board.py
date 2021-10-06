@@ -26,12 +26,9 @@ class Board:
             # the completed row is returned for printing
             return string
 
-        # calculate display modifer method
-        # for future ref: create display class
+        # calculate display modifer method - this is used to determine display spacing
+        display_size_modifer = len(str(self.highest_value)) + 2
 
-        display_size_modifer = (
-            len(str(self.highest_value)) + 2
-        )  # used to calculate spacing
         border_element = ("-" * display_size_modifer) + "+"
         start = 1  # determines the start point for each row
 
@@ -69,35 +66,45 @@ class Board:
             print(f"Value Error: {move} is not between 1-9")
             return False
 
+    def generate_arrangements(self):
+
+        # Creates a master list of all values as strings
+        master_list = []
+        for x in list(range(1, self.highest_value + 1)):
+            master_list.append(str(x))
+
+        arrangements = {"rows": [], "columns": [], "diagonals": []}
+
+        # creates a matrices of values, arranged in order for checking
+        arrangements["rows"] = [
+            master_list[x : x + self.width]
+            for x in range(0, len(master_list), self.width)
+        ]
+        arrangements["columns"] = [
+            master_list[x :: self.width] for x in range(0, self.width)
+        ]
+        arrangements["diagonals"] = [
+            master_list[0 :: self.width + 1],
+            master_list[self.width - 1 : self.highest_value - 2 : self.width - 1],
+        ]
+
+        return arrangements
+
     def win_check(self, marker):
         # nested function to check if a win condition is met
-        def tally(marker, arrangement):
-            for poss in range(len(arrangement)):
-                if arrangement[poss].count(marker) == 3:
+        def tally(self, marker, arrangement):
+            count = 0
+            for element in arrangement:
+                for num in element:
+                    if self.access_board(num) == marker:
+                        count += 1
+                if count == self.width:
                     return True
 
-        # Rows described to prevent having to query Board directly
-        rows = [
-            [self.access_board("1"), self.access_board("2"), self.access_board("3")],
-            [self.access_board("4"), self.access_board("5"), self.access_board("6")],
-            [self.access_board("7"), self.access_board("8"), self.access_board("9")],
-        ]
-        # Columns described to be fed as input into tally()
-        columns = [
-            [self.access_board("1"), self.access_board("4"), self.access_board("7")],
-            [self.access_board("2"), self.access_board("5"), self.access_board("8")],
-            [self.access_board("3"), self.access_board("6"), self.access_board("9")],
-        ]
-        # Diagonals described to be fed as input into tally()
-        diagonals = [
-            [self.access_board("1"), self.access_board("5"), self.access_board("9")],
-            [self.access_board("3"), self.access_board("5"), self.access_board("7")],
-        ]
-        if tally(marker, rows):
-            return True
-        elif tally(marker, columns):
-            return True
-        elif tally(marker, diagonals):
-            return True
-        else:
-            return False
+        arrangements = self.generate_arrangements()
+
+        for key in arrangements:
+            if tally(self, marker, arrangements[key]):
+                return True
+
+        return False
