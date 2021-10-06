@@ -51,8 +51,9 @@ class Board:
         try:
             move = int(move)
             # If user enters an invalid number, the user is warned and asked for proper input
+            # Lowest possible input will always be 1
             if move < 1 or move > self.highest_value:
-                print(f"{move} is not between 1 and 9")
+                print(f"{move} is not between 1 and {self.highest_value}")
                 return False
             # If the move has already been played, user is asked to try again
             # this board check could be removed, but that would add too much complexity
@@ -62,7 +63,7 @@ class Board:
             else:
                 return True  # Validation passes if valid input is given
         except ValueError:
-            print(f"Value Error: {move} is not between 1-9")
+            print(f"Value Error: {move} is not between 1-{self.highest_value}")
             return False
 
     def generate_arrangements(self):
