@@ -32,7 +32,7 @@ class TicTacToe:
         self.set_up_players()
         self.board.draw_board()
         moves_made = 0
-        while moves_made < 9:
+        while moves_made < self.board.highest_value:
             for player in self.players:
                 # Requests input and input is validated until validate_player_move returns True
                 valid_move = False
@@ -56,7 +56,7 @@ class TicTacToe:
             print("Game is closing gracefully")
             exit()
         # If the most recent move has not won the game, the outcome might be a draw
-        elif moves_made == 9:
+        elif moves_made == self.board.highest_value:
             print("It's a draw")
             print("Game is closing gracefully")
             exit()
