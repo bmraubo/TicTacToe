@@ -1,11 +1,12 @@
 from ui import UserInterface
 from board import Board
 from player import Player
+from display import Display
 
 
 class TicTacToe:
-    def __init__(self):
-        self.board = Board()
+    def __init__(self, size):
+        self.board = Board(size)
         self.markers = {}
         self.players = []
 
@@ -28,12 +29,11 @@ class TicTacToe:
     # Gameplay loops
     def play_game(self):
         # There is a maximum of 9 moves, so the game loops until all moves are made
-        UserInterface.welcome_message()
-        UserInterface.game_instructions()
+        UserInterface.game_instructions(self.board.size)
         self.set_up_players()
-        self.board.draw_board()
+        Display.draw_board(self.board)
         moves_made = 0
-        while moves_made < 9:
+        while moves_made < self.board.highest_value:
             for player in self.players:
                 # Requests input and input is validated until validate_player_move returns True
                 valid_move = False
@@ -45,7 +45,7 @@ class TicTacToe:
                     int(player_move), new_value=self.markers[player]
                 )
                 # Board is re-drawn based on the new move
-                self.board.draw_board()
+                Display.draw_board(self.board)
                 moves_made += 1
                 # Once each move is played, the board is checked to see if the most recent player won, or the game is drawn
                 self.end_game(moves_made, player)
@@ -57,13 +57,14 @@ class TicTacToe:
             print("Game is closing gracefully")
             exit()
         # If the most recent move has not won the game, the outcome might be a draw
-        elif moves_made == 9:
+        elif moves_made == self.board.highest_value:
             print("It's a draw")
             print("Game is closing gracefully")
             exit()
 
 
 if __name__ == "__main__":
-    game = TicTacToe()
-
+    UserInterface.welcome_message()
+    size = UserInterface.get_board_size()
+    game = TicTacToe(size)
     game.play_game()

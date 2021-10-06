@@ -108,5 +108,59 @@ So references to the 2D matrix have been replaced with calls to access_board. Th
 
 With the above changes made, I have changed the initialize_board test to expect a dictionary, and modified access_board to look up keys in a dictionary. All tests pass.
 
+### Adding functionality for 3x3 and 4x4 boards
+
+So we start in a position where 3x3 boards already work. In order to reduce reliance on if/else conditionals, we want the board to be created dynamically based on the size value. 
+
+One of the considerations when moving from a 3x3 board to a 4x4 board is that we will be dealing with double digits, which break the draw_board set up - there will be one more character to account for in some of the squares.
+
+This means that the work that will be done to allow for a 4x4 will also in effect allow a 5x5, 6x6 etc board. But tests will only be run for 3x3 and 4x4. 
+
+Users will be allowed to create a 8x8 board, for example - if they really need to scratch that itch - but will be warned that it is not supported and asked for confirmation if they want to continue.
+
+Dynamic board generation has a number of knock on effects, including making win checks dynamic, which can only really be done algorithmically.
+
+Tests have been added to check 4x4 implementation on various functions of the app.
+
+Some minor points regarding user feedback messages - they are now dynamic.
+
+#### User input of board size
+
+Get_board_size asks the player to enter a value when the app is launched, that choice is validated to ensure that nothing truly stupid is entered. If the value is not 3 or 4, the player is asked whether they want to continue. 
+
+Based on some random manual tests, a value of 1 will break the game, and about 25 you will struggle to display the board (and get bored before you can finish the game).
+
+#### Board generation
+
+Board generation is based on size - generate_board() creates a list of all board numbers and then uses access_board populate the dictionary on the basis of that list. 
+
+#### Drawing the board
+
+Uses size to determine the width of the board, and creates a grid accordingly. The biggest issue was the need for the board spacing to be dynamic due to the presence of double figures. 
+
+This was accomplished by using an abstract display_size_modifier that is set to be `len(str(highest value on the board)) + 2` - so in a 4x4 board, that would be 16: 2+2 = 4.
+
+The nested print_row function goes through the values that need to be displayed on that row, and adds them to the base '|' string, adjusting the space between | and the value by reference to the display_size_modifier. 
+
+This has greatly increased the work done be the draw_board method, so it has been moved out of the Board class into its own Display class. 
+
+#### Win checks 
+
+The challenge here was defining possible win arrangements algorithmically - again avoiding if/else statements that have a static definition based on whether it is a 3x3 or 4x4 board. 
+
+The problem here was that each type of arrangement required a slightly different computation in order to place the right values in the right order, especially if this was always going to be right irrespective of board size. 
+
+The first attempt at doing this used a config modifier dictionary that applies the correct algorithm to the relevant situation. However, this quickly started becoming unwieldy - and the resulting generate_arrangements method started hitting 50 lines of code. 
+
+Attempt number 2 relied on one line for loops for each arrangement: a master list is initially created of all values from 1 to highest value. This master list is then sliced up based on the specific requirements of the arrangement. 
+
+All arrangements are then returned as one dictionary. 
+
+As this solution relies on the numerical board values (and not any markers that may have been placed), the nested tally function within the win_check method needed to be redesigned to make access_board calls to obtain any markers that may be in those positions.
+
+The benefit is that one the arrangements are done, they remain valid for the entirety of the game. For this reason the calculation of the arrangements has been removed from the win_check method and now takes place as part of the initialization of the board.
+
+Some aspects of the old implementation were also cleaned up - win_checks now loops over the arrangements dictionary keys and calls tally, instead of this being written out three times. 
+
 
 
