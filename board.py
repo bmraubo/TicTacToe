@@ -3,7 +3,7 @@ class Board:
         self.board = {}
         self.size = size
         self.highest_value = size * size
-        self.generate_board(size)
+        self.generate_board()
         self.arrangements = self.generate_arrangements()
 
     # controls board access - if it creates, reads, or writes to the game board, it goes through this
