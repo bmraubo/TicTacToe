@@ -24,6 +24,22 @@ class TestUserInterface(unittest.TestCase):
         output = captured_output.getvalue().strip()
         self.assertEqual(output, validate_instructions)
 
+    def test_get_player_name(self):
+        player_name = "Marx"
+        self.assertEqual(UserInterface.get_player_name(player_name=player_name), "Marx")
+
+    def test_get_player_type(self):
+        player_type = "human"
+        self.assertEqual(
+            UserInterface.get_player_type(player_type=player_type), "human"
+        )
+
+    def test_validate_player_type(self):
+        player_type = "Human"
+        self.assertTrue(UserInterface.validate_player_type(player_type))
+        player_type = "Cuman"
+        self.assertFalse(UserInterface.validate_player_type(player_type))
+
 
 if __name__ == "__main__":
     unittest.main()

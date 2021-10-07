@@ -1,6 +1,4 @@
 import unittest
-import sys
-from io import StringIO
 from tictactoe import TicTacToe
 
 

@@ -1,6 +1,6 @@
 from ui import UserInterface
 from board import Board
-from player import Player
+from player import HumanPlayer, ComputerPlayer
 from display import Display
 
 
@@ -19,7 +19,10 @@ class TicTacToe:
     def create_players(self, players):
         # loops through player information entered by user in UserInterface.get_player_info
         for player in players:
-            self.players.append(Player(player))
+            if player[1] == "human":
+                self.players.append(HumanPlayer(player))
+            elif player[1] == "computer":
+                self.players.append(ComputerPlayer(player))
 
     def assign_players(self):
         # assigns players to X and O
@@ -38,7 +41,11 @@ class TicTacToe:
                 # Requests input and input is validated until validate_player_move returns True
                 valid_move = False
                 while valid_move == False:
-                    player_move = input(f"{player.name}, please enter move: ")
+                    player_move = (
+                        player.get_player_move()
+                        if player.type == "human"
+                        else player.get_player_move(self.board)
+                    )
                     valid_move = self.board.validate_move(player_move)
                 # Valid moves are made
                 self.board.access_board(
