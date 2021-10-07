@@ -40,6 +40,36 @@ class TestUserInterface(unittest.TestCase):
         player_type = "Cuman"
         self.assertFalse(UserInterface.validate_player_type(player_type))
 
+    def test_add_custom_marker(self):
+        custom_marker = "$"
+        self.assertEqual(
+            UserInterface.add_custom_marker(custom_marker=custom_marker), custom_marker
+        )
+
+    def test_validate_custom_marker_already_used(self):
+        custom_marker_list = ["$"]
+        custom_marker = "$"
+        self.assertFalse(
+            UserInterface.validate_custom_marker(custom_marker, custom_marker_list)
+        )
+        custom_marker = "£"
+        self.assertTrue(
+            UserInterface.validate_custom_marker(custom_marker, custom_marker_list)
+        )
+
+    def test_custom_marker_too_long(self):
+        custom_marker_list = []
+        custom_marker = "howdy"
+        self.assertFalse(
+            UserInterface.validate_custom_marker(custom_marker, custom_marker_list)
+        )
+        custom_marker = "H"
+        self.assertTrue(
+            UserInterface.validate_custom_marker(custom_marker, custom_marker_list)
+        )
+
+    # Reject Numbers
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -43,6 +43,20 @@ class UserInterface:
         else:
             return False
 
+    def add_custom_marker(custom_marker=None):
+        if custom_marker == None:
+            custom_marker = input("Enter custom marker: ")
+        else:
+            return custom_marker
+
+    def validate_custom_marker(custom_marker, custom_marker_list):
+        if custom_marker in custom_marker_list:
+            return False
+        elif len(custom_marker) > 1:
+            return False
+        else:
+            return True
+
     # Get Board Size information from user
     def get_board_size():
         def validate_player_choice(size):
