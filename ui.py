@@ -12,24 +12,30 @@ class UserInterface:
     # Get Player Information from User
     def get_player_info():
         # Obtains player names from user
+        custom_marker_list = []
         player_list = []
         while len(player_list) != 2:
-            valid_player_type = False
-            player_name = UserInterface.get_player_name()
-            while valid_player_type == False:
-                player_type = UserInterface.get_player_type()
-                valid_player_type = UserInterface.validate_player_type(player_type)
-            player_list.append([player_name, player_type])
+            player_name = UserInterface.input_player_name()
+            player_type = UserInterface.get_player_type()
+            custom_marker = UserInterface.get_custom_marker(custom_marker_list)
+            player_list.append([player_name, player_type, custom_marker])
         return player_list
 
-    def get_player_name(player_name=None):
+    def input_player_name(player_name=None):
         if player_name == None:
             player_name = input("Enter Player name: ")
             return player_name
         else:
             return player_name
 
-    def get_player_type(player_type=None):
+    # Obtaining Player Type (Human/Computer) from User
+    def get_player_type():
+        while valid_player_type == False:
+            player_type = UserInterface.input_player_type()
+            valid_player_type = UserInterface.validate_player_type(player_type)
+        return player_type
+
+    def input_player_type(player_type=None):
         if player_type == None:
             player_type = input("Enter player type (human/computer): ")
             return player_type
@@ -43,7 +49,18 @@ class UserInterface:
         else:
             return False
 
-    def add_custom_marker(custom_marker=None):
+    # Obtaining custom marker from User
+    # Must be unused, a single character, and not be a number
+    def get_custom_marker(custom_marker_list):
+        valid_custom_marker = False
+        while valid_custom_marker == False:
+            custom_marker = UserInterface.input_custom_marker()
+            valid_custom_marker = UserInterface.validate_custom_marker(
+                custom_marker, custom_marker_list
+            )
+        return custom_marker
+
+    def input_custom_marker(custom_marker=None):
         if custom_marker == None:
             custom_marker = input("Enter custom marker: ")
         else:

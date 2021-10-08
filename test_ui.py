@@ -26,12 +26,14 @@ class TestUserInterface(unittest.TestCase):
 
     def test_get_player_name(self):
         player_name = "Marx"
-        self.assertEqual(UserInterface.get_player_name(player_name=player_name), "Marx")
+        self.assertEqual(
+            UserInterface.input_player_name(player_name=player_name), "Marx"
+        )
 
     def test_get_player_type(self):
         player_type = "human"
         self.assertEqual(
-            UserInterface.get_player_type(player_type=player_type), "human"
+            UserInterface.input_player_type(player_type=player_type), "human"
         )
 
     def test_validate_player_type(self):
@@ -43,7 +45,8 @@ class TestUserInterface(unittest.TestCase):
     def test_add_custom_marker(self):
         custom_marker = "$"
         self.assertEqual(
-            UserInterface.add_custom_marker(custom_marker=custom_marker), custom_marker
+            UserInterface.input_custom_marker(custom_marker=custom_marker),
+            custom_marker,
         )
 
     def test_validate_custom_marker_already_used(self):
