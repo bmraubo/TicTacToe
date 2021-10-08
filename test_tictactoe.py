@@ -15,14 +15,15 @@ class TestTicTacToe(unittest.TestCase):
     # Initialise and Assign Players
     def test_create_player(self):
         test_board = TicTacToe(3)
-        test_players = [["Marx", "human"], ["Engels", "human"]]
+        test_players = [["Marx", "human", "X"], ["Engels", "human", "$"]]
         test_board.create_players(test_players)
         self.assertEqual(test_board.players[0].name, "Marx")
         self.assertEqual(test_board.players[0].type, "human")
+        self.assertEqual(test_board.players[0].marker, "X")
 
     def test_player_assignment(self):
         test_board = TicTacToe(3)
-        test_players = [["Marx", "human"], ["Engels", "human"]]
+        test_players = [["Marx", "human", "X"], ["Engels", "human", "$"]]
         test_board.create_players(test_players)
         test_board.assign_players()
         self.assertEqual(test_board.markers[test_board.players[0]], "X")
