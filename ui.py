@@ -18,6 +18,7 @@ class UserInterface:
             player_name = UserInterface.input_player_name()
             player_type = UserInterface.get_player_type()
             custom_marker = UserInterface.get_custom_marker(custom_marker_list)
+            custom_marker_list.append(custom_marker)
             player_list.append([player_name, player_type, custom_marker])
         return player_list
 

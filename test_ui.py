@@ -24,13 +24,16 @@ class TestUserInterface(unittest.TestCase):
         output = captured_output.getvalue().strip()
         self.assertEqual(output, validate_instructions)
 
-    def test_get_player_name(self):
+    # Testing User Input of Player Information\
+    # Testing obtaining player name
+    def test_input_player_name(self):
         player_name = "Marx"
         self.assertEqual(
             UserInterface.input_player_name(player_name=player_name), "Marx"
         )
 
-    def test_get_player_type(self):
+    # Testing obtaining and validating player type
+    def test_input_player_type(self):
         player_type = "human"
         self.assertEqual(
             UserInterface.input_player_type(player_type=player_type), "human"
@@ -42,7 +45,8 @@ class TestUserInterface(unittest.TestCase):
         player_type = "Cuman"
         self.assertFalse(UserInterface.validate_player_type(player_type))
 
-    def test_add_custom_marker(self):
+    # Testing obtaining and validating custom marker
+    def test_input_custom_marker(self):
         custom_marker = "$"
         self.assertEqual(
             UserInterface.input_custom_marker(custom_marker=custom_marker),
