@@ -57,7 +57,7 @@ class TestUserInterface(unittest.TestCase):
             UserInterface.validate_custom_marker(custom_marker, custom_marker_list)
         )
 
-    def test_custom_marker_too_long(self):
+    def test_validate_custom_marker_too_long(self):
         custom_marker_list = []
         custom_marker = "howdy"
         self.assertFalse(
@@ -68,7 +68,13 @@ class TestUserInterface(unittest.TestCase):
             UserInterface.validate_custom_marker(custom_marker, custom_marker_list)
         )
 
-    # Reject Numbers
+    def test_validate_custom_marker_numbers(self):
+        # Numbers are not allowed
+        custom_marker_list = []
+        custom_marker = "1"
+        self.assertFalse(
+            UserInterface.validate_custom_marker(custom_marker, custom_marker_list)
+        )
 
 
 if __name__ == "__main__":

@@ -51,8 +51,15 @@ class UserInterface:
 
     def validate_custom_marker(custom_marker, custom_marker_list):
         if custom_marker in custom_marker_list:
+            print(f"{custom_marker} invalid: Custom marker already used")
             return False
         elif len(custom_marker) > 1:
+            print(
+                f"{custom_marker} invalid: Custom marker cannot take up more than one space"
+            )
+            return False
+        elif custom_marker in [str(x) for x in list(range(0, 10))]:
+            print(f"{custom_marker} invalid: Custom marker cannot be a number")
             return False
         else:
             return True
