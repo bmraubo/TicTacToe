@@ -30,6 +30,7 @@ class UserInterface:
 
     # Obtaining Player Type (Human/Computer) from User
     def get_player_type():
+        valid_player_type = False
         while valid_player_type == False:
             player_type = UserInterface.input_player_type()
             valid_player_type = UserInterface.validate_player_type(player_type)
@@ -63,6 +64,7 @@ class UserInterface:
     def input_custom_marker(custom_marker=None):
         if custom_marker == None:
             custom_marker = input("Enter custom marker: ")
+            return custom_marker
         else:
             return custom_marker
 
@@ -70,13 +72,13 @@ class UserInterface:
         if custom_marker in custom_marker_list:
             print(f"{custom_marker} invalid: Custom marker already used")
             return False
+        elif custom_marker in [str(x) for x in list(range(0, 10))]:
+            print(f"{custom_marker} invalid: Custom marker cannot be a number")
+            return False
         elif len(custom_marker) > 1:
             print(
                 f"{custom_marker} invalid: Custom marker cannot take up more than one space"
             )
-            return False
-        elif custom_marker in [str(x) for x in list(range(0, 10))]:
-            print(f"{custom_marker} invalid: Custom marker cannot be a number")
             return False
         else:
             return True
