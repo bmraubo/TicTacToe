@@ -27,7 +27,7 @@ class TestTicTacToe(unittest.TestCase):
         test_board.create_players(test_players)
         test_board.assign_players()
         self.assertEqual(test_board.markers[test_board.players[0]], "X")
-        self.assertEqual(test_board.markers[test_board.players[1]], "O")
+        self.assertEqual(test_board.markers[test_board.players[1]], "$")
 
 
 if __name__ == "__main__":

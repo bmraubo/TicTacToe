@@ -74,7 +74,7 @@ class TestUserInterface(unittest.TestCase):
     def test_validate_custom_marker_numbers(self):
         # Numbers are not allowed
         custom_marker_list = []
-        custom_marker = "1"
+        custom_marker = "8"
         self.assertFalse(
             UserInterface.validate_custom_marker(custom_marker, custom_marker_list)
         )

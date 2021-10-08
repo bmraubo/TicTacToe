@@ -26,8 +26,8 @@ class TicTacToe:
 
     def assign_players(self):
         # assigns players to X and O
-        self.markers[self.players[0]] = "X"
-        self.markers[self.players[1]] = "O"
+        self.markers[self.players[0]] = self.players[0].marker
+        self.markers[self.players[1]] = self.players[1].marker
 
     # Gameplay loops
     def play_game(self):
