@@ -4,7 +4,7 @@ from board import Board
 
 
 class TestHumanPlayer(unittest.TestCase):
-    def test_get_player_move(self):
+    def test_get_human_player_move(self):
         test_player_info = ["Marx", "human", "X"]
         test_player = HumanPlayer(test_player_info)
         player_move = "3"
@@ -14,7 +14,7 @@ class TestHumanPlayer(unittest.TestCase):
 
 
 class TestComputerPlayer(unittest.TestCase):
-    def test_get_player_move(self):
+    def test_get_computer_player_move(self):
         test_player_info = ["Rosa", "computer", "Y"]
         test_player = ComputerPlayer(test_player_info)
         test_board = Board(3)
