@@ -4,7 +4,7 @@ class Board:
         self.size = size
         self.highest_value = size * size
         self.generate_board()
-        self.arrangements = self.generate_arrangements()
+        self.arrangements = self.generate_win_arrangements()
 
     # controls board access - if it creates, reads, or writes to the game board, it goes through this
     def access_board(self, value, new_value=None):
@@ -44,7 +44,7 @@ class Board:
             return False
 
     # generates possible win arrangements to be checked by win_check()
-    def generate_arrangements(self):
+    def generate_win_arrangements(self):
         # Creates a master list of all values as strings
         master_list = []
         for x in list(range(1, self.highest_value + 1)):

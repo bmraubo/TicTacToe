@@ -1,11 +1,11 @@
 class UserInterface:
 
     # Display Welcome Message
-    def welcome_message():
+    def display_welcome_message():
         print("Welcome to Tic Tac Toe")
 
     # Display Game Instructions
-    def game_instructions(size):
+    def display_game_instructions(size):
         instructions = f"Each square on the board have a value from 1-{size*size}. Select which square you would like to play by inputting the correct value when promoted."
         print(instructions)
 
