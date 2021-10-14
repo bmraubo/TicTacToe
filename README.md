@@ -104,6 +104,8 @@ Perhaps check_value should be renamed to better reflect its greater role. query_
 
 So references to the 2D matrix have been replaced with calls to access_board. This also meant that an additional description of the rows had to be added to win_check, as previously the method would rely on the 'as is' board implementation to check rows.
 
+**This behaviour has now been changed - 2 methods control board access: check_board_value and change_board_value. This has been done in order to enhance clarity of the code - 14 October 2021**
+
 ### Changing data structure
 
 With the above changes made, I have changed the initialize_board test to expect a dictionary, and modified access_board to look up keys in a dictionary. All tests pass.
@@ -161,6 +163,11 @@ As this solution relies on the numerical board values (and not any markers that 
 The benefit is that one the arrangements are done, they remain valid for the entirety of the game. For this reason the calculation of the arrangements has been removed from the win_check method and now takes place as part of the initialization of the board.
 
 Some aspects of the old implementation were also cleaned up - win_checks now loops over the arrangements dictionary keys and calls tally, instead of this being written out three times. 
+
+## Refactor 14 October 2021
+
+- Changed some method names to make them more descriptive
+- Split access board into check_board_value and change_board_value to ensure each method has a single job. This will increase work to be done if data structure is changed, but minimally so. Greater clarity within the code of what is done each time the board is accessed.
 
 
 
