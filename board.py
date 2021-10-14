@@ -6,21 +6,20 @@ class Board:
         self.generate_board()
         self.arrangements = self.generate_win_arrangements()
 
-    # controls board access - if it creates, reads, or writes to the game board, it goes through this
-    def access_board(self, value, new_value=None):
+    def check_board_value(self, current_board_value):
         # checks value in board data
-        if new_value == None:
-            return self.board[str(value)]
-        # if new_value is present, changes board data to that value
-        else:
-            self.board[str(value)] = str(new_value)
-            return self.board[str(value)]
+        return self.board[str(current_board_value)]
+
+    def change_board_value(self, current_board_value, new_board_value):
+        # replaces value in board data with new value
+        self.board[str(current_board_value)] = str(new_board_value)
+        return self.board[str(current_board_value)]
 
     # creates data structure for board of requested size
     def generate_board(self):
         total_squares = list(range(1, self.highest_value + 1))
         for num in total_squares:
-            self.access_board(num, new_value=num)
+            self.change_board_value(num, num)
 
     # rejects moves that are outside the range, have been played, or generally unusable - e.g. letters
     def validate_move(self, move):
@@ -34,7 +33,7 @@ class Board:
                 return False
             # If the move has already been played, user is asked to try again
             # this board check could be removed, but that would add too much complexity
-            elif str(move) != self.access_board(move):
+            elif str(move) != self.check_board_value(move):
                 print(f"{move} has already been played")
                 return False
             else:
@@ -74,7 +73,7 @@ class Board:
             count = 0
             for element in arrangement:
                 for num in element:
-                    if self.access_board(num) == marker:
+                    if self.check_board_value(num) == marker:
                         count += 1
                 if count == self.size:
                     return True
