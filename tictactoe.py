@@ -32,7 +32,7 @@ class TicTacToe:
     # Gameplay loops
     def play_game(self):
         # There is a maximum of 9 moves, so the game loops until all moves are made
-        UserInterface.game_instructions(self.board.size)
+        UserInterface.display_game_instructions(self.board.size)
         self.set_up_players()
         Display.draw_board(self.board)
         moves_made = 0
@@ -48,9 +48,7 @@ class TicTacToe:
                     )
                     valid_move = self.board.validate_move(player_move)
                 # Valid moves are made
-                self.board.access_board(
-                    int(player_move), new_value=self.markers[player]
-                )
+                self.board.change_board_value(int(player_move), self.markers[player])
                 # Board is re-drawn based on the new move
                 Display.draw_board(self.board)
                 moves_made += 1
@@ -71,7 +69,7 @@ class TicTacToe:
 
 
 if __name__ == "__main__":
-    UserInterface.welcome_message()
+    UserInterface.display_welcome_message()
     size = UserInterface.get_board_size()
     game = TicTacToe(size)
     game.play_game()

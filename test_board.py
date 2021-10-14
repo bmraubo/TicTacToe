@@ -1,6 +1,4 @@
 import unittest
-import sys
-from io import StringIO
 from board import Board
 
 
@@ -42,18 +40,18 @@ class TestBoard(unittest.TestCase):
         test_board = Board(4)
         self.assertEqual(test_board.board, expected_board)
 
-    def test_access_board(self):
+    def test_check_board_value(self):
         test_board = Board(3)
         value = "4"
-        self.assertEqual(test_board.access_board(value), "4")
+        self.assertEqual(test_board.check_board_value(value), "4")
 
-    def test_access_board_new_value(self):
+    def test_change_board_value(self):
         # Set up game
         test_board = Board(3)
         # Test move
         test_input = "1"
         marker = "X"
-        self.assertEqual(test_board.access_board(test_input, new_value=marker), "X")
+        self.assertEqual(test_board.change_board_value(test_input, marker), "X")
 
     def test_validate_move_valueerror(self):
         # Test for value error exception handling
@@ -79,7 +77,7 @@ class TestBoard(unittest.TestCase):
         test_board = Board(3)
         test_input = "1"
         marker = "X"
-        test_board.access_board(test_input, new_value=marker)
+        test_board.change_board_value(test_input, marker)
         player_move = "1"
         self.assertFalse(test_board.validate_move(player_move))
         player_move = "2"
@@ -133,9 +131,9 @@ class TestBoard(unittest.TestCase):
         # Set up a game
         test_board = Board(3)
         test_marker = "X"
-        test_board.access_board("1", new_value=test_marker)
-        test_board.access_board("4", new_value=test_marker)
-        test_board.access_board("7", new_value=test_marker)
+        test_board.change_board_value("1", test_marker)
+        test_board.change_board_value("4", test_marker)
+        test_board.change_board_value("7", test_marker)
         self.assertTrue(test_board.win_check(test_marker))
 
     def test_win_column_4x4(self):
@@ -143,48 +141,48 @@ class TestBoard(unittest.TestCase):
         # Set up a game
         test_board = Board(4)
         test_marker = "X"
-        test_board.access_board("1", new_value=test_marker)
-        test_board.access_board("5", new_value=test_marker)
-        test_board.access_board("9", new_value=test_marker)
-        test_board.access_board("13", new_value=test_marker)
+        test_board.change_board_value("1", test_marker)
+        test_board.change_board_value("5", test_marker)
+        test_board.change_board_value("9", test_marker)
+        test_board.change_board_value("13", test_marker)
         self.assertTrue(test_board.win_check(test_marker))
 
     def test_win_row_3x3(self):
         # Testing win state in Row
         test_board = Board(3)
         test_marker = "X"
-        test_board.access_board("1", new_value=test_marker)
-        test_board.access_board("2", new_value=test_marker)
-        test_board.access_board("3", new_value=test_marker)
+        test_board.change_board_value("1", test_marker)
+        test_board.change_board_value("2", test_marker)
+        test_board.change_board_value("3", test_marker)
         self.assertTrue(test_board.win_check(test_marker))
 
     def test_win_row_4x4(self):
         # Testing win state in Row
         test_board = Board(4)
         test_marker = "X"
-        test_board.access_board("1", new_value=test_marker)
-        test_board.access_board("2", new_value=test_marker)
-        test_board.access_board("3", new_value=test_marker)
-        test_board.access_board("4", new_value=test_marker)
+        test_board.change_board_value("1", test_marker)
+        test_board.change_board_value("2", test_marker)
+        test_board.change_board_value("3", test_marker)
+        test_board.change_board_value("4", test_marker)
         self.assertTrue(test_board.win_check(test_marker))
 
     def test_row_diagonal_3x3(self):
         # Testing diagonal win states
         test_board = Board(3)
         test_marker = "X"
-        test_board.access_board("1", new_value=test_marker)
-        test_board.access_board("5", new_value=test_marker)
-        test_board.access_board("9", new_value=test_marker)
+        test_board.change_board_value("1", test_marker)
+        test_board.change_board_value("5", test_marker)
+        test_board.change_board_value("9", test_marker)
         self.assertTrue(test_board.win_check(test_marker))
 
     def test_row_diagonal_4x4(self):
         # Testing diagonal win states
         test_board = Board(4)
         test_marker = "X"
-        test_board.access_board("1", new_value=test_marker)
-        test_board.access_board("6", new_value=test_marker)
-        test_board.access_board("11", new_value=test_marker)
-        test_board.access_board("16", new_value=test_marker)
+        test_board.change_board_value("1", test_marker)
+        test_board.change_board_value("6", test_marker)
+        test_board.change_board_value("11", test_marker)
+        test_board.change_board_value("16", test_marker)
         self.assertTrue(test_board.win_check(test_marker))
 
 

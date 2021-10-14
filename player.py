@@ -24,5 +24,5 @@ class ComputerPlayer(Player):
     def get_player_move(self, board):
         total_squares = list(range(1, board.highest_value + 1))
         for num in total_squares:
-            if board.access_board(num) == str(num):
+            if board.check_board_value(num) == str(num):
                 return str(num)
