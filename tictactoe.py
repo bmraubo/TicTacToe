@@ -22,7 +22,7 @@ class TicTacToe:
             if player[1] == "human":
                 self.players.append(HumanPlayer(player))
             elif player[1] == "computer":
-                self.players.append(ComputerPlayer(player))
+                self.players.append(ComputerPlayer(player, self.board))
 
     def assign_players(self):
         # assigns players to X and O
@@ -41,11 +41,7 @@ class TicTacToe:
                 # Requests input and input is validated until validate_player_move returns True
                 valid_move = False
                 while valid_move == False:
-                    player_move = (
-                        player.get_player_move()
-                        if player.type == "human"
-                        else player.get_player_move(self.board)
-                    )
+                    player_move = player.get_player_move()
                     valid_move = self.board.validate_move(player_move)
                 # Valid moves are made
                 self.board.change_board_value(int(player_move), self.markers[player])
