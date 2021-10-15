@@ -5,10 +5,12 @@ from display import Display
 
 
 class TicTacToe:
-    def __init__(self, size):
+    def __init__(self, size, player_list):
         self.board = Board(size)
         self.markers = {}
         self.players = []
+        self.winner = None
+        self.set_up_players(player_list)
 
     # Player creation and assignment to X, O values in self.markers
     def set_up_players(self, player_list):
@@ -32,11 +34,9 @@ class TicTacToe:
     def play_game(self):
         # There is a maximum of 9 moves, so the game loops until all moves are made
         UserInterface.display_game_instructions(self.board.size)
-        player_list = UserInterface.get_player_info()
-        self.set_up_players(player_list)
         Display.draw_board(self.board)
         moves_made = 0
-        while moves_made < self.board.highest_value:
+        while (moves_made < self.board.highest_value) and self.winner == None:
             for player in self.players:
                 # Requests input and input is validated until validate_player_move returns True
                 valid_move = False
@@ -49,23 +49,29 @@ class TicTacToe:
                 Display.draw_board(self.board)
                 moves_made += 1
                 # Once each move is played, the board is checked to see if the most recent player won, or the game is drawn
-                self.end_game(moves_made, player)
+                if self.end_game(moves_made, player):
+                    break
 
     def end_game(self, moves_made, player):
         # Checks if the most recent player's move has won them the game
         if self.board.win_check(self.markers[player]):
             print(f"{player.name} has won the game\N{Party Popper}")
-            print("Game is closing gracefully")
-            exit()
+            self.winner = player
+            return True
         # If the most recent move has not won the game, the outcome might be a draw
         elif moves_made == self.board.highest_value:
             print("It's a draw")
-            print("Game is closing gracefully")
-            exit()
+            self.winner = "Draw"
+            return True
+        else:
+            return False
 
 
 if __name__ == "__main__":
     UserInterface.display_welcome_message()
     size = UserInterface.get_board_size()
-    game = TicTacToe(size)
+    players = UserInterface.get_player_info()
+    game = TicTacToe(size, players)
     game.play_game()
+    print("Game is closing gracefully")
+    exit()
