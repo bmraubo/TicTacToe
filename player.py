@@ -18,11 +18,12 @@ class HumanPlayer(Player):
 
 
 class ComputerPlayer(Player):
-    def __init__(self, player_info):
+    def __init__(self, player_info, board):
         Player.__init__(self, player_info)
+        self.board = board
 
-    def get_player_move(self, board):
-        total_squares = list(range(1, board.highest_value + 1))
+    def get_player_move(self):
+        total_squares = list(range(1, self.board.highest_value + 1))
         for num in total_squares:
-            if board.check_board_value(num) == str(num):
+            if self.board.check_board_value(num) == str(num):
                 return str(num)
