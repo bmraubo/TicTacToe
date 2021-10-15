@@ -3,8 +3,8 @@ class Board:
         self.board = {}
         self.size = size
         self.highest_value = size * size
-        self.generate_board()
-        self.arrangements = self.generate_win_arrangements()
+        self.__generate_board()
+        self.arrangements = self.__generate_win_arrangements()
 
     def check_board_value(self, current_board_value):
         # checks value in board data
@@ -16,7 +16,7 @@ class Board:
         return self.board[str(current_board_value)]
 
     # creates data structure for board of requested size
-    def generate_board(self):
+    def __generate_board(self):
         total_squares = list(range(1, self.highest_value + 1))
         for num in total_squares:
             self.change_board_value(num, num)
@@ -43,7 +43,7 @@ class Board:
             return False
 
     # generates possible win arrangements to be checked by win_check()
-    def generate_win_arrangements(self):
+    def __generate_win_arrangements(self):
         # Creates a master list of all values as strings
         master_list = []
         for x in list(range(1, self.highest_value + 1)):

@@ -170,4 +170,4 @@ Some aspects of the old implementation were also cleaned up - win_checks now loo
 - Split access board into check_board_value and change_board_value to ensure each method has a single job. This will increase work to be done if data structure is changed, but minimally so. Greater clarity within the code of what is done each time the board is accessed.
 - Computer player is now given the board object from the TicTacToe class on initilisation, which simplifies the player.get_player_move() calls, removing the redundant (but cool) one line conditional statement differentiating between player types in TicTacToe.play_game().
 
-
+- Board.generate_board and Board.generate_win_arrangements have been made 'private' - or at least as private as Python allows.
