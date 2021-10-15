@@ -171,3 +171,4 @@ Some aspects of the old implementation were also cleaned up - win_checks now loo
 - Computer player is now given the board object from the TicTacToe class on initilisation, which simplifies the player.get_player_move() calls, removing the redundant (but cool) one line conditional statement differentiating between player types in TicTacToe.play_game().
 
 - Board.generate_board and Board.generate_win_arrangements have been made 'private' - or at least as private as Python allows.
+- Create_player and Assign_player have been made private. UserInterface.get_player_info is now called in TicTacToe.play_game, outside the set_up_players method. Testing has been changed to run set_up_players and look at effects, rather than running individual methods.
