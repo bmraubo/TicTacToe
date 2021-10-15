@@ -89,10 +89,9 @@ class TestBoard(unittest.TestCase):
         expected_rows = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
         expected_columns = [["1", "4", "7"], ["2", "5", "8"], ["3", "6", "9"]]
         expected_diagonals = [["1", "5", "9"], ["3", "5", "7"]]
-        arrangements = test_board.generate_win_arrangements()
-        self.assertEqual(arrangements["rows"], expected_rows)
-        self.assertEqual(arrangements["columns"], expected_columns)
-        self.assertEqual(arrangements["diagonals"], expected_diagonals)
+        self.assertEqual(test_board.arrangements["rows"], expected_rows)
+        self.assertEqual(test_board.arrangements["columns"], expected_columns)
+        self.assertEqual(test_board.arrangements["diagonals"], expected_diagonals)
 
     def test_win_arrangement_generator_4x4(self):
         test_board = Board(4)
@@ -109,10 +108,9 @@ class TestBoard(unittest.TestCase):
             ["4", "8", "12", "16"],
         ]
         expected_diagonals = [["1", "6", "11", "16"], ["4", "7", "10", "13"]]
-        arrangements = test_board.generate_win_arrangements()
-        self.assertEqual(arrangements["rows"], expected_rows)
-        self.assertEqual(arrangements["columns"], expected_columns)
-        self.assertEqual(arrangements["diagonals"], expected_diagonals)
+        self.assertEqual(test_board.arrangements["rows"], expected_rows)
+        self.assertEqual(test_board.arrangements["columns"], expected_columns)
+        self.assertEqual(test_board.arrangements["diagonals"], expected_diagonals)
 
     def test_no_win_3x3(self):
         # test win check where no win or draw state exists

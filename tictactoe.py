@@ -11,12 +11,11 @@ class TicTacToe:
         self.players = []
 
     # Player creation and assignment to X, O values in self.markers
-    def set_up_players(self):
-        player_list = UserInterface.get_player_info()
-        self.create_players(player_list)
-        self.assign_players()
+    def set_up_players(self, player_list):
+        self.__create_players(player_list)
+        self.__assign_players()
 
-    def create_players(self, players):
+    def __create_players(self, players):
         # loops through player information entered by user in UserInterface.get_player_info
         for player in players:
             if player[1] == "human":
@@ -24,7 +23,7 @@ class TicTacToe:
             elif player[1] == "computer":
                 self.players.append(ComputerPlayer(player, self.board))
 
-    def assign_players(self):
+    def __assign_players(self):
         # assigns players to X and O
         self.markers[self.players[0]] = self.players[0].marker
         self.markers[self.players[1]] = self.players[1].marker
@@ -33,7 +32,8 @@ class TicTacToe:
     def play_game(self):
         # There is a maximum of 9 moves, so the game loops until all moves are made
         UserInterface.display_game_instructions(self.board.size)
-        self.set_up_players()
+        player_list = UserInterface.get_player_info()
+        self.set_up_players(player_list)
         Display.draw_board(self.board)
         moves_made = 0
         while moves_made < self.board.highest_value:
