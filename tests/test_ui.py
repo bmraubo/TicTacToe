@@ -1,7 +1,7 @@
 import unittest
 import sys
 from io import StringIO
-from ui import UserInterface
+from app.ui import UserInterface
 
 
 class TestUserInterface(unittest.TestCase):

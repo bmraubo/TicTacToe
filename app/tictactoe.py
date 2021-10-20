@@ -1,7 +1,7 @@
-from ui import UserInterface
-from board import Board
-from player import HumanPlayer, ComputerPlayer
-from display import Display
+from app.ui import UserInterface
+from app.board import Board
+from app.player import HumanPlayer, ComputerPlayer
+from app.display import Display
 
 
 class TicTacToe:
