@@ -1,6 +1,6 @@
 import unittest
-from player import HumanPlayer, ComputerPlayer
-from board import Board
+from app.player import HumanPlayer, ComputerPlayer
+from app.board import Board
 
 
 class TestHumanPlayer(unittest.TestCase):
