@@ -41,8 +41,9 @@ class TestLogic(unittest.TestCase):
             "board": test_board,
             "move": "j",
         }
-        self.assertFalse(
-            ServerLogic.validate_move(test_request["board"], test_request["move"])
+        self.assertEqual(
+            ServerLogic.validate_move(test_request["board"], test_request["move"]),
+            (False, f"Value Error: j is not between 1-9"),
         )
 
     def test_validate_move_out_of_range(self):
@@ -53,16 +54,18 @@ class TestLogic(unittest.TestCase):
             "board": test_board,
             "move": "10",
         }
-        self.assertFalse(
-            ServerLogic.validate_move(test_request["board"], test_request["move"])
+        self.assertEqual(
+            ServerLogic.validate_move(test_request["board"], test_request["move"]),
+            (False, "10 is not between 1 and 9"),
         )
         test_request = {
             "player": "X",
             "board": test_board,
             "move": "0",
         }
-        self.assertFalse(
-            ServerLogic.validate_move(test_request["board"], test_request["move"])
+        self.assertEqual(
+            ServerLogic.validate_move(test_request["board"], test_request["move"]),
+            (False, "0 is not between 1 and 9"),
         )
         # Tests inputs within range, for completeness => should be allowed
         test_request = {
@@ -70,16 +73,18 @@ class TestLogic(unittest.TestCase):
             "board": test_board,
             "move": "9",
         }
-        self.assertTrue(
-            ServerLogic.validate_move(test_request["board"], test_request["move"])
+        self.assertEqual(
+            ServerLogic.validate_move(test_request["board"], test_request["move"]),
+            (True, "9 is valid"),
         )
         test_request = {
             "player": "X",
             "board": test_board,
             "move": "1",
         }
-        self.assertTrue(
-            ServerLogic.validate_move(test_request["board"], test_request["move"])
+        self.assertEqual(
+            ServerLogic.validate_move(test_request["board"], test_request["move"]),
+            (True, "1 is valid"),
         )
 
     def test_validate_move_already_played(self):
@@ -92,14 +97,20 @@ class TestLogic(unittest.TestCase):
             "move": "1",
         }
         # Running validation on square 1 should fail
-        self.assertFalse(ServerLogic.validate_move(test_board, test_request["move"]))
+        self.assertEqual(
+            ServerLogic.validate_move(test_board, test_request["move"]),
+            (False, "1 has already been played"),
+        )
         # However a request to change square 2 should pass
         test_request = {
             "player": "X",
             "board": test_board,
             "move": "2",
         }
-        self.assertTrue(ServerLogic.validate_move(test_board, test_request["move"]))
+        self.assertEqual(
+            ServerLogic.validate_move(test_board, test_request["move"]),
+            (True, "2 is valid"),
+        )
 
     # Testing Win Arrangement Generation
     def test_win_arrangement_generator_3x3(self):

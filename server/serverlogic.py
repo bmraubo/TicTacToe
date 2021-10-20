@@ -17,18 +17,18 @@ class ServerLogic:
             # If user enters an invalid number, the user is warned and asked for proper input
             # Lowest possible input will always be 1
             if move < 1 or move > highest_value:
-                print(f"{move} is not between 1 and {highest_value}")
-                return False
+                return (False, f"{move} is not between 1 and {highest_value}")
             # If the move has already been played, user is asked to try again
             # this board check could be removed, but that would add too much complexity
             elif str(move) != ServerLogic.check_board_value(board, move):
-                print(f"{move} has already been played")
-                return False
+                return (False, f"{move} has already been played")
             else:
-                return True  # Validation passes if valid input is given
+                return (
+                    True,
+                    f"{move} is valid",
+                )  # Validation passes if valid input is given
         except ValueError:
-            print(f"Value Error: {move} is not between 1-{highest_value}")
-            return False
+            return (False, f"Value Error: {move} is not between 1-{highest_value}")
 
     ### Generate Win Arrangements
     def generate_win_arrangements(board, size):
