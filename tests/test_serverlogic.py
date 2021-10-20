@@ -1,6 +1,6 @@
 import unittest
 from app.board import Board
-from app.serverlogic import ServerLogic
+from server.serverlogic import ServerLogic
 
 
 class TestLogic(unittest.TestCase):
