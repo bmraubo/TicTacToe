@@ -5,10 +5,10 @@ from app.serverlogic import ServerLogic
 
 class TestLogic(unittest.TestCase):
     def test_check_board_value(self):
-        test_board = Board(3)
+        test_board = Board(3).board
         test_request = {
             "player": "X",
-            "board": test_board.board,
+            "board": test_board,
             "move": "4",
         }
         self.assertEqual(
@@ -18,11 +18,11 @@ class TestLogic(unittest.TestCase):
 
     def test_change_board_value(self):
         # Set up game
-        test_board = Board(3)
+        test_board = Board(3).board
         # Test move
         test_request = {
             "player": "X",
-            "board": test_board.board,
+            "board": test_board,
             "move": "4",
         }
         test_board = ServerLogic.change_board_value(
@@ -35,10 +35,10 @@ class TestLogic(unittest.TestCase):
 
     def test_validate_move_valueerror(self):
         # Test for value error exception handling
-        test_board = Board(3)
+        test_board = Board(3).board
         test_request = {
             "player": "X",
-            "board": test_board.board,
+            "board": test_board,
             "move": "j",
         }
         self.assertFalse(
@@ -47,10 +47,10 @@ class TestLogic(unittest.TestCase):
 
     def test_validate_move_out_of_range(self):
         # Rejects moves that are outside of permitted range
-        test_board = Board(3)
+        test_board = Board(3).board
         test_request = {
             "player": "X",
-            "board": test_board.board,
+            "board": test_board,
             "move": "10",
         }
         self.assertFalse(
@@ -58,7 +58,7 @@ class TestLogic(unittest.TestCase):
         )
         test_request = {
             "player": "X",
-            "board": test_board.board,
+            "board": test_board,
             "move": "0",
         }
         self.assertFalse(
@@ -67,7 +67,7 @@ class TestLogic(unittest.TestCase):
         # Tests inputs within range, for completeness => should be allowed
         test_request = {
             "player": "X",
-            "board": test_board.board,
+            "board": test_board,
             "move": "9",
         }
         self.assertTrue(
@@ -75,7 +75,7 @@ class TestLogic(unittest.TestCase):
         )
         test_request = {
             "player": "X",
-            "board": test_board.board,
+            "board": test_board,
             "move": "1",
         }
         self.assertTrue(
