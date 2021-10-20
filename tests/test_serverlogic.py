@@ -101,6 +101,39 @@ class TestLogic(unittest.TestCase):
         }
         self.assertTrue(ServerLogic.validate_move(test_board, test_request["move"]))
 
+    # Testing Win Arrangement Generation
+    def test_win_arrangement_generator_3x3(self):
+        size = 3
+        test_board = Board(size).board
+        expected_rows = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
+        expected_columns = [["1", "4", "7"], ["2", "5", "8"], ["3", "6", "9"]]
+        expected_diagonals = [["1", "5", "9"], ["3", "5", "7"]]
+        arrangements = ServerLogic.generate_win_arrangements(test_board, size)
+        self.assertEqual(arrangements["rows"], expected_rows)
+        self.assertEqual(arrangements["columns"], expected_columns)
+        self.assertEqual(arrangements["diagonals"], expected_diagonals)
+
+    def test_win_arrangement_generator_4x4(self):
+        size = 4
+        test_board = Board(4).board
+        expected_rows = [
+            ["1", "2", "3", "4"],
+            ["5", "6", "7", "8"],
+            ["9", "10", "11", "12"],
+            ["13", "14", "15", "16"],
+        ]
+        expected_columns = [
+            ["1", "5", "9", "13"],
+            ["2", "6", "10", "14"],
+            ["3", "7", "11", "15"],
+            ["4", "8", "12", "16"],
+        ]
+        expected_diagonals = [["1", "6", "11", "16"], ["4", "7", "10", "13"]]
+        arrangements = ServerLogic.generate_win_arrangements(test_board, size)
+        self.assertEqual(arrangements["rows"], expected_rows)
+        self.assertEqual(arrangements["columns"], expected_columns)
+        self.assertEqual(arrangements["diagonals"], expected_diagonals)
+
 
 if __name__ == "__main__":
     unittest.main()

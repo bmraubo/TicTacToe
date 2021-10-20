@@ -31,5 +31,25 @@ class ServerLogic:
             return False
 
     ### Generate Win Arrangements
+    def generate_win_arrangements(board, size):
+        highest_value = len(board)
+        # Creates a master list of all values as strings
+        master_list = []
+        for x in list(range(1, highest_value + 1)):
+            master_list.append(str(x))
+
+        arrangements = {"rows": [], "columns": [], "diagonals": []}
+
+        # creates a matrices of board locations, arranged in order for checking
+        arrangements["rows"] = [
+            master_list[x : x + size] for x in range(0, len(master_list), size)
+        ]
+        arrangements["columns"] = [master_list[x::size] for x in range(0, size)]
+        arrangements["diagonals"] = [
+            master_list[0 :: size + 1],
+            master_list[size - 1 : highest_value - 2 : size - 1],
+        ]
+
+        return arrangements
 
     ### Win Checks
