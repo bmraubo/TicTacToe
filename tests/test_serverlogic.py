@@ -134,6 +134,110 @@ class TestLogic(unittest.TestCase):
         self.assertEqual(arrangements["columns"], expected_columns)
         self.assertEqual(arrangements["diagonals"], expected_diagonals)
 
+    # Checking for Win conditions
+    def test_no_win_3x3(self):
+        # test win check where no win or draw state exists
+        size = 3
+        test_board = Board(size).board
+        test_marker = "X"
+        arrangements = ServerLogic.generate_win_arrangements(test_board, size)
+        self.assertFalse(
+            ServerLogic.win_check(test_board, test_marker, arrangements, size)
+        )
+
+    def test_no_win_4x4(self):
+        # test win check where no win or draw state exists
+        size = 4
+        test_board = Board(size).board
+        test_marker = "X"
+        arrangements = ServerLogic.generate_win_arrangements(test_board, size)
+        self.assertFalse(
+            ServerLogic.win_check(test_board, test_marker, arrangements, size)
+        )
+
+    def test_win_column_3x3(self):
+        # testing Win state in column
+        # Set up a game
+        size = 3
+        test_board = Board(size).board
+        test_marker = "X"
+        ServerLogic.change_board_value(test_board, "1", test_marker)
+        ServerLogic.change_board_value(test_board, "4", test_marker)
+        ServerLogic.change_board_value(test_board, "7", test_marker)
+        arrangements = ServerLogic.generate_win_arrangements(test_board, size)
+        self.assertTrue(
+            ServerLogic.win_check(test_board, test_marker, arrangements, size)
+        )
+
+    def test_win_column_4x4(self):
+        # testing Win state in column
+        size = 4
+        # Set up a game
+        test_board = Board(size).board
+        test_marker = "X"
+        ServerLogic.change_board_value(test_board, "1", test_marker)
+        ServerLogic.change_board_value(test_board, "5", test_marker)
+        ServerLogic.change_board_value(test_board, "9", test_marker)
+        ServerLogic.change_board_value(test_board, "13", test_marker)
+        arrangements = ServerLogic.generate_win_arrangements(test_board, size)
+        self.assertTrue(
+            ServerLogic.win_check(test_board, test_marker, arrangements, size)
+        )
+
+    def test_win_row_3x3(self):
+        size = 3
+        # Testing win state in Row
+        test_board = Board(size).board
+        test_marker = "X"
+        ServerLogic.change_board_value(test_board, "1", test_marker)
+        ServerLogic.change_board_value(test_board, "2", test_marker)
+        ServerLogic.change_board_value(test_board, "3", test_marker)
+        arrangements = ServerLogic.generate_win_arrangements(test_board, size)
+        self.assertTrue(
+            ServerLogic.win_check(test_board, test_marker, arrangements, size)
+        )
+
+    def test_win_row_4x4(self):
+        size = 4
+        # Testing win state in Row
+        test_board = Board(size).board
+        test_marker = "X"
+        ServerLogic.change_board_value(test_board, "1", test_marker)
+        ServerLogic.change_board_value(test_board, "2", test_marker)
+        ServerLogic.change_board_value(test_board, "3", test_marker)
+        ServerLogic.change_board_value(test_board, "4", test_marker)
+        arrangements = ServerLogic.generate_win_arrangements(test_board, size)
+        self.assertTrue(
+            ServerLogic.win_check(test_board, test_marker, arrangements, size)
+        )
+
+    def test_row_diagonal_3x3(self):
+        size = 3
+        # Testing diagonal win states
+        test_board = Board(size).board
+        test_marker = "X"
+        ServerLogic.change_board_value(test_board, "1", test_marker)
+        ServerLogic.change_board_value(test_board, "5", test_marker)
+        ServerLogic.change_board_value(test_board, "9", test_marker)
+        arrangements = ServerLogic.generate_win_arrangements(test_board, size)
+        self.assertTrue(
+            ServerLogic.win_check(test_board, test_marker, arrangements, size)
+        )
+
+    def test_row_diagonal_4x4(self):
+        size = 4
+        # Testing win state in Row
+        test_board = Board(size).board
+        test_marker = "X"
+        ServerLogic.change_board_value(test_board, "1", test_marker)
+        ServerLogic.change_board_value(test_board, "6", test_marker)
+        ServerLogic.change_board_value(test_board, "11", test_marker)
+        ServerLogic.change_board_value(test_board, "16", test_marker)
+        arrangements = ServerLogic.generate_win_arrangements(test_board, size)
+        self.assertTrue(
+            ServerLogic.win_check(test_board, test_marker, arrangements, size)
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

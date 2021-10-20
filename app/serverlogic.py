@@ -53,3 +53,20 @@ class ServerLogic:
         return arrangements
 
     ### Win Checks
+    def win_check(board, marker, arrangements, size):
+        # nested function to check if a win condition is met
+        def tally(board, marker, arrangement, size):
+            count = 0
+            for element in arrangement:
+                for num in element:
+                    if ServerLogic.check_board_value(board, num) == marker:
+                        count += 1
+                if count == size:
+                    return True
+                count = 0
+
+        for key in arrangements:
+            if tally(board, marker, arrangements[key], size):
+                return True
+
+        return False
