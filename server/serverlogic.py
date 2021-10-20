@@ -23,7 +23,10 @@ class ServerLogic:
             elif str(move) != ServerLogic.check_board_value(board, move):
                 return (False, f"{move} has already been played")
             else:
-                return True  # Validation passes if valid input is given
+                return (
+                    True,
+                    f"{move} is valid",
+                )  # Validation passes if valid input is given
         except ValueError:
             return (False, f"Value Error: {move} is not between 1-{highest_value}")
 
