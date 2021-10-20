@@ -238,6 +238,17 @@ class TestLogic(unittest.TestCase):
             ServerLogic.win_check(test_board, test_marker, arrangements, size)
         )
 
+    # End Game Checks - Draw
+    def test_end_game_draw(self):
+        size = 3
+        test_board = Board(size).board
+        test_marker = "X"
+        moves_made = 9
+        self.assertEqual(
+            ServerLogic.end_game_check(test_board, moves_made, test_marker, size),
+            (True, "Draw"),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

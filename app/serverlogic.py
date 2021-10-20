@@ -70,3 +70,16 @@ class ServerLogic:
                 return True
 
         return False
+
+    # End Game Check
+    def end_game_check(board, moves_made, player_marker, size):
+        highest_value = len(board)
+        arrangements = ServerLogic.generate_win_arrangements(board, size)
+        # Checks if the most recent player's move has won them the game
+        if ServerLogic.win_check(board, player_marker, arrangements, size):
+            return (True, player_marker)
+        # If the most recent move has not won the game, the outcome might be a draw
+        elif moves_made == highest_value:
+            return (True, "Draw")
+        else:
+            return (False, "Ongoing")
