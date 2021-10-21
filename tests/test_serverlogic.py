@@ -5,9 +5,11 @@ from server.serverlogic import ServerLogic
 
 class TestLogic(unittest.TestCase):
     def test_check_board_value(self):
-        test_board = Board(3).board
+        size = 3
+        test_board = Board(size).board
         test_request = {
             "player": "X",
+            "board_size": size,
             "board": test_board,
             "move": "4",
         }
@@ -17,11 +19,11 @@ class TestLogic(unittest.TestCase):
         )
 
     def test_change_board_value(self):
-        # Set up game
-        test_board = Board(3).board
-        # Test move
+        size = 3
+        test_board = Board(size).board
         test_request = {
             "player": "X",
+            "board_size": size,
             "board": test_board,
             "move": "4",
         }
@@ -35,9 +37,11 @@ class TestLogic(unittest.TestCase):
 
     def test_validate_move_valueerror(self):
         # Test for value error exception handling
-        test_board = Board(3).board
+        size = 3
+        test_board = Board(size).board
         test_request = {
             "player": "X",
+            "board_size": size,
             "board": test_board,
             "move": "j",
         }
@@ -48,9 +52,11 @@ class TestLogic(unittest.TestCase):
 
     def test_validate_move_out_of_range(self):
         # Rejects moves that are outside of permitted range
-        test_board = Board(3).board
+        size = 3
+        test_board = Board(size).board
         test_request = {
             "player": "X",
+            "board_size": size,
             "board": test_board,
             "move": "10",
         }
@@ -60,6 +66,7 @@ class TestLogic(unittest.TestCase):
         )
         test_request = {
             "player": "X",
+            "board_size": size,
             "board": test_board,
             "move": "0",
         }
@@ -70,6 +77,7 @@ class TestLogic(unittest.TestCase):
         # Tests inputs within range, for completeness => should be allowed
         test_request = {
             "player": "X",
+            "board_size": size,
             "board": test_board,
             "move": "9",
         }
@@ -79,6 +87,7 @@ class TestLogic(unittest.TestCase):
         )
         test_request = {
             "player": "X",
+            "board_size": size,
             "board": test_board,
             "move": "1",
         }
@@ -89,10 +98,12 @@ class TestLogic(unittest.TestCase):
 
     def test_validate_move_already_played(self):
         # Rejects move if it has already been played
-        test_board = Board(3).board
+        size = 3
+        test_board = Board(size).board
         test_board["1"] = "X"
         test_request = {
             "player": "X",
+            "board_size": size,
             "board": test_board,
             "move": "1",
         }
@@ -104,6 +115,7 @@ class TestLogic(unittest.TestCase):
         # However a request to change square 2 should pass
         test_request = {
             "player": "X",
+            "board_size": size,
             "board": test_board,
             "move": "2",
         }
