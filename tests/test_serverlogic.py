@@ -12,6 +12,7 @@ class TestLogic(unittest.TestCase):
             "board_size": size,
             "board": test_board,
             "move": "4",
+            "moves_made": "0",
         }
         self.assertEqual(
             ServerLogic.check_board_value(test_request["board"], test_request["move"]),
@@ -26,6 +27,7 @@ class TestLogic(unittest.TestCase):
             "board_size": size,
             "board": test_board,
             "move": "4",
+            "moves_made": "0",
         }
         test_board = ServerLogic.change_board_value(
             test_request["board"], test_request["move"], test_request["player"]
@@ -44,6 +46,7 @@ class TestLogic(unittest.TestCase):
             "board_size": size,
             "board": test_board,
             "move": "j",
+            "moves_made": "0",
         }
         self.assertEqual(
             ServerLogic.validate_move(test_request["board"], test_request["move"]),
@@ -59,6 +62,7 @@ class TestLogic(unittest.TestCase):
             "board_size": size,
             "board": test_board,
             "move": "10",
+            "moves_made": "0",
         }
         self.assertEqual(
             ServerLogic.validate_move(test_request["board"], test_request["move"]),
@@ -69,6 +73,7 @@ class TestLogic(unittest.TestCase):
             "board_size": size,
             "board": test_board,
             "move": "0",
+            "moves_made": "0",
         }
         self.assertEqual(
             ServerLogic.validate_move(test_request["board"], test_request["move"]),
@@ -80,6 +85,7 @@ class TestLogic(unittest.TestCase):
             "board_size": size,
             "board": test_board,
             "move": "9",
+            "moves_made": "0",
         }
         self.assertEqual(
             ServerLogic.validate_move(test_request["board"], test_request["move"]),
@@ -90,6 +96,7 @@ class TestLogic(unittest.TestCase):
             "board_size": size,
             "board": test_board,
             "move": "1",
+            "moves_made": "0",
         }
         self.assertEqual(
             ServerLogic.validate_move(test_request["board"], test_request["move"]),
@@ -106,6 +113,7 @@ class TestLogic(unittest.TestCase):
             "board_size": size,
             "board": test_board,
             "move": "1",
+            "moves_made": "1",
         }
         # Running validation on square 1 should fail
         self.assertEqual(
@@ -118,6 +126,7 @@ class TestLogic(unittest.TestCase):
             "board_size": size,
             "board": test_board,
             "move": "2",
+            "moves_made": "1",
         }
         self.assertEqual(
             ServerLogic.validate_move(test_board, test_request["move"]),
