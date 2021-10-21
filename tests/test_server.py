@@ -1,6 +1,6 @@
 import unittest
 from app.board import Board
-from server.server import ProcessMove
+from server.processmove import ProcessMove
 from server.serverlogic import ServerLogic
 
 

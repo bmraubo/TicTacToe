@@ -1,14 +1,4 @@
-from flask import Flask, request
-import os
-
-from serverlogic import ServerLogic
-
-app = Flask(__name__)
-
-
-def main():
-    port = int(os.environ.get("PORT", 5000))
-    app.run(port=port)
+from server.serverlogic import ServerLogic
 
 
 class ProcessMove:
@@ -52,14 +42,3 @@ class ProcessMove:
             "game_status": game_status[1],
             "moves_made": moves_made + 1,
         }
-
-
-@app.route("/", methods=["POST"])
-def process_request():
-    request_data = request.get_json()
-    response_data = ProcessMove.process_move(request_data)
-    return response_data, 200
-
-
-if __name__ == "__main__":
-    main()
