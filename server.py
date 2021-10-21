@@ -15,8 +15,7 @@ def main():
 @app.route("/", methods=["POST"])
 def process_request():
     request_data = request.get_json()
-    response_data = ProcessMove.process_move(request_data)
-    return response_data, 200
+    return ProcessMove.process_move(request_data)
 
 
 if __name__ == "__main__":

@@ -7,12 +7,12 @@ class ProcessMove:
         data_check = ProcessMove.check_request(data)
         if data_check[0] == False:
             # Handle Errors
-            pass
+            return ({"Error": f"{data_check[1]}"}, 400)
         # Validate Move
         move_validation = ServerLogic.validate_move(data["board"], data["move"])
-        if move_validation == False:
+        if move_validation[0] == False:
             # Handle errors
-            pass
+            return ({"Error": f"{move_validation[1]}"}, 400)
         # Make Move
         new_board_state = ServerLogic.change_board_value(
             data["board"], data["move"], data["player"]
@@ -25,7 +25,7 @@ class ProcessMove:
         response_data = ProcessMove.prepare_response_data(
             new_board_state, game_status, data["moves_made"]
         )
-        return response_data
+        return (response_data, 200)
 
     # Check POST request data
     def check_request(data):
