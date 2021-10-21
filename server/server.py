@@ -1,7 +1,7 @@
 from flask import Flask, request
 import os
 
-from server.serverlogic import ServerLogic
+from serverlogic import ServerLogic
 
 app = Flask(__name__)
 
@@ -32,7 +32,9 @@ class ProcessMove:
             data["board"], data["moves_made"], data["player"], data["board_size"]
         )
         # Prepare Response Data
-        response_data = ProcessMove.prepare_response_data(new_board_state, game_status)
+        response_data = ProcessMove.prepare_response_data(
+            new_board_state, game_status, data["moves_made"]
+        )
         return response_data
 
     # Check POST request data
@@ -44,14 +46,18 @@ class ProcessMove:
         return (True, "OK")
 
     # Prepare Response Data
-    def prepare_response_data(board_state, game_status):
-        return {"board": board_state, "game_status": game_status[1]}
+    def prepare_response_data(board_state, game_status, moves_made):
+        return {
+            "board": board_state,
+            "game_status": game_status[1],
+            "moves_made": moves_made + 1,
+        }
 
 
 @app.route("/", methods=["POST"])
 def process_request():
     request_data = request.get_json()
-    response_data = {"request": "processed"}
+    response_data = ProcessMove.process_move(request_data)
     return response_data, 200
 
 

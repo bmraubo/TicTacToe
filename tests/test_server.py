@@ -12,7 +12,7 @@ class TestServer(unittest.TestCase):
             "board_size": "3",
             "board": test_board,
             "move": "4",
-            "moves_made": "0",
+            "moves_made": 0,
         }
         self.assertEqual(ProcessMove.check_request(test_request), (True, "OK"))
 
@@ -35,7 +35,7 @@ class TestServer(unittest.TestCase):
             "board_size": size,
             "board": test_board,
             "move": "4",
-            "moves_made": "0",
+            "moves_made": 0,
         }
         new_board_state = ServerLogic.change_board_value(
             test_request["board"], test_request["move"], test_request["player"]
@@ -46,9 +46,15 @@ class TestServer(unittest.TestCase):
             test_request["player"],
             test_request["board_size"],
         )
-        expected_response = {"board": new_board_state, "game_status": game_status[1]}
+        expected_response = {
+            "board": new_board_state,
+            "game_status": game_status[1],
+            "moves_made": 1,
+        }
         self.assertEqual(
-            ProcessMove.prepare_response_data(new_board_state, game_status),
+            ProcessMove.prepare_response_data(
+                new_board_state, game_status, test_request["moves_made"]
+            ),
             expected_response,
         )
 
