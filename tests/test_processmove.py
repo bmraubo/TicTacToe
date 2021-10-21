@@ -4,7 +4,7 @@ from server.processmove import ProcessMove
 from server.serverlogic import ServerLogic
 
 
-class TestServer(unittest.TestCase):
+class TestProcessMove(unittest.TestCase):
     def test_check_request_true(self):
         test_board = Board(3).board
         test_request = {
