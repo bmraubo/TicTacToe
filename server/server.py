@@ -9,8 +9,23 @@ def main():
     app.run(port=port)
 
 
+class ProcessMove:
+    def check_request(data):
+        if "player" not in data:
+            return False
+        elif "board" not in data:
+            return False
+        elif "board_size" not in data:
+            return False
+        elif "move" not in data:
+            return False
+        else:
+            return True
+
+
 @app.route("/", methods=["POST"])
 def process_move():
+    request_data = request.get_json()
     response_data = {"move": "processed"}
     return response_data, 200
 
