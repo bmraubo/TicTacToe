@@ -11,16 +11,11 @@ def main():
 
 class ProcessMove:
     def check_request(data):
-        if "player" not in data:
-            return False
-        elif "board" not in data:
-            return False
-        elif "board_size" not in data:
-            return False
-        elif "move" not in data:
-            return False
-        else:
-            return True
+        required_data = ["player", "board", "board_size", "move"]
+        for key in required_data:
+            if key not in data:
+                return (False, f"No {key} information")
+        return (True, "OK")
 
 
 @app.route("/", methods=["POST"])

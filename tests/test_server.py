@@ -12,7 +12,7 @@ class TestServer(unittest.TestCase):
             "board": test_board,
             "move": "4",
         }
-        self.assertTrue(ProcessMove.check_request(test_request))
+        self.assertEqual(ProcessMove.check_request(test_request), (True, "OK"))
 
     def test_check_request_false(self):
         test_request = {
@@ -20,7 +20,9 @@ class TestServer(unittest.TestCase):
             "board_size": "3",
             "move": "4",
         }
-        self.assertFalse(ProcessMove.check_request(test_request))
+        self.assertEqual(
+            ProcessMove.check_request(test_request), (False, "No board information")
+        )
 
 
 if __name__ == "__main__":
