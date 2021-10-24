@@ -23,7 +23,30 @@ class ComputerPlayer(Player):
         self.board = board
 
     def get_player_move(self):
+        # If possible, play winning move
+        winning_move = self.check_for_winning_move()
+        if winning_move != False:
+            return winning_move
+        # Defend against losing if necessary
+        # Play first available move
+        return self.__first_available_move()
+
+    def __first_available_move(self):
         total_squares = list(range(1, self.board.highest_value + 1))
         for num in total_squares:
             if self.board.check_board_value(num) == str(num):
                 return str(num)
+
+    def check_for_winning_move(self):
+        for key in self.board.arrangements:
+            for element in self.board.arrangements[key]:
+                count = 0
+                for value in element:
+                    if self.board.check_board_value(value) == self.marker:
+                        count += 1
+                if count == self.board.size - 1:
+                    for value in element:
+                        if self.board.check_board_value(value) != self.marker:
+                            if self.board.validate_move(value):
+                                return value
+        return False
