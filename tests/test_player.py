@@ -15,7 +15,8 @@ class TestHumanPlayer(unittest.TestCase):
 
 class TestComputerPlayer(unittest.TestCase):
     def test_get_computer_player_move(self):
-        test_board = Board(3)
+        size = 3
+        test_board = Board.generate_board(size)
         test_player_info = ["Rosa", "computer", "Y"]
         test_player = ComputerPlayer(test_player_info, test_board)
         expected_move = "1"
