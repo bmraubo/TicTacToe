@@ -1,5 +1,5 @@
 import unittest
-from app.tictactoe import TicTacToe
+from tictactoe import TicTacToe
 
 
 class TestDummy(unittest.TestCase):
