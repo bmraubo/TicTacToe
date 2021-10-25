@@ -1,8 +1,8 @@
 import unittest
 import sys
 from io import StringIO
-from board import Board
-from display import Display
+from app.board import Board
+from app.display import Display
 
 
 class TestDisplay(unittest.TestCase):

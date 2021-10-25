@@ -1,7 +1,6 @@
-from ui import UserInterface
-from board import Board
-from player import HumanPlayer, ComputerPlayer
-from display import Display
+from app.board import Board
+from app.player import HumanPlayer, ComputerPlayer
+from app.display import Display
 
 
 class TicTacToe:
@@ -33,7 +32,7 @@ class TicTacToe:
     # Gameplay loops
     def play_game(self):
         # There is a maximum of 9 moves, so the game loops until all moves are made
-        UserInterface.display_game_instructions(self.board.size)
+
         Display.draw_board(self.board)
         moves_made = 0
         while (moves_made < self.board.highest_value) and self.winner == None:
@@ -65,13 +64,3 @@ class TicTacToe:
             return True
         else:
             return False
-
-
-if __name__ == "__main__":
-    UserInterface.display_welcome_message()
-    size = UserInterface.get_board_size()
-    players = UserInterface.get_player_info()
-    game = TicTacToe(size, players)
-    game.play_game()
-    print("Game is closing gracefully")
-    exit()
