@@ -80,14 +80,10 @@ class GameLogic:
             move_information["player"]["marker"],
             move_information["board"]["size"],
         ):
-            print(
-                f"{move_information['player']['name']} has won the game\N{Party Popper}"
-            )
             winner = move_information["player"]["name"]
             return (True, {"game_state": "won", "winner": winner})
         # If the most recent move has not won the game, the outcome might be a draw
         elif move_information["move"]["move_number"] == len(updated_board):
-            print("It's a draw")
             return (
                 True,
                 {"game_state": "Draw", "winner": None},

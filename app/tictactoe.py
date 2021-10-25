@@ -56,5 +56,12 @@ class TicTacToe:
                 # Once each move is played, the board is checked to see if the most recent player won, or the game is drawn
                 if move_outcome["move_info"]["game_over"]:
                     # declare winner
-                    self.winner = move_outcome["move_info"]["game_status"]["winner"]
+                    self.declare_end_game(move_outcome)
                     break
+
+    def declare_end_game(self, move_outcome):
+        if move_outcome["move_info"]["game_status"]["winner"] != None:
+            self.winner = move_outcome["move_info"]["game_status"]["winner"]
+            print(f"{self.winner} has won the game\N{Party Popper}")
+        elif move_outcome["move_info"]["game_status"]["game_state"] == "Draw":
+            print("It's a draw")
