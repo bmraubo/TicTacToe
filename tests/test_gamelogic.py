@@ -26,21 +26,21 @@ class TestGameLogic(unittest.TestCase):
         size = 3
         test_board = Board.generate_board(size)
         player_move = "j"
-        self.assertFalse(GameLogic.validate_move(test_board, player_move))
+        self.assertFalse(GameLogic.validate_move(test_board, player_move)[0])
 
     def test_validate_move_out_of_range(self):
         # Rejects moves that are outside of permitted range
         size = 3
         test_board = Board.generate_board(size)
         player_move = "10"
-        self.assertFalse(GameLogic.validate_move(test_board, player_move))
+        self.assertFalse(GameLogic.validate_move(test_board, player_move)[0])
         player_move = "0"
-        self.assertFalse(GameLogic.validate_move(test_board, player_move))
+        self.assertFalse(GameLogic.validate_move(test_board, player_move)[0])
         # Tests inputs within range, for completeness => should be allowed
         player_move = "9"
-        self.assertTrue(GameLogic.validate_move(test_board, player_move))
+        self.assertTrue(GameLogic.validate_move(test_board, player_move)[0])
         player_move = "1"
-        self.assertTrue(GameLogic.validate_move(test_board, player_move))
+        self.assertTrue(GameLogic.validate_move(test_board, player_move)[0])
 
     def test_validate_move_already_played(self):
         # Rejects move if it has already been played
@@ -50,9 +50,9 @@ class TestGameLogic(unittest.TestCase):
         marker = "X"
         GameLogic.change_board_value(test_board, test_input, marker)
         player_move = "1"
-        self.assertFalse(GameLogic.validate_move(test_board, player_move))
+        self.assertFalse(GameLogic.validate_move(test_board, player_move)[0])
         player_move = "2"
-        self.assertTrue(GameLogic.validate_move(test_board, player_move))
+        self.assertTrue(GameLogic.validate_move(test_board, player_move)[0])
 
     # Testing generation of winning arrangements for win checks
     def test_win_arrangement_generator_3x3(self):

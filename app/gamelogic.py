@@ -20,18 +20,15 @@ class GameLogic:
             # If user enters an invalid number, the user is warned and asked for proper input
             # Lowest possible input will always be 1
             if move < 1 or move > highest_value:
-                print(f"{move} is not between 1 and {highest_value}")
-                return False
+                return (False, f"{move} is not between 1 and {highest_value}")
             # If the move has already been played, user is asked to try again
             # this board check could be removed, but that would add too much complexity
             elif str(move) != GameLogic.check_board_value(board, move):
-                print(f"{move} has already been played")
-                return False
+                return (False, f"{move} has already been played")
             else:
-                return True  # Validation passes if valid input is given
+                return (True, "OK")  # Validation passes if valid input is given
         except ValueError:
-            print(f"Value Error: {move} is not between 1-{highest_value}")
-            return False
+            return (False, f"Value Error: {move} is not between 1-{highest_value}")
 
     # End Game Checks
     # Generate Winning Arrangements to check the board against
@@ -74,5 +71,26 @@ class GameLogic:
         for key in arrangements:
             if tally(board, marker, arrangements[key], size):
                 return True
-
         return False
+
+    def end_game(updated_board, move_information):
+        # Checks if the most recent player's move has won them the game
+        if GameLogic.win_check(
+            updated_board,
+            move_information["player"]["marker"],
+            move_information["board"]["size"],
+        ):
+            print(
+                f"{move_information['player']['name']} has won the game\N{Party Popper}"
+            )
+            winner = move_information["player"]["name"]
+            return (True, {"game_state": "won", "winner": winner})
+        # If the most recent move has not won the game, the outcome might be a draw
+        elif move_information["move"]["move_number"] == len(updated_board):
+            print("It's a draw")
+            return (
+                True,
+                {"game_state": "Draw", "winner": None},
+            )
+        else:
+            return (False, {"game_state": "In Progress", "winner": None})

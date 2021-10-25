@@ -2,6 +2,7 @@ from app.board import Board
 from app.player import HumanPlayer, ComputerPlayer
 from app.display import Display
 from app.gamelogic import GameLogic
+from app.gameprocess import GameProcess
 
 
 class TicTacToe:
@@ -40,47 +41,20 @@ class TicTacToe:
         while (moves_made < len(self.board)) and self.winner == None:
             for player in self.players:
                 # Requests input and input is validated until validate_player_move returns True
-                valid_move = False
-                while valid_move == False:
+                valid_move_made = False
+                while valid_move_made == False:
                     player_move = player.get_player_move()
-                    move_information = {
-                        "player": {
-                            "player_name": player.name,
-                            "player_marker": player.marker,
-                        },
-                        "board": {
-                            "board_state": self.board,
-                            "size": self.board_size,
-                        },
-                        "move": {"move": player_move, "move_number": moves_made},
-                    }
-                    valid_move = GameLogic.validate_move(
-                        move_information["board"]["board_state"],
-                        move_information["move"]["move"],
+                    move_information = GameProcess.package_move(
+                        self.board, self.board_size, player, player_move, moves_made
                     )
-                # Valid moves are made
-                self.board = GameLogic.change_board_value(
-                    move_information["board"]["board_state"],
-                    move_information["move"]["move"],
-                    move_information["player"]["player_marker"],
-                )
+                    move_outcome = GameProcess.process_move(move_information)
+                    valid_move_made = move_outcome["move_success"]
+                self.board = move_outcome["move_info"]["board"]
+                moves_made = move_outcome["move_info"]["move_number"]
                 # Board is re-drawn based on the new move
                 Display.draw_board(self.board, self.board_size)
-                moves_made += 1
                 # Once each move is played, the board is checked to see if the most recent player won, or the game is drawn
-                if self.end_game(self.board, moves_made, player):
+                if move_outcome["move_info"]["game_over"]:
+                    # declare winner
+                    self.winner = move_outcome["move_info"]["game_status"]["winner"]
                     break
-
-    def end_game(self, board, moves_made, player):
-        # Checks if the most recent player's move has won them the game
-        if GameLogic.win_check(board, self.markers[player], self.board_size):
-            print(f"{player.name} has won the game\N{Party Popper}")
-            self.winner = player
-            return True
-        # If the most recent move has not won the game, the outcome might be a draw
-        elif moves_made == len(board):
-            print("It's a draw")
-            self.winner = "Draw"
-            return True
-        else:
-            return False
