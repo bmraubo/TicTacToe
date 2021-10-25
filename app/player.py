@@ -27,26 +27,26 @@ class ComputerPlayer(Player):
         winning_move = self.check_for_winning_move()
         if winning_move != False:
             return winning_move
-        # Defend against losing if necessary
-        # Play first available move
-        return self.__first_available_move()
+        else:
+            # Defend against losing if necessary
+            # Play first available move
+            return self.__first_available_move()
 
     def __first_available_move(self):
-        total_squares = list(range(1, self.board.highest_value + 1))
-        for num in total_squares:
-            if self.board.check_board_value(num) == str(num):
-                return str(num)
+        possible_moves = list(range(1, self.board.highest_value + 1))
+        for move in possible_moves:
+            if self.board.check_board_value(str(move)) == str(move):
+                return str(move)
 
     def check_for_winning_move(self):
-        for key in self.board.arrangements:
-            for element in self.board.arrangements[key]:
-                count = 0
-                for value in element:
-                    if self.board.check_board_value(value) == self.marker:
-                        count += 1
-                if count == self.board.size - 1:
-                    for value in element:
-                        if self.board.check_board_value(value) != self.marker:
-                            if self.board.validate_move(value):
-                                return value
+        possible_moves = list(range(1, self.board.highest_value + 1))
+        for move in possible_moves:
+            simulated_board = self.board
+            if not simulated_board.validate_move(move):
+                continue
+            simulated_board.board[str(move)] = self.marker
+            if simulated_board.win_check(self.marker):
+                return str(move)
+            simulated_board.board[str(move)] = str(move)
+
         return False
