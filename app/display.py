@@ -1,3 +1,6 @@
+from app.gamelogic import GameLogic
+
+
 class Display:
 
     # draws the current board state
@@ -8,16 +11,19 @@ class Display:
             # Every value is placed on the board, preceded by a dynamic prefix that evens out the spacing
             for num in range(start, board.size + start):
                 prefix = " " * (
-                    display_size_modifer - len(str(board.check_board_value(num))) - 1
+                    display_size_modifer
+                    - len(str(GameLogic.check_board_value(board.board, num)))
+                    - 1
                 )
-                value = board.check_board_value(num)
+                value = GameLogic.check_board_value(board.board, num)
                 string = string + f"{prefix}{value} |"
             # the completed row is returned for printing
             return string
 
         # calculate display modifer method - this is used to determine display spacing
+        highest_value = len(board.board)
 
-        display_size_modifer = len(str(board.highest_value)) + 2
+        display_size_modifer = len(str(highest_value)) + 2
 
         border_element = ("-" * display_size_modifer) + "+"
         start = 1  # determines the start point for each row
@@ -25,7 +31,7 @@ class Display:
         # first, print the top border
         print(f"+{border_element*board.size}")
         # You want to stop printing the board when you exceed the highest value
-        while start < board.highest_value:
+        while start < highest_value:
             print(print_row(board, start, display_size_modifer))
             start += board.size
             print(f"+{border_element*board.size}")

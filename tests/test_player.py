@@ -20,3 +20,7 @@ class TestComputerPlayer(unittest.TestCase):
         test_player = ComputerPlayer(test_player_info, test_board)
         expected_move = "1"
         self.assertEqual(test_player.get_player_move(), expected_move)
+
+
+if __name__ == "__main__":
+    unittest.main()
