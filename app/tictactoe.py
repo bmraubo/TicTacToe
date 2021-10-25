@@ -1,7 +1,6 @@
 from app.board import Board
 from app.player import HumanPlayer, ComputerPlayer
 from app.display import Display
-from app.gamelogic import GameLogic
 from app.gameprocess import GameProcess
 
 
