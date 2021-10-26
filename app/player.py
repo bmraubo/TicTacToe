@@ -1,3 +1,6 @@
+from app.gameprocess import GameProcess
+
+
 class Player:
     def __init__(self, player_info):
         self.name = player_info[0]
@@ -25,5 +28,5 @@ class ComputerPlayer(Player):
     def get_player_move(self):
         total_squares = list(range(1, self.board.highest_value + 1))
         for num in total_squares:
-            if self.board.check_board_value(num) == str(num):
+            if GameProcess.check_board_value(self.board.board, num) == str(num):
                 return str(num)

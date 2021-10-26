@@ -1,4 +1,5 @@
 from app.board import Board
+from app.gameprocess import GameProcess
 from app.player import HumanPlayer, ComputerPlayer
 from app.display import Display
 
@@ -41,9 +42,13 @@ class TicTacToe:
                 valid_move = False
                 while valid_move == False:
                     player_move = player.get_player_move()
-                    valid_move = self.board.validate_move(player_move)
+                    move_information = GameProcess.package_move_information(
+                        self.board, player, player_move
+                    )
+                    move_outcome = GameProcess.process_move(move_information)
+                    valid_move = move_outcome["move_success"]
                 # Valid moves are made
-                self.board.change_board_value(int(player_move), self.markers[player])
+                GameProcess.process_response(move_outcome)
                 # Board is re-drawn based on the new move
                 Display.draw_board(self.board)
                 moves_made += 1
