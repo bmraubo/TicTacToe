@@ -145,3 +145,6 @@ class Board:
             return True
         else:
             return False
+
+    def declare_winner(winner):
+        return f"{winner.name} has won the game\N{Party Popper}"

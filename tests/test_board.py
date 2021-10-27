@@ -184,10 +184,8 @@ class TestBoard(unittest.TestCase):
 
     def test_declare_winner(self):
         winner = HumanPlayer(["Marx", "human", "X"])
-        expected_declaration = f"{player.name} has won the game\N{Party Popper}"
-        self.assertEqual(
-            Board.declare_winner(winner),
-        )
+        expected_declaration = f"{winner.name} has won the game\N{Party Popper}"
+        self.assertEqual(Board.declare_winner(winner), expected_declaration)
 
 
 if __name__ == "__main__":
