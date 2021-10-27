@@ -33,21 +33,19 @@ class TicTacToe:
     def play_game(self):
         # There is a maximum of 9 moves, so the game loops until all moves are made
         Display.draw_board(self.board)
-        moves_made = 0
         while self.board.winner == None:
             for player in self.players:
                 # Requests input and input is validated until validate_player_move returns True
                 valid_move = False
                 while valid_move == False:
                     player_move = player.get_player_move()
-                    valid_move = self.board.make_move(player, player_move)
-                    if valid_move[0]:
-                        self.board = valid_move[1]
+                    move_outcome = self.board.make_move(player, player_move)
+                    if move_outcome[0]:
+                        self.board = move_outcome[1]
                     else:
-                        TicTacToe.declare_invalid_move_reason(valid_move)
+                        TicTacToe.declare_invalid_move_reason(move_outcome)
                 # Board is re-drawn based on the new move
                 Display.draw_board(self.board)
-                moves_made += 1
                 # Once each move is played, the board is checked to see if the most recent player won, or the game is drawn
                 if self.board.winner != None:
                     break
