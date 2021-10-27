@@ -141,10 +141,13 @@ class Board:
         # If the most recent move has not won the game, the outcome might be a draw
         elif GameBoard.moves_made == GameBoard.highest_value:
             print("It's a draw")
-            GameBoard.winner = "Draw"
+            GameBoard.winner = "Draw!"
             return True
         else:
             return False
 
     def declare_winner(winner):
-        return f"{winner.name} has won the game\N{Party Popper}"
+        if winner == "Draw!":
+            return f"It's a {winner}"
+        else:
+            return f"{winner.name} has won the game\N{Party Popper}"
