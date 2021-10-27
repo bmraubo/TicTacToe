@@ -5,7 +5,8 @@ from app.display import Display
 
 class TicTacToe:
     def __init__(self, size, player_list):
-        self.board = Board(size)
+        self.board = Board()
+        self.board.create_board(size)
         self.markers = {}
         self.players = []
         self.winner = None
@@ -43,7 +44,9 @@ class TicTacToe:
                     player_move = player.get_player_move()
                     valid_move = self.board.validate_move(player_move)
                 # Valid moves are made
-                self.board.change_board_value(int(player_move), self.markers[player])
+                Board.change_board_value(
+                    self.board.board, int(player_move), self.markers[player]
+                )
                 # Board is re-drawn based on the new move
                 Display.draw_board(self.board)
                 moves_made += 1

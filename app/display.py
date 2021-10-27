@@ -1,3 +1,6 @@
+from app.board import Board
+
+
 class Display:
 
     # draws the current board state
@@ -8,9 +11,11 @@ class Display:
             # Every value is placed on the board, preceded by a dynamic prefix that evens out the spacing
             for num in range(start, board.size + start):
                 prefix = " " * (
-                    display_size_modifer - len(str(board.check_board_value(num))) - 1
+                    display_size_modifer
+                    - len(str(Board.check_board_value(board.board, num)))
+                    - 1
                 )
-                value = board.check_board_value(num)
+                value = Board.check_board_value(board.board, num)
                 string = string + f"{prefix}{value} |"
             # the completed row is returned for printing
             return string

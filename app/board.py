@@ -1,25 +1,32 @@
 class Board:
-    def __init__(self, size):
-        self.board = {}
+    def __init__(self, board={}, size=None, highest_value=None, arrangements=None):
+        self.board = board
+        self.size = size
+        self.highest_value = highest_value
+        self.arrangements = arrangements
+
+    def create_board(self, size):
         self.size = size
         self.highest_value = size * size
-        self.__generate_board()
+        self.board = self.__generate_board()
         self.arrangements = self.__generate_win_arrangements()
 
-    def check_board_value(self, current_board_value):
+    def check_board_value(board, current_board_value):
         # checks value in board data
-        return self.board[str(current_board_value)]
+        return board[str(current_board_value)]
 
-    def change_board_value(self, current_board_value, new_board_value):
+    def change_board_value(board, current_board_value, new_board_value):
         # replaces value in board data with new value
-        self.board[str(current_board_value)] = str(new_board_value)
-        return self.board[str(current_board_value)]
+        board[str(current_board_value)] = str(new_board_value)
+        return board
 
     # creates data structure for board of requested size
     def __generate_board(self):
+        board_data = {}
         total_squares = list(range(1, self.highest_value + 1))
         for num in total_squares:
-            self.change_board_value(num, num)
+            Board.change_board_value(board_data, num, num)
+        return board_data
 
     # rejects moves that are outside the range, have been played, or generally unusable - e.g. letters
     def validate_move(self, move):
@@ -33,7 +40,7 @@ class Board:
                 return False
             # If the move has already been played, user is asked to try again
             # this board check could be removed, but that would add too much complexity
-            elif str(move) != self.check_board_value(move):
+            elif str(move) != Board.check_board_value(self.board, move):
                 print(f"{move} has already been played")
                 return False
             else:
@@ -73,7 +80,7 @@ class Board:
             count = 0
             for element in arrangement:
                 for num in element:
-                    if self.check_board_value(num) == marker:
+                    if Board.check_board_value(self.board, num) == marker:
                         count += 1
                 if count == self.size:
                     return True
@@ -84,3 +91,30 @@ class Board:
                 return True
 
         return False
+
+    def make_move(self, Player, move, server=False):
+        if server == False:
+            if self.validate_move(move):
+                new_board = Board.__local_move_logic(self, Player, move)
+                return new_board
+            else:
+                return "Error"
+        if server == True:
+            server_response = Board.__make_server_request(self, Player, move)
+            new_board = Board.__server_move_logic(server_response)
+            return new_board
+
+    def __local_move_logic(GameBoard, Player, move):
+        new_board_data = Board.change_board_value(GameBoard.board, move, Player.marker)
+        return Board(
+            board=new_board_data,
+            size=GameBoard.size,
+            highest_value=GameBoard.highest_value,
+            arrangements=GameBoard.arrangements,
+        )
+
+    def __make_server_request(GameBoard, Player, move):
+        pass
+
+    def __read_server_response(server_response):
+        pass
