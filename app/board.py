@@ -1,9 +1,19 @@
 class Board:
-    def __init__(self, board={}, size=None, highest_value=None, arrangements=None):
+    def __init__(
+        self,
+        board={},
+        size=None,
+        highest_value=None,
+        arrangements=None,
+        winner=None,
+        moves_made=0,
+    ):
         self.board = board
         self.size = size
         self.highest_value = highest_value
         self.arrangements = arrangements
+        self.winner = winner
+        self.moves_made = moves_made
 
     def create_board(self, size):
         self.size = size
@@ -98,7 +108,7 @@ class Board:
                 new_board = Board.__local_move_logic(self, Player, move)
                 return new_board
             else:
-                return "Error"
+                return False
         if server == True:
             server_response = Board.__make_server_request(self, Player, move)
             new_board = Board.__server_move_logic(server_response)
@@ -106,15 +116,32 @@ class Board:
 
     def __local_move_logic(GameBoard, Player, move):
         new_board_data = Board.change_board_value(GameBoard.board, move, Player.marker)
-        return Board(
+        new_board = Board(
             board=new_board_data,
             size=GameBoard.size,
             highest_value=GameBoard.highest_value,
             arrangements=GameBoard.arrangements,
+            moves_made=GameBoard.moves_made + 1,
         )
+        Board.end_game(new_board, player=Player)
+        return new_board
 
     def __make_server_request(GameBoard, Player, move):
         pass
 
     def __read_server_response(server_response):
         pass
+
+    def end_game(GameBoard, player):
+        # Checks if the most recent player's move has won them the game
+        if GameBoard.win_check(player.marker):
+            print(f"{player.name} has won the game\N{Party Popper}")
+            GameBoard.winner = player
+            return True
+        # If the most recent move has not won the game, the outcome might be a draw
+        elif GameBoard.moves_made == GameBoard.highest_value:
+            print("It's a draw")
+            GameBoard.winner = "Draw"
+            return True
+        else:
+            return False

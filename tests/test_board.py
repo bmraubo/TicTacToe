@@ -173,6 +173,22 @@ class TestBoard(unittest.TestCase):
             Board.check_board_value(test_board.board, test_move), test_player.marker
         )
 
+    def test_winning_move(self):
+        test_board = Board()
+        test_board.create_board(3)
+        test_player = HumanPlayer(["Marx", "human", "X"])
+        winning_arrangement = ["1", "4", "7"]
+        for value in winning_arrangement:
+            test_board = test_board.make_move(test_player, value)
+        self.assertEqual(test_board.winner, test_player)
+
+    def test_declare_winner(self):
+        winner = HumanPlayer(["Marx", "human", "X"])
+        expected_declaration = f"{player.name} has won the game\N{Party Popper}"
+        self.assertEqual(
+            Board.declare_winner(winner),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
