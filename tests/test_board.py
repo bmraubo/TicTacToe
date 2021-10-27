@@ -123,55 +123,31 @@ class TestBoard(unittest.TestCase):
         test_marker = "X"
         self.assertFalse(test_board.win_check(test_marker))
 
-    def test_win_column_3x3(self):
+    def test_wins_3x3(self):
         # testing Win state in column
         # Set up a game
-        test_board = Board(3)
-        test_marker = "X"
-        for value in ["1", "4", "7"]:
-            test_board.change_board_value(value, test_marker)
-        self.assertTrue(test_board.win_check(test_marker))
+        winning_arrangements = [["1", "4", "7"], ["1", "2", "3"], ["1", "5", "9"]]
+        for arrangement in winning_arrangements:
+            test_board = Board(3)
+            test_marker = "X"
+            for value in arrangement:
+                test_board.change_board_value(value, test_marker)
+            self.assertTrue(test_board.win_check(test_marker))
 
-    def test_win_column_4x4(self):
+    def test_wins_4x4(self):
         # testing Win state in column
         # Set up a game
-        test_board = Board(4)
-        test_marker = "X"
-        for value in ["1", "5", "9", "13"]:
-            test_board.change_board_value(value, test_marker)
-        self.assertTrue(test_board.win_check(test_marker))
-
-    def test_win_row_3x3(self):
-        # Testing win state in Row
-        test_board = Board(3)
-        test_marker = "X"
-        for value in ["1", "2", "3"]:
-            test_board.change_board_value(value, test_marker)
-        self.assertTrue(test_board.win_check(test_marker))
-
-    def test_win_row_4x4(self):
-        # Testing win state in Row
-        test_board = Board(4)
-        test_marker = "X"
-        for value in ["1", "2", "3", "4"]:
-            test_board.change_board_value(value, test_marker)
-        self.assertTrue(test_board.win_check(test_marker))
-
-    def test_row_diagonal_3x3(self):
-        # Testing diagonal win states
-        test_board = Board(3)
-        test_marker = "X"
-        for value in ["1", "5", "9"]:
-            test_board.change_board_value(value, test_marker)
-        self.assertTrue(test_board.win_check(test_marker))
-
-    def test_row_diagonal_4x4(self):
-        # Testing diagonal win states
-        test_board = Board(4)
-        test_marker = "X"
-        for value in ["1", "6", "11", "16"]:
-            test_board.change_board_value(value, test_marker)
-        self.assertTrue(test_board.win_check(test_marker))
+        winning_arrangements = [
+            ["1", "5", "9", "13"],
+            ["1", "2", "3", "4"],
+            ["1", "6", "11", "16"],
+        ]
+        for arrangement in winning_arrangements:
+            test_board = Board(4)
+            test_marker = "X"
+            for value in arrangement:
+                test_board.change_board_value(value, test_marker)
+            self.assertTrue(test_board.win_check(test_marker))
 
 
 if __name__ == "__main__":
