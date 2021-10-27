@@ -44,7 +44,7 @@ class TicTacToe:
                     if valid_move[0]:
                         self.board = valid_move[1]
                     else:
-                        TicTacToe.declare_reason_for_move_rejection(valid_move)
+                        TicTacToe.declare_invalid_move_reason(valid_move)
                 # Board is re-drawn based on the new move
                 Display.draw_board(self.board)
                 moves_made += 1
