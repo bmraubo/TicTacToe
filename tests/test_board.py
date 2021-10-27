@@ -136,8 +136,6 @@ class TestBoard(unittest.TestCase):
         self.assertFalse(test_board.win_check(test_marker))
 
     def test_wins_3x3(self):
-        # testing Win state in column
-        # Set up a game
         winning_arrangements = [["1", "4", "7"], ["1", "2", "3"], ["1", "5", "9"]]
         for arrangement in winning_arrangements:
             test_board = Board()
@@ -148,8 +146,6 @@ class TestBoard(unittest.TestCase):
             self.assertTrue(test_board.win_check(test_marker))
 
     def test_wins_4x4(self):
-        # testing Win state in column
-        # Set up a game
         winning_arrangements = [
             ["1", "5", "9", "13"],
             ["1", "2", "3", "4"],

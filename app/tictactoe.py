@@ -7,15 +7,10 @@ class TicTacToe:
     def __init__(self, size, player_list):
         self.board = Board()
         self.board.create_board(size)
-        self.markers = {}
         self.players = []
-        self.set_up_players(player_list)
+        self.__create_players(player_list)
 
     # Player creation and assignment to X, O values in self.markers
-    def set_up_players(self, player_list):
-        self.__create_players(player_list)
-        self.__assign_players()
-
     def __create_players(self, players):
         # loops through player information entered by user in UserInterface.get_player_info
         for player in players:
@@ -23,11 +18,6 @@ class TicTacToe:
                 self.players.append(HumanPlayer(player))
             elif player[1] == "computer":
                 self.players.append(ComputerPlayer(player, self.board))
-
-    def __assign_players(self):
-        # assigns players to X and O
-        self.markers[self.players[0]] = self.players[0].marker
-        self.markers[self.players[1]] = self.players[1].marker
 
     # Gameplay loops
     def play_game(self):
