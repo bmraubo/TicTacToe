@@ -64,17 +64,17 @@ class TestBoard(unittest.TestCase):
         test_board = Board()
         test_board.create_board(3)
         player_move = "j"
-        self.assertFalse(test_board.validate_move(player_move))
+        self.assertFalse(test_board.validate_move(player_move)[0])
 
     def test_validate_move_out_of_range(self):
         # Rejects moves that are outside of permitted range
         test_board = Board()
         test_board.create_board(3)
         player_move = "10"
-        self.assertFalse(test_board.validate_move(player_move))
+        self.assertFalse(test_board.validate_move(player_move)[0])
         # Tests inputs within range, for completeness => should be allowed
         player_move = "9"
-        self.assertTrue(test_board.validate_move(player_move))
+        self.assertTrue(test_board.validate_move(player_move)[0])
 
     def test_validate_move_already_played(self):
         # Rejects move if it has already been played
@@ -85,10 +85,10 @@ class TestBoard(unittest.TestCase):
         Board.change_board_value(test_board.board, test_input, test_marker)
         # 1 has already been played, so playing it again should return False
         player_move = "1"
-        self.assertFalse(test_board.validate_move(player_move))
+        self.assertFalse(test_board.validate_move(player_move)[0])
         # 2 has not been played - it should pass validation and return True
         player_move = "2"
-        self.assertTrue(test_board.validate_move(player_move))
+        self.assertTrue(test_board.validate_move(player_move)[0])
 
     # Testing win check
     def test_win_arrangement_generator_3x3(self):
@@ -168,7 +168,7 @@ class TestBoard(unittest.TestCase):
         test_board.create_board(3)
         test_player = HumanPlayer(["Marx", "human", "X"])
         test_move = "1"
-        test_board = test_board.make_move(test_player, test_move)
+        test_board = test_board.make_move(test_player, test_move)[1]
         self.assertEqual(
             Board.check_board_value(test_board.board, test_move), test_player.marker
         )
@@ -179,7 +179,7 @@ class TestBoard(unittest.TestCase):
         test_player = HumanPlayer(["Marx", "human", "X"])
         winning_arrangement = ["1", "4", "7"]
         for value in winning_arrangement:
-            test_board = test_board.make_move(test_player, value)
+            test_board = test_board.make_move(test_player, value)[1]
         self.assertEqual(test_board.winner, test_player)
 
     def test_declare_winner(self):

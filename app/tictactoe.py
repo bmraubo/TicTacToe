@@ -40,14 +40,17 @@ class TicTacToe:
                 valid_move = False
                 while valid_move == False:
                     player_move = player.get_player_move()
-                    valid_move = self.board.validate_move(player_move)
-                # Valid moves are made
-                Board.change_board_value(
-                    self.board.board, int(player_move), self.markers[player]
-                )
+                    valid_move = self.board.make_move(player, player_move)
+                    if valid_move[0]:
+                        self.board = valid_move[1]
+                    else:
+                        TicTacToe.declare_reason_for_move_rejection(valid_move)
                 # Board is re-drawn based on the new move
                 Display.draw_board(self.board)
                 moves_made += 1
                 # Once each move is played, the board is checked to see if the most recent player won, or the game is drawn
-                if Board.end_game(self.board, player):
+                if self.board.winner != None:
                     break
+
+    def declare_invalid_move_reason(valid_move):
+        return valid_move[1]

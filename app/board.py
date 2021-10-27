@@ -46,18 +46,15 @@ class Board:
             # If user enters an invalid number, the user is warned and asked for proper input
             # Lowest possible input will always be 1
             if move < 1 or move > self.highest_value:
-                print(f"{move} is not between 1 and {self.highest_value}")
-                return False
+                return (False, f"{move} is not between 1 and {self.highest_value}")
             # If the move has already been played, user is asked to try again
             # this board check could be removed, but that would add too much complexity
             elif str(move) != Board.check_board_value(self.board, move):
-                print(f"{move} has already been played")
-                return False
+                return (False, f"{move} has already been played")
             else:
-                return True  # Validation passes if valid input is given
+                return (True, "OK")  # Validation passes if valid input is given
         except ValueError:
-            print(f"Value Error: {move} is not between 1-{self.highest_value}")
-            return False
+            return (False, f"Value Error: {move} is not between 1-{self.highest_value}")
 
     # generates possible win arrangements to be checked by win_check()
     def __generate_win_arrangements(self):
@@ -104,11 +101,12 @@ class Board:
 
     def make_move(self, Player, move, server=False):
         if server == False:
-            if self.validate_move(move):
+            move_validation_result = self.validate_move(move)
+            if move_validation_result[0]:
                 new_board = Board.__local_move_logic(self, Player, move)
-                return new_board
+                return move_validation_result[0], new_board
             else:
-                return False
+                return move_validation_result
         if server == True:
             server_response = Board.__make_server_request(self, Player, move)
             new_board = Board.__server_move_logic(server_response)
@@ -123,7 +121,7 @@ class Board:
             arrangements=GameBoard.arrangements,
             moves_made=GameBoard.moves_made + 1,
         )
-        Board.end_game(new_board, player=Player)
+        new_board.winner = Board.end_game(new_board, Player)
         return new_board
 
     def __make_server_request(GameBoard, Player, move):
@@ -135,16 +133,16 @@ class Board:
     def end_game(GameBoard, player):
         # Checks if the most recent player's move has won them the game
         if GameBoard.win_check(player.marker):
-            GameBoard.winner = player
-            print(Board.declare_winner(GameBoard.winner))
-            return True
+            winner = player
+            print(Board.declare_winner(winner))
+            return winner
         # If the most recent move has not won the game, the outcome might be a draw
         elif GameBoard.moves_made == GameBoard.highest_value:
-            GameBoard.winner = "Draw!"
-            print(Board.declare_winner(GameBoard.winner))
-            return True
+            winner = "Draw!"
+            print(Board.declare_winner(winner))
+            return winner
         else:
-            return False
+            return None
 
     def declare_winner(winner):
         if winner == "Draw!":
