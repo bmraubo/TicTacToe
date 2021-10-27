@@ -104,7 +104,7 @@ class Board:
             move_validation_result = self.validate_move(move)
             if move_validation_result[0]:
                 new_board = Board.__local_move_logic(self, Player, move)
-                return move_validation_result[0], new_board
+                return (True, new_board)
             else:
                 return move_validation_result
         if server == True:

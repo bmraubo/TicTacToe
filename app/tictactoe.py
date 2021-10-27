@@ -40,7 +40,8 @@ class TicTacToe:
                 while valid_move == False:
                     player_move = player.get_player_move()
                     move_outcome = self.board.make_move(player, player_move)
-                    if move_outcome[0]:
+                    valid_move = move_outcome[0]
+                    if valid_move:
                         self.board = move_outcome[1]
                     else:
                         TicTacToe.declare_invalid_move_reason(move_outcome)
