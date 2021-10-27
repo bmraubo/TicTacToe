@@ -4,7 +4,7 @@ from app.gamelogic import GameLogic
 class Display:
 
     # draws the current board state
-    def draw_board(board, size):
+    def draw_board(Board, size):
         def print_row(board, start, display_size_modifer, size):
             # Every row starts with a | for decorative reasons
             string = "|"
@@ -21,7 +21,7 @@ class Display:
             return string
 
         # calculate display modifer method - this is used to determine display spacing
-        highest_value = len(board)
+        highest_value = len(Board.board)
 
         display_size_modifer = len(str(highest_value)) + 2
 
@@ -32,6 +32,6 @@ class Display:
         print(f"+{border_element*size}")
         # You want to stop printing the board when you exceed the highest value
         while start < highest_value:
-            print(print_row(board, start, display_size_modifer, size))
+            print(print_row(Board.board, start, display_size_modifer, Board.size))
             start += size
             print(f"+{border_element*size}")

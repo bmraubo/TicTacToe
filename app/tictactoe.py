@@ -40,20 +40,15 @@ class TicTacToe:
         while (moves_made < len(self.board)) and self.winner == None:
             for player in self.players:
                 # Requests input and input is validated until validate_player_move returns True
-                valid_move_made = False
-                while valid_move_made == False:
+                valid_move = False
+                while valid_move == False:
                     player_move = player.get_player_move()
-                    move_information = GameProcess.package_move(
-                        self.board, self.board_size, player, player_move, moves_made
-                    )
-                    move_outcome = GameProcess.process_move(move_information)
-                    valid_move_made = move_outcome["move_success"]
-                self.board = move_outcome["move_info"]["board"]
-                moves_made = move_outcome["move_info"]["move_number"]
+                    move_outcome = self.board.make_move(player, player_move)
+                    valid_move = self.valid_move_made(move_outcome)
                 # Board is re-drawn based on the new move
                 Display.draw_board(self.board, self.board_size)
                 # Once each move is played, the board is checked to see if the most recent player won, or the game is drawn
-                if move_outcome["move_info"]["game_over"]:
+                if self.game_over(move_outcome):
                     # declare winner
                     self.declare_end_game(move_outcome)
                     break
@@ -64,3 +59,9 @@ class TicTacToe:
             print(f"{self.winner} has won the game\N{Party Popper}")
         elif move_outcome["move_info"]["game_status"]["game_state"] == "Draw":
             print("It's a draw")
+
+    def game_over(move_outcome):
+        return move_outcome["move_info"]["game_over"]
+
+    def valid_move_made(move_outcome):
+        return move_outcome["move_success"]

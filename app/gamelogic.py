@@ -32,9 +32,9 @@ class GameLogic:
 
     # End Game Checks
     # Generate Winning Arrangements to check the board against
-    def generate_win_arrangements(board, size):
+    def generate_win_arrangements(Board, size):
         # Creates a master list of all values as strings
-        highest_value = len(board)
+        highest_value = len(Board.board)
         master_list = []
         for x in list(range(1, highest_value + 1)):
             master_list.append(str(x))

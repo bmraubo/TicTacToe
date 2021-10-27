@@ -2,17 +2,17 @@ from app.gamelogic import GameLogic
 
 
 class GameProcess:
-    def package_move(board, board_size, player, player_move, moves_made):
+    def package_move(Board, Player, player_move):
         move_information = {
             "player": {
-                "name": player.name,
-                "marker": player.marker,
+                "name": Player.name,
+                "marker": Player.marker,
             },
             "board": {
-                "state": board,
-                "size": board_size,
+                "state": Board.board,
+                "size": Board.size,
             },
-            "move": {"move": player_move, "move_number": moves_made},
+            "move": {"move": player_move, "move_number": Board.moves_made},
         }
         return move_information
 
