@@ -9,7 +9,6 @@ class TicTacToe:
         self.board.create_board(size)
         self.markers = {}
         self.players = []
-        self.winner = None
         self.set_up_players(player_list)
 
     # Player creation and assignment to X, O values in self.markers
