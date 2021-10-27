@@ -33,7 +33,6 @@ class TicTacToe:
     # Gameplay loops
     def play_game(self):
         # There is a maximum of 9 moves, so the game loops until all moves are made
-
         Display.draw_board(self.board)
         moves_made = 0
         while self.board.winner == None:
@@ -53,17 +52,3 @@ class TicTacToe:
                 # Once each move is played, the board is checked to see if the most recent player won, or the game is drawn
                 if Board.end_game(self.board, player):
                     break
-
-    # def end_game(self, moves_made, player):
-    #     # Checks if the most recent player's move has won them the game
-    #     if self.board.win_check(self.markers[player]):
-    #         print(f"{player.name} has won the game\N{Party Popper}")
-    #         self.board.winner = player
-    #         return True
-    #     # If the most recent move has not won the game, the outcome might be a draw
-    #     elif moves_made == self.board.highest_value:
-    #         print("It's a draw")
-    #         self.winner = "Draw"
-    #         return True
-    #     else:
-    #         return False
