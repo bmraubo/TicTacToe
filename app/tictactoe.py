@@ -36,7 +36,7 @@ class TicTacToe:
 
         Display.draw_board(self.board)
         moves_made = 0
-        while (moves_made < self.board.highest_value) and self.winner == None:
+        while self.board.winner == None:
             for player in self.players:
                 # Requests input and input is validated until validate_player_move returns True
                 valid_move = False
