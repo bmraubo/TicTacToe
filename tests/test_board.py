@@ -1,5 +1,6 @@
 import unittest
 from app.board import Board
+from app.player import HumanPlayer
 
 
 class TestBoard(unittest.TestCase):
@@ -148,6 +149,13 @@ class TestBoard(unittest.TestCase):
             for value in arrangement:
                 test_board.change_board_value(value, test_marker)
             self.assertTrue(test_board.win_check(test_marker))
+
+    def test_make_move(self):
+        test_board = Board(3)
+        test_player = HumanPlayer(["Marx", "human", "X"])
+        test_move = "1"
+        test_board = test_board.make_move(test_player, test_move)
+        self.assertEqual(test_board.check_board_value(test_move), test_player.marker)
 
 
 if __name__ == "__main__":
