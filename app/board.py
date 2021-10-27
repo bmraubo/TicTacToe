@@ -135,13 +135,13 @@ class Board:
     def end_game(GameBoard, player):
         # Checks if the most recent player's move has won them the game
         if GameBoard.win_check(player.marker):
-            print(f"{player.name} has won the game\N{Party Popper}")
             GameBoard.winner = player
+            print(Board.declare_winner(GameBoard.winner))
             return True
         # If the most recent move has not won the game, the outcome might be a draw
         elif GameBoard.moves_made == GameBoard.highest_value:
-            print("It's a draw")
             GameBoard.winner = "Draw!"
+            print(Board.declare_winner(GameBoard.winner))
             return True
         else:
             return False
