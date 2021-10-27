@@ -122,6 +122,7 @@ class Board:
             moves_made=GameBoard.moves_made + 1,
         )
         new_board.winner = Board.end_game(new_board, Player)
+        print(Board.declare_winner(new_board.winner))
         return new_board
 
     def __make_server_request(GameBoard, Player, move):
@@ -134,12 +135,10 @@ class Board:
         # Checks if the most recent player's move has won them the game
         if GameBoard.win_check(player.marker):
             winner = player
-            print(Board.declare_winner(winner))
             return winner
         # If the most recent move has not won the game, the outcome might be a draw
         elif GameBoard.moves_made == GameBoard.highest_value:
             winner = "Draw!"
-            print(Board.declare_winner(winner))
             return winner
         else:
             return None
@@ -147,5 +146,7 @@ class Board:
     def declare_winner(winner):
         if winner == "Draw!":
             return f"It's a {winner}"
+        elif winner == None:
+            return None
         else:
             return f"{winner.name} has won the game\N{Party Popper}"
