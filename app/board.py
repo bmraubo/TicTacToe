@@ -39,7 +39,7 @@ class Board:
         return board_data
 
     # rejects moves that are outside the range, have been played, or generally unusable - e.g. letters
-    def validate_move(board_data, move, size):
+    def validate_move(GameBoard, move, size):
         # Handles ValueError if non-integer is entered
         highest_value = size * size
         try:
@@ -50,7 +50,7 @@ class Board:
                 return (False, f"{move} is not between 1 and {highest_value}")
             # If the move has already been played, user is asked to try again
             # this board check could be removed, but that would add too much complexity
-            elif str(move) != Board.check_board_value(board_data, move):
+            elif str(move) != Board.check_board_value(GameBoard.board_data, move):
                 return (False, f"{move} has already been played")
             else:
                 return (True, "OK")  # Validation passes if valid input is given
@@ -102,9 +102,7 @@ class Board:
 
     def make_move(self, Player, move, server=False):
         if server == False:
-            move_validation_result = Board.validate_move(
-                self.board_data, move, self.size
-            )
+            move_validation_result = Board.validate_move(self, move, self.size)
             if move_validation_result[0]:
                 new_board = Board.__local_move_logic(self, Player, move)
                 return (True, new_board)
