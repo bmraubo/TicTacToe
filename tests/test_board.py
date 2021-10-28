@@ -75,44 +75,6 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(test_board.arrangements["columns"], expected_columns)
         self.assertEqual(test_board.arrangements["diagonals"], expected_diagonals)
 
-    def test_no_win_3x3(self):
-        # test win check where no win or draw state exists
-        test_board = Board()
-        test_board.create_board(3)
-        test_marker = "X"
-        self.assertFalse(test_board.win_check(test_marker))
-
-    def test_no_win_4x4(self):
-        # test win check where no win or draw state exists
-        test_board = Board()
-        test_board.create_board(4)
-        test_marker = "X"
-        self.assertFalse(test_board.win_check(test_marker))
-
-    def test_wins_3x3(self):
-        winning_arrangements = [["1", "4", "7"], ["1", "2", "3"], ["1", "5", "9"]]
-        for arrangement in winning_arrangements:
-            test_board = Board()
-            test_board.create_board(3)
-            test_marker = "X"
-            for value in arrangement:
-                Utilities.change_board_value(test_board.board_data, value, test_marker)
-            self.assertTrue(test_board.win_check(test_marker))
-
-    def test_wins_4x4(self):
-        winning_arrangements = [
-            ["1", "5", "9", "13"],
-            ["1", "2", "3", "4"],
-            ["1", "6", "11", "16"],
-        ]
-        for arrangement in winning_arrangements:
-            test_board = Board()
-            test_board.create_board(4)
-            test_marker = "X"
-            for value in arrangement:
-                Utilities.change_board_value(test_board.board_data, value, test_marker)
-            self.assertTrue(test_board.win_check(test_marker))
-
     def test_make_move(self):
         test_board = Board()
         test_board.create_board(3)
@@ -141,12 +103,12 @@ class TestBoard(unittest.TestCase):
         expected_declaration = "It's a Draw!"
         self.assertEqual(Board.declare_winner(winner), expected_declaration)
 
-    def test_package_request(self):
+    def test_generate_payload(self):
         test_board = Board()
         test_board.create_board(3)
         test_player = HumanPlayer(["Marx", "human", "X"])
         test_move = "1"
-        request_data = Board.package_request(test_board, test_player, test_move)
+        request_data = Board.generate_payload(test_board, test_player, test_move)
         expected_package = {
             "board": {
                 "board_data": test_board.board_data,
@@ -165,11 +127,11 @@ class TestBoard(unittest.TestCase):
         }
         self.assertEqual(request_data, expected_package)
 
-    def test_package_request_empty_board(self):
+    def test_generate_payload_empty_board(self):
         test_board = Board()
         test_player = HumanPlayer(["Marx", "human", "X"])
         test_move = "1"
-        request_data = Board.package_request(test_board, test_player, test_move)
+        request_data = Board.generate_payload(test_board, test_player, test_move)
         expected_package = {
             "board": {
                 "board_data": {},
@@ -193,7 +155,7 @@ class TestBoard(unittest.TestCase):
         test_board.create_board(3)
         test_player = HumanPlayer(["Marx", "human", "X"])
         test_move = "1"
-        request_data = Board.package_request(test_board, test_player, test_move)
+        request_data = Board.generate_payload(test_board, test_player, test_move)
         new_board = Board.create_server_board_object(request_data)
         self.assertTrue(new_board.size == 3)
 

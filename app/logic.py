@@ -21,3 +21,35 @@ class MoveLogic:
                 return (True, "OK")  # Validation passes if valid input is given
         except ValueError:
             return (False, f"Value Error: {move} is not between 1-{highest_value}")
+
+    def end_game(GameBoard, player):
+        # Checks if the most recent player's move has won them the game
+        if MoveLogic.win_check(GameBoard, player.marker):
+            winner = player
+            return winner
+        # If the most recent move has not won the game, the outcome might be a draw
+        elif GameBoard.moves_made == GameBoard.highest_value:
+            winner = "Draw!"
+            return winner
+        else:
+            return None
+
+        # checks all arrangements to see if player with 'marker' has won the game
+
+    def win_check(GameBoard, marker):
+        # nested function to check if a win condition is met
+        def tally(GameBoard, marker, arrangement):
+            count = 0
+            for element in arrangement:
+                for num in element:
+                    if Utilities.check_board_value(GameBoard.board_data, num) == marker:
+                        count += 1
+                if count == GameBoard.size:
+                    return True
+                count = 0
+
+        for key in GameBoard.arrangements:
+            if tally(GameBoard, marker, GameBoard.arrangements[key]):
+                return True
+
+        return False

@@ -40,3 +40,42 @@ class TestMoveLogic(unittest.TestCase):
         # 2 has not been played - it should pass validation and return True
         player_move = "2"
         self.assertTrue(MoveLogic.validate_move(test_board, player_move, size)[0])
+
+    # Win Checks
+    def test_no_win_3x3(self):
+        # test win check where no win or draw state exists
+        test_board = Board()
+        test_board.create_board(3)
+        test_marker = "X"
+        self.assertFalse(MoveLogic.win_check(test_board, test_marker))
+
+    def test_no_win_4x4(self):
+        # test win check where no win or draw state exists
+        test_board = Board()
+        test_board.create_board(4)
+        test_marker = "X"
+        self.assertFalse(MoveLogic.win_check(test_board, test_marker))
+
+    def test_wins_3x3(self):
+        winning_arrangements = [["1", "4", "7"], ["1", "2", "3"], ["1", "5", "9"]]
+        for arrangement in winning_arrangements:
+            test_board = Board()
+            test_board.create_board(3)
+            test_marker = "X"
+            for value in arrangement:
+                Utilities.change_board_value(test_board.board_data, value, test_marker)
+            self.assertTrue(MoveLogic.win_check(test_board, test_marker))
+
+    def test_wins_4x4(self):
+        winning_arrangements = [
+            ["1", "5", "9", "13"],
+            ["1", "2", "3", "4"],
+            ["1", "6", "11", "16"],
+        ]
+        for arrangement in winning_arrangements:
+            test_board = Board()
+            test_board.create_board(4)
+            test_marker = "X"
+            for value in arrangement:
+                Utilities.change_board_value(test_board.board_data, value, test_marker)
+            self.assertTrue(MoveLogic.win_check(test_board, test_marker))

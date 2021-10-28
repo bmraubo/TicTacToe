@@ -57,25 +57,6 @@ class Board:
 
         return arrangements
 
-    # checks all arrangements to see if player with 'marker' has won the game
-    def win_check(self, marker):
-        # nested function to check if a win condition is met
-        def tally(self, marker, arrangement):
-            count = 0
-            for element in arrangement:
-                for num in element:
-                    if Utilities.check_board_value(self.board_data, num) == marker:
-                        count += 1
-                if count == self.size:
-                    return True
-                count = 0
-
-        for key in self.arrangements:
-            if tally(self, marker, self.arrangements[key]):
-                return True
-
-        return False
-
     def make_move(self, Player, move, server=False):
         if server == False:
             move_validation_result = MoveLogic.validate_move(self, move, self.size)
@@ -100,7 +81,7 @@ class Board:
             arrangements=GameBoard.arrangements,
             moves_made=GameBoard.moves_made + 1,
         )
-        new_board.winner = Board.end_game(new_board, Player)
+        new_board.winner = MoveLogic.end_game(new_board, Player)
         return new_board
 
     def __make_server_request(GameBoard, Player, move):
@@ -108,18 +89,6 @@ class Board:
 
     def __read_server_response(server_response):
         pass
-
-    def end_game(GameBoard, player):
-        # Checks if the most recent player's move has won them the game
-        if GameBoard.win_check(player.marker):
-            winner = player
-            return winner
-        # If the most recent move has not won the game, the outcome might be a draw
-        elif GameBoard.moves_made == GameBoard.highest_value:
-            winner = "Draw!"
-            return winner
-        else:
-            return None
 
     def declare_winner(winner):
         if winner == "Draw!":
@@ -129,7 +98,7 @@ class Board:
         else:
             return f"{winner.name} has won the game\N{Party Popper}"
 
-    def package_request(GameBoard, Player, move):
+    def generate_payload(GameBoard, Player, move):
         package = {
             "board": {
                 "board_data": GameBoard.board_data,

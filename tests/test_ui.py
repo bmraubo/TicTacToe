@@ -83,6 +83,13 @@ class TestUserInterface(unittest.TestCase):
             UserInterface.validate_custom_marker(custom_marker, custom_marker_list)
         )
 
+    def test_declare_invalid_move_reason(self):
+        invalid_move = (False, "Value Error: g is not between 1-9")
+        expected_message = "Value Error: g is not between 1-9"
+        self.assertEqual(
+            UserInterface.declare_invalid_move_reason(invalid_move), expected_message
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
