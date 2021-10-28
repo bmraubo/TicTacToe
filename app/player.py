@@ -7,6 +7,14 @@ class Player:
         self.type = player_info[1]
         self.marker = player_info[2]
 
+    def create_server_player_object(request_data):
+        player_info = [
+            request_data["player"]["name"],
+            request_data["player"]["type"],
+            request_data["player"]["marker"],
+        ]
+        return HumanPlayer(player_info)
+
 
 class HumanPlayer(Player):
     def __init__(self, player_info):

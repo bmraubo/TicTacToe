@@ -152,3 +152,31 @@ class Board:
             pass
         else:
             return f"{winner.name} has won the game\N{Party Popper}"
+
+    def package_request(GameBoard, Player, move):
+        package = {
+            "board": {
+                "board_data": GameBoard.board_data,
+                "size": GameBoard.size,
+                "highest_value": GameBoard.highest_value,
+                "arrangements": GameBoard.arrangements,
+                "winner": GameBoard.winner,
+                "moves_made": GameBoard.moves_made,
+            },
+            "player": {
+                "name": Player.name,
+                "type": Player.type,
+                "marker": Player.marker,
+            },
+            "move": move,
+        }
+        return package
+
+    def create_server_board_object(request_data):
+        return Board(
+            board_data=request_data["board"]["board_data"],
+            size=request_data["board"]["size"],
+            highest_value=request_data["board"]["highest_value"],
+            arrangements=request_data["board"]["arrangements"],
+            moves_made=request_data["board"]["moves_made"],
+        )
