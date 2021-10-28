@@ -3,6 +3,8 @@ from app.util import Utilities
 
 class MoveLogic:
 
+    # Move Validation
+
     # rejects moves that are outside the range, have been played, or generally unusable - e.g. letters
     def validate_move(GameBoard, move, size):
         # Handles ValueError if non-integer is entered
@@ -21,6 +23,8 @@ class MoveLogic:
                 return (True, "OK")  # Validation passes if valid input is given
         except ValueError:
             return (False, f"Value Error: {move} is not between 1-{highest_value}")
+
+    # End Game Logic
 
     def end_game(GameBoard, player):
         # Checks if the most recent player's move has won them the game
