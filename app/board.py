@@ -67,8 +67,11 @@ class Board:
                 return move_validation_result
         if server == True:
             server_response = Board.__make_server_request(self, Player, move)
-            new_board = Board.__server_move_logic(server_response)
-            return new_board
+            if server_response[0]:
+                new_board = Board.__read_server_response(server_response["game_data"])
+                return (True, new_board)
+            else:
+                return server_response
 
     def __local_move_logic(GameBoard, Player, move):
         new_board_data = Utilities.change_board_value(
@@ -85,10 +88,22 @@ class Board:
         return new_board
 
     def __make_server_request(GameBoard, Player, move):
-        pass
+        request_data = Utilities.generate_payload(GameBoard, Player, move)
+        # Insert Post Request here
+        return  # Response to POST Request
 
     def __read_server_response(server_response):
-        pass
+        new_board = Board.create_new_board_from_server_data(server_response)
+        return new_board
+
+    def create_new_board_from_server_data(response_data):
+        return Board(
+            board_data=response_data["board"]["board_data"],
+            size=response_data["board"]["size"],
+            highest_value=response_data["board"]["highest_value"],
+            arrangements=response_data["board"]["arrangements"],
+            moves_made=response_data["board"]["moves_made"],
+        )
 
     def create_server_board_object(request_data):
         return Board(

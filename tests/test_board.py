@@ -104,6 +104,18 @@ class TestBoard(unittest.TestCase):
         new_board = Board.create_server_board_object(request_data)
         self.assertTrue(new_board.size == 3)
 
+    def test_create_new_board_from_server_data(self):
+        test_board = Board()
+        test_board.create_board(3)
+        test_player = HumanPlayer(["Marx", "human", "X"])
+        test_move = "1"
+        response_game_data = Utilities.generate_payload(
+            test_board, test_player, test_move
+        )
+        response_data = {"move_success": True, "game_data": response_game_data}
+        new_board = Board.create_new_board_from_server_data(response_data["game_data"])
+        self.assertTrue(new_board.size == 3)
+
 
 if __name__ == "__main__":
     unittest.main()
