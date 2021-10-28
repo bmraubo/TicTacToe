@@ -1,4 +1,5 @@
 from app.board import Board
+from app.util import Utilities
 
 
 class Player:
@@ -6,6 +7,14 @@ class Player:
         self.name = player_info[0]
         self.type = player_info[1]
         self.marker = player_info[2]
+
+    def create_server_player_object(request_data):
+        player_info = [
+            request_data["player"]["name"],
+            request_data["player"]["type"],
+            request_data["player"]["marker"],
+        ]
+        return HumanPlayer(player_info)
 
 
 class HumanPlayer(Player):
@@ -28,5 +37,5 @@ class ComputerPlayer(Player):
     def get_player_move(self):
         total_squares = list(range(1, self.board.highest_value + 1))
         for num in total_squares:
-            if Board.check_board_value(self.board.board_data, num) == str(num):
+            if Utilities.check_board_value(self.board.board_data, num) == str(num):
                 return str(num)

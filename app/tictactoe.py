@@ -1,6 +1,7 @@
 from app.board import Board
 from app.player import HumanPlayer, ComputerPlayer
 from app.display import Display
+from app.ui import UserInterface
 
 
 class TicTacToe:
@@ -21,7 +22,7 @@ class TicTacToe:
 
     # Gameplay loops
     def play_game(self):
-        # There is a maximum of 9 moves, so the game loops until all moves are made
+        # There is a maximum of size*size moves, so the game loops until all moves are made
         Display.draw_board(self.board)
         while self.board.winner == None:
             for player in self.players:
@@ -34,13 +35,10 @@ class TicTacToe:
                     if valid_move:
                         self.board = move_outcome[1]
                     else:
-                        TicTacToe.declare_invalid_move_reason(move_outcome)
+                        UserInterface.declare_invalid_move_reason(move_outcome)
                 # Board is re-drawn based on the new move
                 Display.draw_board(self.board)
                 # Once each move is played, the board is checked to see if the most recent player won, or the game is drawn
                 if self.board.winner != None:
-                    print(Board.declare_winner(self.board.winner))
+                    UserInterface.declare_winner(self.board.winner)
                     break
-
-    def declare_invalid_move_reason(valid_move):
-        return valid_move[1]

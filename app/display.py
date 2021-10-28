@@ -1,4 +1,5 @@
 from app.board import Board
+from app.util import Utilities
 
 
 class Display:
@@ -12,10 +13,10 @@ class Display:
             for num in range(start, board.size + start):
                 prefix = " " * (
                     display_size_modifer
-                    - len(str(Board.check_board_value(board.board_data, num)))
+                    - len(str(Utilities.check_board_value(board.board_data, num)))
                     - 1
                 )
-                value = Board.check_board_value(board.board_data, num)
+                value = Utilities.check_board_value(board.board_data, num)
                 string = string + f"{prefix}{value} |"
             # the completed row is returned for printing
             return string
