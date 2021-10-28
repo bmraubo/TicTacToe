@@ -13,6 +13,18 @@ class UserInterface:
         print(valid_move[1])
         return valid_move[1]
 
+    def declare_winner(winner):
+        if winner == "Draw!":
+            message = f"It's a {winner}"
+            print(message)
+            return message
+        elif winner == None:
+            pass
+        else:
+            message = f"{winner.name} has won the game\N{Party Popper}"
+            print(message)
+            return message
+
     # Get Player Information from User
     def get_player_info():
         # Obtains player names from user

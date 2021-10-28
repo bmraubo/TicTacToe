@@ -90,14 +90,6 @@ class Board:
     def __read_server_response(server_response):
         pass
 
-    def declare_winner(winner):
-        if winner == "Draw!":
-            return f"It's a {winner}"
-        elif winner == None:
-            pass
-        else:
-            return f"{winner.name} has won the game\N{Party Popper}"
-
     def create_server_board_object(request_data):
         return Board(
             board_data=request_data["board"]["board_data"],

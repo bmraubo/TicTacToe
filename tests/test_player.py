@@ -1,6 +1,7 @@
 import unittest
 from app.player import Player, HumanPlayer, ComputerPlayer
 from app.board import Board
+from app.util import Utilities
 
 
 class TestHumanPlayer(unittest.TestCase):
@@ -29,6 +30,6 @@ class TestServerPlayer(unittest.TestCase):
         test_board.create_board(3)
         test_player = HumanPlayer(["Marx", "human", "X"])
         test_move = "1"
-        request_data = Board.generate_payload(test_board, test_player, test_move)
+        request_data = Utilities.generate_payload(test_board, test_player, test_move)
         new_player = Player.create_server_player_object(request_data)
         self.assertTrue(new_player.name == "Marx")

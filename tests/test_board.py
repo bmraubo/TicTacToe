@@ -95,20 +95,12 @@ class TestBoard(unittest.TestCase):
             test_board = test_board.make_move(test_player, value)[1]
         self.assertEqual(test_board.winner, test_player)
 
-    def test_declare_winner(self):
-        winner = HumanPlayer(["Marx", "human", "X"])
-        expected_declaration = f"{winner.name} has won the game\N{Party Popper}"
-        self.assertEqual(Board.declare_winner(winner), expected_declaration)
-        winner = "Draw!"
-        expected_declaration = "It's a Draw!"
-        self.assertEqual(Board.declare_winner(winner), expected_declaration)
-
     def test_create_server_board_object(self):
         test_board = Board()
         test_board.create_board(3)
         test_player = HumanPlayer(["Marx", "human", "X"])
         test_move = "1"
-        request_data = Board.generate_payload(test_board, test_player, test_move)
+        request_data = Utilities.generate_payload(test_board, test_player, test_move)
         new_board = Board.create_server_board_object(request_data)
         self.assertTrue(new_board.size == 3)
 

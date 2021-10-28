@@ -40,5 +40,5 @@ class TicTacToe:
                 Display.draw_board(self.board)
                 # Once each move is played, the board is checked to see if the most recent player won, or the game is drawn
                 if self.board.winner != None:
-                    print(Board.declare_winner(self.board.winner))
+                    UserInterface.declare_winner(self.board.winner)
                     break

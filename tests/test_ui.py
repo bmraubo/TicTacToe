@@ -2,6 +2,7 @@ import unittest
 import sys
 from io import StringIO
 from app.ui import UserInterface
+from app.player import HumanPlayer
 
 
 class TestUserInterface(unittest.TestCase):
@@ -89,6 +90,14 @@ class TestUserInterface(unittest.TestCase):
         self.assertEqual(
             UserInterface.declare_invalid_move_reason(invalid_move), expected_message
         )
+
+    def test_declare_winner(self):
+        winner = HumanPlayer(["Marx", "human", "X"])
+        expected_declaration = f"{winner.name} has won the game\N{Party Popper}"
+        self.assertEqual(UserInterface.declare_winner(winner), expected_declaration)
+        winner = "Draw!"
+        expected_declaration = "It's a Draw!"
+        self.assertEqual(UserInterface.declare_winner(winner), expected_declaration)
 
 
 if __name__ == "__main__":
