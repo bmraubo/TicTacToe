@@ -1,14 +1,14 @@
 class Board:
     def __init__(
         self,
-        board={},
+        board_data={},
         size=None,
         highest_value=None,
         arrangements=None,
         winner=None,
         moves_made=0,
     ):
-        self.board = board
+        self.board_data = board_data
         self.size = size
         self.highest_value = highest_value
         self.arrangements = arrangements
@@ -18,17 +18,17 @@ class Board:
     def create_board(self, size):
         self.size = size
         self.highest_value = size * size
-        self.board = self.__generate_board()
+        self.board_data = self.__generate_board()
         self.arrangements = self.__generate_win_arrangements()
 
-    def check_board_value(board, current_board_value):
+    def check_board_value(board_data, current_board_value):
         # checks value in board data
-        return board[str(current_board_value)]
+        return board_data[str(current_board_value)]
 
-    def change_board_value(board, current_board_value, new_board_value):
+    def change_board_value(board_data, current_board_value, new_board_value):
         # replaces value in board data with new value
-        board[str(current_board_value)] = str(new_board_value)
-        return board
+        board_data[str(current_board_value)] = str(new_board_value)
+        return board_data
 
     # creates data structure for board of requested size
     def __generate_board(self):
@@ -39,7 +39,7 @@ class Board:
         return board_data
 
     # rejects moves that are outside the range, have been played, or generally unusable - e.g. letters
-    def validate_move(board, move, size):
+    def validate_move(board_data, move, size):
         # Handles ValueError if non-integer is entered
         highest_value = size * size
         try:
@@ -50,7 +50,7 @@ class Board:
                 return (False, f"{move} is not between 1 and {highest_value}")
             # If the move has already been played, user is asked to try again
             # this board check could be removed, but that would add too much complexity
-            elif str(move) != Board.check_board_value(board, move):
+            elif str(move) != Board.check_board_value(board_data, move):
                 return (False, f"{move} has already been played")
             else:
                 return (True, "OK")  # Validation passes if valid input is given
@@ -88,7 +88,7 @@ class Board:
             count = 0
             for element in arrangement:
                 for num in element:
-                    if Board.check_board_value(self.board, num) == marker:
+                    if Board.check_board_value(self.board_data, num) == marker:
                         count += 1
                 if count == self.size:
                     return True
@@ -102,7 +102,9 @@ class Board:
 
     def make_move(self, Player, move, server=False):
         if server == False:
-            move_validation_result = Board.validate_move(self.board, move, self.size)
+            move_validation_result = Board.validate_move(
+                self.board_data, move, self.size
+            )
             if move_validation_result[0]:
                 new_board = Board.__local_move_logic(self, Player, move)
                 return (True, new_board)
@@ -114,16 +116,17 @@ class Board:
             return new_board
 
     def __local_move_logic(GameBoard, Player, move):
-        new_board_data = Board.change_board_value(GameBoard.board, move, Player.marker)
+        new_board_data = Board.change_board_value(
+            GameBoard.board_data, move, Player.marker
+        )
         new_board = Board(
-            board=new_board_data,
+            board_data=new_board_data,
             size=GameBoard.size,
             highest_value=GameBoard.highest_value,
             arrangements=GameBoard.arrangements,
             moves_made=GameBoard.moves_made + 1,
         )
         new_board.winner = Board.end_game(new_board, Player)
-        print(Board.declare_winner(new_board.winner))
         return new_board
 
     def __make_server_request(GameBoard, Player, move):
@@ -148,6 +151,6 @@ class Board:
         if winner == "Draw!":
             return f"It's a {winner}"
         elif winner == None:
-            return None
+            pass
         else:
             return f"{winner.name} has won the game\N{Party Popper}"

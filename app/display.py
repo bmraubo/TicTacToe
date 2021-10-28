@@ -12,10 +12,10 @@ class Display:
             for num in range(start, board.size + start):
                 prefix = " " * (
                     display_size_modifer
-                    - len(str(Board.check_board_value(board.board, num)))
+                    - len(str(Board.check_board_value(board.board_data, num)))
                     - 1
                 )
-                value = Board.check_board_value(board.board, num)
+                value = Board.check_board_value(board.board_data, num)
                 string = string + f"{prefix}{value} |"
             # the completed row is returned for printing
             return string

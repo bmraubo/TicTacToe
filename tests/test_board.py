@@ -18,7 +18,7 @@ class TestBoard(unittest.TestCase):
         }
         test_board = Board()
         test_board.create_board(3)
-        self.assertEqual(test_board.board, expected_board)
+        self.assertEqual(test_board.board_data, expected_board)
 
     def test_generate_board_4x4(self):
         expected_board = {
@@ -41,13 +41,13 @@ class TestBoard(unittest.TestCase):
         }
         test_board = Board()
         test_board.create_board(4)
-        self.assertEqual(test_board.board, expected_board)
+        self.assertEqual(test_board.board_data, expected_board)
 
     def test_check_board_value(self):
         test_board = Board()
         test_board.create_board(3)
         value = "4"
-        self.assertEqual(Board.check_board_value(test_board.board, value), "4")
+        self.assertEqual(Board.check_board_value(test_board.board_data, value), "4")
 
     def test_change_board_value(self):
         # Set up game
@@ -56,8 +56,10 @@ class TestBoard(unittest.TestCase):
         # Test move
         test_input = "1"
         marker = "X"
-        Board.change_board_value(test_board.board, test_input, marker)
-        self.assertEqual(Board.check_board_value(test_board.board, test_input), "X")
+        Board.change_board_value(test_board.board_data, test_input, marker)
+        self.assertEqual(
+            Board.check_board_value(test_board.board_data, test_input), "X"
+        )
 
     def test_validate_move_valueerror(self):
         # Test for value error exception handling
@@ -65,7 +67,9 @@ class TestBoard(unittest.TestCase):
         test_board = Board()
         test_board.create_board(3)
         player_move = "j"
-        self.assertFalse(Board.validate_move(test_board.board, player_move, size)[0])
+        self.assertFalse(
+            Board.validate_move(test_board.board_data, player_move, size)[0]
+        )
 
     def test_validate_move_out_of_range(self):
         # Rejects moves that are outside of permitted range
@@ -73,10 +77,14 @@ class TestBoard(unittest.TestCase):
         test_board = Board()
         test_board.create_board(3)
         player_move = "10"
-        self.assertFalse(Board.validate_move(test_board.board, player_move, size)[0])
+        self.assertFalse(
+            Board.validate_move(test_board.board_data, player_move, size)[0]
+        )
         # Tests inputs within range, for completeness => should be allowed
         player_move = "9"
-        self.assertTrue(Board.validate_move(test_board.board, player_move, size)[0])
+        self.assertTrue(
+            Board.validate_move(test_board.board_data, player_move, size)[0]
+        )
 
     def test_validate_move_already_played(self):
         # Rejects move if it has already been played
@@ -85,13 +93,17 @@ class TestBoard(unittest.TestCase):
         test_board.create_board(size)
         test_input = "1"
         test_marker = "X"
-        Board.change_board_value(test_board.board, test_input, test_marker)
+        Board.change_board_value(test_board.board_data, test_input, test_marker)
         # 1 has already been played, so playing it again should return False
         player_move = "1"
-        self.assertFalse(Board.validate_move(test_board.board, player_move, size)[0])
+        self.assertFalse(
+            Board.validate_move(test_board.board_data, player_move, size)[0]
+        )
         # 2 has not been played - it should pass validation and return True
         player_move = "2"
-        self.assertTrue(Board.validate_move(test_board.board, player_move, size)[0])
+        self.assertTrue(
+            Board.validate_move(test_board.board_data, player_move, size)[0]
+        )
 
     # Testing win check
     def test_win_arrangement_generator_3x3(self):
@@ -145,7 +157,7 @@ class TestBoard(unittest.TestCase):
             test_board.create_board(3)
             test_marker = "X"
             for value in arrangement:
-                Board.change_board_value(test_board.board, value, test_marker)
+                Board.change_board_value(test_board.board_data, value, test_marker)
             self.assertTrue(test_board.win_check(test_marker))
 
     def test_wins_4x4(self):
@@ -159,7 +171,7 @@ class TestBoard(unittest.TestCase):
             test_board.create_board(4)
             test_marker = "X"
             for value in arrangement:
-                Board.change_board_value(test_board.board, value, test_marker)
+                Board.change_board_value(test_board.board_data, value, test_marker)
             self.assertTrue(test_board.win_check(test_marker))
 
     def test_make_move(self):
@@ -169,7 +181,8 @@ class TestBoard(unittest.TestCase):
         test_move = "1"
         test_board = test_board.make_move(test_player, test_move)[1]
         self.assertEqual(
-            Board.check_board_value(test_board.board, test_move), test_player.marker
+            Board.check_board_value(test_board.board_data, test_move),
+            test_player.marker,
         )
 
     def test_winning_move(self):
