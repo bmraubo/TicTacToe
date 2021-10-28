@@ -22,7 +22,7 @@ class TicTacToe:
 
     # Gameplay loops
     def play_game(self):
-        # There is a maximum of 9 moves, so the game loops until all moves are made
+        # There is a maximum of size*size moves, so the game loops until all moves are made
         Display.draw_board(self.board)
         while self.board.winner == None:
             for player in self.players:
