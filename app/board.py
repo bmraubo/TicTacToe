@@ -1,4 +1,4 @@
-from app.logic import MoveLogic
+from app.logic import Logic
 from app.util import Utilities
 
 
@@ -59,7 +59,7 @@ class Board:
 
     def make_move(self, Player, move, server=False):
         if server == False:
-            move_validation_result = MoveLogic.validate_move(self, move, self.size)
+            move_validation_result = Logic.validate_move(self, move, self.size)
             if move_validation_result[0]:
                 new_board = Board.__local_move_logic(self, Player, move)
                 return (True, new_board)
@@ -84,7 +84,7 @@ class Board:
             arrangements=GameBoard.arrangements,
             moves_made=GameBoard.moves_made + 1,
         )
-        new_board.winner = MoveLogic.end_game(new_board, Player)
+        new_board.winner = Logic.end_game(new_board, Player)
         return new_board
 
     def __make_server_request(GameBoard, Player, move):

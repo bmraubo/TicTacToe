@@ -1,10 +1,9 @@
 from app.util import Utilities
 
 
-class MoveLogic:
+class Logic:
 
     # Move Validation
-
     # rejects moves that are outside the range, have been played, or generally unusable - e.g. letters
     def validate_move(GameBoard, move, size):
         # Handles ValueError if non-integer is entered
@@ -25,10 +24,9 @@ class MoveLogic:
             return (False, f"Value Error: {move} is not between 1-{highest_value}")
 
     # End Game Logic
-
     def end_game(GameBoard, player):
         # Checks if the most recent player's move has won them the game
-        if MoveLogic.win_check(GameBoard, player.marker):
+        if Logic.win_check(GameBoard, player.marker):
             winner = player
             return winner
         # If the most recent move has not won the game, the outcome might be a draw
@@ -38,8 +36,7 @@ class MoveLogic:
         else:
             return None
 
-        # checks all arrangements to see if player with 'marker' has won the game
-
+    # checks all arrangements to see if player with 'marker' has won the game
     def win_check(GameBoard, marker):
         # nested function to check if a win condition is met
         def tally(GameBoard, marker, arrangement):
@@ -57,3 +54,5 @@ class MoveLogic:
                 return True
 
         return False
+
+    # Server Process Logic
