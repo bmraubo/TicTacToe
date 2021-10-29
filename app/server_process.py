@@ -10,9 +10,7 @@ class ServerProcess:
         received_player = Player.create_server_player_object(request_data)
         received_move = request_data["move"]
         # Move Validation
-        move_validation = Logic.validate_move(
-            received_board, received_player, received_move
-        )
+        move_validation = Logic.validate_move(received_board, received_move)
         if move_validation[0]:
             received_board.board_data = Utilities.change_board_value(
                 received_board.board_data, received_move, received_player.marker

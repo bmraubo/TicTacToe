@@ -59,7 +59,7 @@ class Board:
 
     def make_move(self, Player, move, server=False):
         if server == False:
-            move_validation_result = Logic.validate_move(self, move, self.size)
+            move_validation_result = Logic.validate_move(self, move)
             if move_validation_result[0]:
                 new_board = Board.__local_move_logic(self, Player, move)
                 return (True, new_board)
