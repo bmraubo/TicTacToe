@@ -20,3 +20,12 @@ class TestLogic(unittest.TestCase):
             ),
             "X",
         )
+
+    def test_server_process_bad_move(self):
+        test_board = Board()
+        test_board.create_board(3)
+        test_player = HumanPlayer(["Marx", "human", "X"])
+        test_move = "g"
+        request_data = Utilities.generate_payload(test_board, test_player, test_move)
+        response_data = ServerProcess.server_process(request_data)
+        self.assertFalse(response_data["move_success"])
