@@ -54,15 +54,3 @@ class Logic:
                 return True
 
         return False
-
-    # Server Process Logic
-    def server_process(request_data):
-        # Create Server Board Object
-        # Create Server Player Object
-        # Move Validation
-        # if move_validation[0]:
-        # Update Board Object
-        # Package {move_success}, {Board, Player}
-        # else:
-        # Package response {{move_success}, {error reason}}
-        pass
