@@ -18,7 +18,6 @@ class ServerProcess:
             payload = Utilities.generate_payload(
                 received_board, received_player, received_move
             )
-            return {"move_success": True, "game_data": payload}
-        # else:
-        # Package response {{move_success}, {error reason}}
-        pass
+            return {"move_success": move_validation[0], "game_data": payload}
+        else:
+            return {"move_success": move_validation[0], "error": move_validation[1]}
