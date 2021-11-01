@@ -47,5 +47,5 @@ class TestGameServer(unittest.TestCase):
         with test_server.test_client() as client:
             test_move = "1"
             request_data = TestGameServer.server_process_test_set_up(test_move)
-            response = client.post("/", data=request_data)
+            response = client.post("/", json=request_data)
             self.assertEqual(response.status_code, 200)
