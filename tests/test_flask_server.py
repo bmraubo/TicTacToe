@@ -31,7 +31,9 @@ class TestGameServer(unittest.TestCase):
 
         @app.route("/", methods=["POST"])
         def test_process():
-            return request.json, 200
+            request_data = request.get_json()
+            response_data = ServerProcess.server_process(request_data)
+            return response_data, 200
 
         return app
 
@@ -48,5 +50,10 @@ class TestGameServer(unittest.TestCase):
             test_move = "1"
             request_data = TestGameServer.server_process_test_set_up(test_move)
             response = client.post("/", json=request_data)
+            response_board_data = response.json["game_data"]["board"]["board_data"]
             self.assertEqual(response.status_code, 200)
-            self.assertEqual(response.json["board"]["size"], 3)
+            self.assertEqual(response.json["game_data"]["board"]["size"], 3)
+            self.assertEqual(
+                Utilities.check_board_value(response_board_data, "1"),
+                "X",
+            )
