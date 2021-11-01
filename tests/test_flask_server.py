@@ -43,7 +43,7 @@ class TestGameServer(unittest.TestCase):
         request_data = Utilities.generate_payload(test_board, test_player, test_move)
         return request_data
 
-    def test_game_server_move(self):
+    def test_game_server_valid_move(self):
         test_server = TestGameServer.create_test_game_server()
         with test_server.test_client() as client:
             test_move = "1"
@@ -56,3 +56,11 @@ class TestGameServer(unittest.TestCase):
                 Utilities.check_board_value(response_board_data, "1"),
                 "X",
             )
+
+    def test_game_server_invalid_move(self):
+        test_server = TestGameServer.create_test_game_server()
+        with test_server.test_client() as client:
+            test_move = "g"
+            request_data = TestGameServer.server_process_test_set_up(test_move)
+            response = client.post("/", json=request_data)
+            self.assertEqual(response.status_code, 400)
