@@ -6,7 +6,7 @@ from app.util import Utilities
 
 class ServerProcess:
     def server_process(request_data):
-        received_board = Board.create_server_board_object(request_data)
+        received_board = Board.create_new_board_object(request_data["board"])
         received_player = Player.create_server_player_object(request_data)
         received_move = request_data["move"]
         # Move Validation

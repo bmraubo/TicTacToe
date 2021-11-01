@@ -95,13 +95,13 @@ class TestBoard(unittest.TestCase):
             test_board = test_board.make_move(test_player, value)[1]
         self.assertEqual(test_board.winner, test_player)
 
-    def test_create_server_board_object(self):
+    def test_create_board_object_to_send_to_server(self):
         test_board = Board()
         test_board.create_board(3)
         test_player = HumanPlayer(["Marx", "human", "X"])
         test_move = "1"
         request_data = Utilities.generate_payload(test_board, test_player, test_move)
-        new_board = Board.create_server_board_object(request_data)
+        new_board = Board.create_new_board_object(request_data["board"])
         self.assertTrue(new_board.size == 3)
 
     def test_create_new_board_from_server_data(self):
@@ -113,7 +113,7 @@ class TestBoard(unittest.TestCase):
             test_board, test_player, test_move
         )
         response_data = {"move_success": True, "game_data": response_game_data}
-        new_board = Board.create_new_board_from_server_data(response_data["game_data"])
+        new_board = Board.create_new_board_object(response_data["game_data"]["board"])
         self.assertTrue(new_board.size == 3)
 
 
