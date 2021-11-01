@@ -1,4 +1,4 @@
-from app.logic import MoveLogic
+from app.logic import Logic
 from app.util import Utilities
 
 
@@ -59,7 +59,7 @@ class Board:
 
     def make_move(self, Player, move, server=False):
         if server == False:
-            move_validation_result = MoveLogic.validate_move(self, move, self.size)
+            move_validation_result = Logic.validate_move(self, move)
             if move_validation_result[0]:
                 new_board = Board.__local_move_logic(self, Player, move)
                 return (True, new_board)
@@ -84,7 +84,7 @@ class Board:
             arrangements=GameBoard.arrangements,
             moves_made=GameBoard.moves_made + 1,
         )
-        new_board.winner = MoveLogic.end_game(new_board, Player)
+        new_board.winner = Logic.end_game(new_board, Player)
         return new_board
 
     def __make_server_request(GameBoard, Player, move):
@@ -96,20 +96,11 @@ class Board:
         new_board = Board.create_new_board_from_server_data(server_response)
         return new_board
 
-    def create_new_board_from_server_data(response_data):
+    def create_new_board_object(board_data):
         return Board(
-            board_data=response_data["board"]["board_data"],
-            size=response_data["board"]["size"],
-            highest_value=response_data["board"]["highest_value"],
-            arrangements=response_data["board"]["arrangements"],
-            moves_made=response_data["board"]["moves_made"],
-        )
-
-    def create_server_board_object(request_data):
-        return Board(
-            board_data=request_data["board"]["board_data"],
-            size=request_data["board"]["size"],
-            highest_value=request_data["board"]["highest_value"],
-            arrangements=request_data["board"]["arrangements"],
-            moves_made=request_data["board"]["moves_made"],
+            board_data=board_data["board_data"],
+            size=board_data["size"],
+            highest_value=board_data["highest_value"],
+            arrangements=board_data["arrangements"],
+            moves_made=board_data["moves_made"],
         )
