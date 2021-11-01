@@ -20,7 +20,7 @@ class TestLogic(unittest.TestCase):
         self.assertTrue(response_data[0]["move_success"])
         self.assertEqual(
             Utilities.check_board_value(
-                response_data["game_data"]["board"]["board_data"], "1"
+                response_data[0]["game_data"]["board"]["board_data"], "1"
             ),
             "X",
         )
