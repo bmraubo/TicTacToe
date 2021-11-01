@@ -32,8 +32,7 @@ class TestGameServer(unittest.TestCase):
         @app.route("/", methods=["POST"])
         def test_process():
             request_data = request.get_json()
-            response_data = ServerProcess.server_process(request_data)
-            return response_data, 200
+            return ServerProcess.server_process(request_data)
 
         return app
 

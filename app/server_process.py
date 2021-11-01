@@ -18,6 +18,9 @@ class ServerProcess:
             payload = Utilities.generate_payload(
                 received_board, received_player, received_move
             )
-            return {"move_success": move_validation[0], "game_data": payload}
+            return {"move_success": move_validation[0], "game_data": payload}, 200
         else:
-            return {"move_success": move_validation[0], "error": move_validation[1]}
+            return {
+                "move_success": move_validation[0],
+                "error": move_validation[1],
+            }, 400
