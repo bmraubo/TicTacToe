@@ -73,6 +73,9 @@ class Board:
             else:
                 return server_response
 
+    def increase_moves_made_total(self):
+        self.moves_made += 1
+
     def __local_move_logic(GameBoard, Player, move):
         new_board_data = Utilities.change_board_value(
             GameBoard.board_data, move, Player.marker
