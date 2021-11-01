@@ -80,12 +80,13 @@ class Board:
         new_board_data = Utilities.change_board_value(
             GameBoard.board_data, move, Player.marker
         )
+        GameBoard.increase_moves_made_total()
         new_board = Board(
             board_data=new_board_data,
             size=GameBoard.size,
             highest_value=GameBoard.highest_value,
             arrangements=GameBoard.arrangements,
-            moves_made=GameBoard.moves_made + 1,
+            moves_made=GameBoard.moves_made,
         )
         new_board.winner = Logic.end_game(new_board, Player)
         return new_board
