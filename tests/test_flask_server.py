@@ -51,7 +51,6 @@ class TestGameServer(unittest.TestCase):
             response = client.post("/", json=request_data)
             response_board_data = response.json["game_data"]["board"]["board_data"]
             self.assertEqual(response.status_code, 200)
-            self.assertEqual(response.json["game_data"]["board"]["size"], 3)
             self.assertEqual(
                 Utilities.check_board_value(response_board_data, "1"),
                 "X",
