@@ -17,10 +17,10 @@ class TestLogic(unittest.TestCase):
         test_move = "1"
         request_data = TestLogic.server_process_test_set_up(test_move)
         response_data = ServerProcess.server_process(request_data)
-        self.assertTrue(response_data["move_success"])
+        self.assertTrue(response_data[0]["move_success"])
         self.assertEqual(
             Utilities.check_board_value(
-                response_data["game_data"]["board"]["board_data"], "1"
+                response_data[0]["game_data"]["board"]["board_data"], "1"
             ),
             "X",
         )
@@ -29,4 +29,4 @@ class TestLogic(unittest.TestCase):
         test_move = "g"
         request_data = TestLogic.server_process_test_set_up(test_move)
         response_data = ServerProcess.server_process(request_data)
-        self.assertFalse(response_data["move_success"])
+        self.assertFalse(response_data[0]["move_success"])
