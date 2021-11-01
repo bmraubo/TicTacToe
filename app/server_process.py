@@ -15,6 +15,7 @@ class ServerProcess:
             received_board.board_data = Utilities.change_board_value(
                 received_board.board_data, received_move, received_player.marker
             )
+            received_board.increase_moves_made_total()
             payload = Utilities.generate_payload(
                 received_board, received_player, received_move
             )
