@@ -113,6 +113,11 @@ class TestBoard(unittest.TestCase):
         new_board = Board.create_new_board_object(response_data["game_data"]["board"])
         self.assertTrue(new_board.size == 3)
 
+    def test_increasing_moves_made_total(self):
+        test_board = TestBoard.create_test_board(3)
+        test_board.increase_moves_made_total()
+        self.assertEqual(test_board.moves_made, 1)
+
 
 if __name__ == "__main__":
     unittest.main()
