@@ -30,3 +30,9 @@ class TestLogic(unittest.TestCase):
         request_data = TestLogic.server_process_test_set_up(test_move)
         response_data = ServerProcess.server_process(request_data)
         self.assertFalse(response_data[0]["move_success"])
+
+    def test_server_process_increase_moves_made(self):
+        test_move = "1"
+        request_data = TestLogic.server_process_test_set_up(test_move)
+        response_data = ServerProcess.server_process(request_data)
+        self.assertEqual(response_data[0]["game_data"]["board"]["moves_made"], 1)
