@@ -114,6 +114,15 @@ class TestBoard(unittest.TestCase):
             test_player.marker,
         )
 
+    def test_make_move_using_server_invalid_move(self):
+        test_board = TestBoard.create_test_board(3)
+        test_player = HumanPlayer(["Marx", "human", "X"])
+        test_move = "g"
+        move_outcome = TestBoard.mock_server_make_move(
+            test_board, test_player, test_move, server=True
+        )[1]
+        self.assertFalse(move_outcome[0])
+
     def test_winning_move(self):
         test_board = TestBoard.create_test_board(3)
         test_player = HumanPlayer(["Marx", "human", "X"])
