@@ -43,4 +43,8 @@ class ServerProcess:
         for key in board_keys:
             if key not in request_data["board"]:
                 return False
+        player_keys = ["name", "type", "marker"]
+        for key in player_keys:
+            if key not in request_data["player"]:
+                return False
         return True
