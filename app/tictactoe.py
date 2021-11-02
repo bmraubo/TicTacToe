@@ -45,3 +45,8 @@ class TicTacToe:
                 if self.board.winner != None:
                     UserInterface.declare_winner(self.board.winner)
                     break
+
+    def update_computer_player_boards(self):
+        for player in self.players:
+            if player.type == "computer":
+                player.board = self.board
