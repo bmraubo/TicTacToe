@@ -80,5 +80,5 @@ class TestLogic(unittest.TestCase):
         del request_data["board"]
         expected_error_message = "Error: board information missing from request payload"
         response_data = ServerProcess.server_process(request_data)
-        self.assertFalse(response_data[0])
-        self.assertEqual(response_data[1], expected_error_message)
+        self.assertFalse(response_data[0]["move_success"])
+        self.assertEqual(response_data[0]["error"], expected_error_message)
