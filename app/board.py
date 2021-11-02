@@ -68,7 +68,9 @@ class Board:
         if server == True:
             server_response = Board.__make_server_request(self, Player, move)
             if server_response[0]:
-                new_board = Board.__read_server_response(server_response["game_data"])
+                new_board = Board.__read_server_response(
+                    server_response[0]["game_data"]["board"]
+                )
                 return (True, new_board)
             else:
                 return server_response
@@ -93,11 +95,11 @@ class Board:
 
     def __make_server_request(GameBoard, Player, move):
         request_data = Utilities.generate_payload(GameBoard, Player, move)
-        # Insert Post Request here
-        return  # Response to POST Request
+        response = Utilities.make_post_request(request_data)
+        return response.json()
 
     def __read_server_response(server_response):
-        new_board = Board.create_new_board_from_server_data(server_response)
+        new_board = Board.create_new_board_object(server_response)
         return new_board
 
     def create_new_board_object(board_data):
