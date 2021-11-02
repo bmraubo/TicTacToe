@@ -143,7 +143,7 @@ class TestBoard(unittest.TestCase):
         move_outcome = TestBoard.mock_server_make_move(
             test_board, test_player, test_move, server=True
         )
-        self.assertEqual(move_outcome[1]["game_data"]["board"]["winner"], "Marx")
+        self.assertEqual(move_outcome[1].winner, "Marx")
 
     def test_winning_move(self):
         test_board = TestBoard.create_test_board(3)
