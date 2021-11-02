@@ -25,8 +25,11 @@ class TestTicTacToe(unittest.TestCase):
         test_game = TicTacToe(size, test_players)
         new_board = Board()
         new_board.create_board(size)
-        new_board = Utilities.change_board_value(new_board.board_data, "1", "X")
-        test_game.update_computer_player_boards(new_board)
+        new_board.board_data = Utilities.change_board_value(
+            new_board.board_data, "1", "X"
+        )
+        test_game.board = new_board
+        test_game.update_computer_player_boards()
         computer_player_board_data = test_game.players[0].board.board_data
         self.assertEqual(computer_player_board_data, new_board.board_data)
 
