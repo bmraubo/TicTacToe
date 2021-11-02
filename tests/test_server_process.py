@@ -37,6 +37,26 @@ class TestLogic(unittest.TestCase):
         response_data = ServerProcess.server_process(request_data)
         self.assertEqual(response_data[0]["game_data"]["board"]["moves_made"], 1)
 
+    def test_server_process_declare_endgame(self):
+        test_move = "1"
+        test_board = Board()
+        test_board.create_board(3)
+        test_player = HumanPlayer(["Marx", "human", "X"])
+        test_board.board_data = {
+            "1": "1",
+            "2": "X",
+            "3": "X",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+        }
+        request_data = Utilities.generate_payload(test_board, test_player, test_move)
+        response_data = ServerProcess.server_process(request_data)
+        self.assertEqual(response_data[0]["game_data"]["board"]["winner"], "Marx")
+
     def test_request_data_check(self):
         test_move = "1"
         request_data = TestLogic.server_process_test_set_up(test_move)
