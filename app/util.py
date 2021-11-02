@@ -1,3 +1,6 @@
+import requests
+
+
 class Utilities:
     def check_board_value(board_data, current_board_value):
         # checks value in board data
@@ -26,3 +29,8 @@ class Utilities:
             "move": move,
         }
         return package
+
+    def make_post_request(payload):
+        url = "https://agile-meadow-11220.herokuapp.com"
+        response = requests.post(url, json=payload)
+        return response

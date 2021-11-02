@@ -64,14 +64,16 @@ class Board:
                 new_board = Board.__local_move_logic(self, Player, move)
                 return (True, new_board)
             else:
-                return move_validation_result
+                return (False, move_validation_result[1])
         if server == True:
             server_response = Board.__make_server_request(self, Player, move)
             if server_response[0]:
-                new_board = Board.__read_server_response(server_response["game_data"])
+                new_board = Board.create_new_board_object(
+                    server_response[0]["game_data"]["board"]
+                )
                 return (True, new_board)
             else:
-                return server_response
+                return (False, server_response[0]["error"])
 
     def increase_moves_made_total(self):
         self.moves_made += 1
@@ -93,12 +95,8 @@ class Board:
 
     def __make_server_request(GameBoard, Player, move):
         request_data = Utilities.generate_payload(GameBoard, Player, move)
-        # Insert Post Request here
-        return  # Response to POST Request
-
-    def __read_server_response(server_response):
-        new_board = Board.create_new_board_from_server_data(server_response)
-        return new_board
+        response = Utilities.make_post_request(request_data)
+        return response.json()
 
     def create_new_board_object(board_data):
         return Board(
