@@ -64,7 +64,7 @@ class Board:
                 new_board = Board.__local_move_logic(self, Player, move)
                 return (True, new_board)
             else:
-                return move_validation_result
+                return (False, move_validation_result[1])
         if server == True:
             server_response = Board.__make_server_request(self, Player, move)
             if server_response[0]:
