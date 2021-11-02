@@ -5,10 +5,11 @@ from app.ui import UserInterface
 
 
 class TicTacToe:
-    def __init__(self, size, player_list):
+    def __init__(self, size, player_list, server=False):
         self.board = Board()
         self.board.create_board(size)
         self.players = []
+        self.server = server
         self.__create_players(player_list)
 
     # Player creation and assignment to X, O values in self.markers

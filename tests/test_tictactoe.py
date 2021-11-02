@@ -23,6 +23,12 @@ class TestTicTacToe(unittest.TestCase):
         test_board.play_game()
         self.assertEqual(test_board.board.winner, test_board.players[0])
 
+    def test_initiate_local_game(self):
+        size = 3
+        test_players = [["Marx", "computer", "X"], ["Engels", "computer", "$"]]
+        test_game = TicTacToe(size, test_players)
+        self.assertFalse(test_game.server)
+
 
 if __name__ == "__main__":
     unittest.main()
