@@ -28,4 +28,8 @@ class ServerProcess:
             }, 400
 
     def request_data_check(request_data):
+        top_level_keys = ["board", "player", "move"]
+        for key in top_level_keys:
+            if key not in request_data:
+                return False
         return True
