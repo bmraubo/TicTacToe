@@ -47,3 +47,9 @@ class TestLogic(unittest.TestCase):
         request_data = TestLogic.server_process_test_set_up(test_move)
         del request_data["board"]
         self.assertFalse(ServerProcess.request_data_check(request_data))
+
+    def test_request_data_check_board_data_key_missing(self):
+        test_move = "1"
+        request_data = TestLogic.server_process_test_set_up(test_move)
+        del request_data["board"]["board_data"]
+        self.assertFalse(ServerProcess.request_data_check(request_data))

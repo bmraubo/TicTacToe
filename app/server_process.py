@@ -32,4 +32,15 @@ class ServerProcess:
         for key in top_level_keys:
             if key not in request_data:
                 return False
+        board_keys = [
+            "board_data",
+            "size",
+            "highest_value",
+            "arrangements",
+            "winner",
+            "moves_made",
+        ]
+        for key in board_keys:
+            if key not in request_data["board"]:
+                return False
         return True
