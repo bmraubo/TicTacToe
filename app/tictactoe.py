@@ -37,6 +37,7 @@ class TicTacToe:
                     valid_move = move_outcome[0]
                     if valid_move:
                         self.board = move_outcome[1]
+                        self.update_computer_player_boards()
                     else:
                         UserInterface.declare_invalid_move_reason(move_outcome)
                 # Board is re-drawn based on the new move
