@@ -31,7 +31,8 @@ class ServerProcess:
         top_level_keys = ["board", "player", "move"]
         for key in top_level_keys:
             if key not in request_data:
-                return False
+                error_message = f"Error: {key} information missing from request payload"
+                return (False, error_message)
         board_keys = [
             "board_data",
             "size",
@@ -42,9 +43,15 @@ class ServerProcess:
         ]
         for key in board_keys:
             if key not in request_data["board"]:
-                return False
+                return (
+                    False,
+                    f"Error: board.{key} information missing from request payload",
+                )
         player_keys = ["name", "type", "marker"]
         for key in player_keys:
             if key not in request_data["player"]:
-                return False
-        return True
+                return (
+                    False,
+                    f"Error: player.{key} information missing from request payload",
+                )
+        return (True, "Request Data Check - OK")
