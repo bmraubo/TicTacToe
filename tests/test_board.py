@@ -2,6 +2,7 @@ import unittest
 from app.board import Board
 from app.player import HumanPlayer
 from app.util import Utilities
+from app.server_process import ServerProcess
 
 
 class TestBoard(unittest.TestCase):
@@ -9,6 +10,15 @@ class TestBoard(unittest.TestCase):
         test_board = Board()
         test_board.create_board(size)
         return test_board
+
+    def mock_server_make_move(GameBoard, Player, move, server=True):
+        test_payload = Utilities.generate_payload(GameBoard, Player, move)
+        server_response = ServerProcess.server_process(test_payload)
+        if server_response[0]:
+            new_board = Board.create_new_board_object(server_response["game_data"])
+            return (True, new_board)
+        else:
+            return server_response
 
     def test_generate_board_3x3(self):
         expected_board = {
@@ -81,6 +91,18 @@ class TestBoard(unittest.TestCase):
         test_player = HumanPlayer(["Marx", "human", "X"])
         test_move = "1"
         test_board = test_board.make_move(test_player, test_move)[1]
+        self.assertEqual(
+            Utilities.check_board_value(test_board.board_data, test_move),
+            test_player.marker,
+        )
+
+    def test_make_move_using_server(self):
+        test_board = TestBoard.create_test_board(3)
+        test_player = HumanPlayer(["Marx", "human", "X"])
+        test_move = "1"
+        test_board = TestBoard.mock_server_make_move(
+            test_board, test_player, test_move, server=True
+        )[1]
         self.assertEqual(
             Utilities.check_board_value(test_board.board_data, test_move),
             test_player.marker,
