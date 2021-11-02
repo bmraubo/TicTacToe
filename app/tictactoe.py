@@ -5,10 +5,11 @@ from app.ui import UserInterface
 
 
 class TicTacToe:
-    def __init__(self, size, player_list):
+    def __init__(self, size, player_list, server=False):
         self.board = Board()
         self.board.create_board(size)
         self.players = []
+        self.server = server
         self.__create_players(player_list)
 
     # Player creation and assignment to X, O values in self.markers
@@ -30,7 +31,9 @@ class TicTacToe:
                 valid_move = False
                 while valid_move == False:
                     player_move = player.get_player_move()
-                    move_outcome = self.board.make_move(player, player_move)
+                    move_outcome = self.board.make_move(
+                        player, player_move, server=self.server
+                    )
                     valid_move = move_outcome[0]
                     if valid_move:
                         self.board = move_outcome[1]
