@@ -37,6 +37,7 @@ class TicTacToe:
                     valid_move = move_outcome[0]
                     if valid_move:
                         self.board = move_outcome[1]
+                        self.update_computer_player_boards()
                     else:
                         UserInterface.declare_invalid_move_reason(move_outcome)
                 # Board is re-drawn based on the new move
@@ -45,3 +46,8 @@ class TicTacToe:
                 if self.board.winner != None:
                     UserInterface.declare_winner(self.board.winner)
                     break
+
+    def update_computer_player_boards(self):
+        for player in self.players:
+            if player.type == "computer":
+                player.board = self.board
