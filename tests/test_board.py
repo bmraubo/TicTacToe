@@ -17,13 +17,9 @@ class TestBoard(unittest.TestCase):
             server_response = ServerProcess.server_process(request_data)
             return server_response  # As server_process does not return a json, production code should return server_response.json()
 
-        def __mock_read_server_response(server_response):
-            new_board = Board.create_new_board_object(server_response)
-            return new_board
-
         server_response = __mock_make_server_request(GameBoard, Player, move)
         if server_response[0]:
-            new_board = __mock_read_server_response(
+            new_board = Board.create_new_board_object(
                 server_response[0]["game_data"]["board"]
             )
             return (True, new_board)
