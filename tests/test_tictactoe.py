@@ -29,6 +29,12 @@ class TestTicTacToe(unittest.TestCase):
         test_game = TicTacToe(size, test_players)
         self.assertFalse(test_game.server)
 
+    def test_initiate_server_game(self):
+        size = 3
+        test_players = [["Marx", "computer", "X"], ["Engels", "computer", "$"]]
+        test_game = TicTacToe(size, test_players, server=True)
+        self.assertTrue(test_game.server)
+
 
 if __name__ == "__main__":
     unittest.main()
