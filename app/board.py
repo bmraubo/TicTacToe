@@ -67,13 +67,13 @@ class Board:
                 return (False, move_validation_result[1])
         if server == True:
             server_response = Board.__make_server_request(self, Player, move)
-            if server_response[0]:
+            if server_response["move_success"]:
                 new_board = Board.create_new_board_object(
-                    server_response[0]["game_data"]["board"]
+                    server_response["game_data"]["board"]
                 )
                 return (True, new_board)
             else:
-                return (False, server_response[0]["error"])
+                return (False, server_response["error"])
 
     def increase_moves_made_total(self):
         self.moves_made += 1
