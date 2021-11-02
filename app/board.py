@@ -104,5 +104,6 @@ class Board:
             size=board_data["size"],
             highest_value=board_data["highest_value"],
             arrangements=board_data["arrangements"],
+            winner=board_data["winner"],
             moves_made=board_data["moves_made"],
         )
