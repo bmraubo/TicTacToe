@@ -73,7 +73,7 @@ class Board:
                 )
                 return (True, new_board)
             else:
-                return server_response
+                return (False, server_response[0]["error"])
 
     def increase_moves_made_total(self):
         self.moves_made += 1
