@@ -7,6 +7,12 @@ from app.util import Utilities
 
 class ServerProcess:
     def server_process(request_data):
+        request_data_check_outcome = ServerProcess.request_data_check(request_data)
+        if request_data_check_outcome[0] == False:
+            return {
+                "move_success": request_data_check_outcome[0],
+                "error": request_data_check_outcome[1],
+            }, 400
         received_board = Board.create_new_board_object(request_data["board"])
         received_player = Player.create_server_player_object(request_data)
         received_move = request_data["move"]
