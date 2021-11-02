@@ -13,15 +13,15 @@ class UserInterface:
         print(valid_move[1])
         return valid_move[1]
 
-    def declare_winner(winner):
-        if winner == "Draw!":
-            message = f"It's a {winner}"
+    def declare_winner(winner_name):
+        if winner_name == "Draw!":
+            message = f"It's a {winner_name}"
             print(message)
             return message
-        elif winner == None:
+        elif winner_name == None:
             pass
         else:
-            message = f"{winner.name} has won the game\N{Party Popper}"
+            message = f"{winner_name} has won the game\N{Party Popper}"
             print(message)
             return message
 

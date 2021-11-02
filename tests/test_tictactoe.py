@@ -37,7 +37,7 @@ class TestTicTacToe(unittest.TestCase):
         test_players = [["Marx", "computer", "X"], ["Engels", "computer", "$"]]
         test_board = TicTacToe(3, test_players)
         test_board.play_game()
-        self.assertEqual(test_board.board.winner, test_board.players[0])
+        self.assertEqual(test_board.board.winner, test_board.players[0].name)
 
     def test_initiate_local_game(self):
         size = 3

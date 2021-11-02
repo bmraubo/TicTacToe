@@ -131,7 +131,7 @@ class TestBoard(unittest.TestCase):
         winning_arrangement = ["1", "4", "7"]
         for value in winning_arrangement:
             test_board = test_board.make_move(test_player, value)[1]
-        self.assertEqual(test_board.winner, test_player)
+        self.assertEqual(test_board.winner, test_player.name)
 
     def test_create_board_object_to_send_to_server(self):
         test_board = TestBoard.create_test_board(3)

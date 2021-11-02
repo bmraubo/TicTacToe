@@ -94,7 +94,9 @@ class TestUserInterface(unittest.TestCase):
     def test_declare_winner(self):
         winner = HumanPlayer(["Marx", "human", "X"])
         expected_declaration = f"{winner.name} has won the game\N{Party Popper}"
-        self.assertEqual(UserInterface.declare_winner(winner), expected_declaration)
+        self.assertEqual(
+            UserInterface.declare_winner(winner.name), expected_declaration
+        )
         winner = "Draw!"
         expected_declaration = "It's a Draw!"
         self.assertEqual(UserInterface.declare_winner(winner), expected_declaration)
