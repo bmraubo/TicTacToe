@@ -1,3 +1,4 @@
+from requests.api import request
 from app.board import Board
 from app.player import Player
 from app.logic import Logic
@@ -25,3 +26,6 @@ class ServerProcess:
                 "move_success": move_validation[0],
                 "error": move_validation[1],
             }, 400
+
+    def request_data_check(request_data):
+        return True
