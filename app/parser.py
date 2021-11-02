@@ -2,7 +2,7 @@ import argparse
 
 
 class Parser:
-    def run_parser(args):
+    def create_parser():
         parser = argparse.ArgumentParser(
             prog="TicTacToe",
             description="Play a game of over-engineered TicTacToe locally or through a server",
@@ -10,4 +10,4 @@ class Parser:
         parser.add_argument(
             "-server", help="start the game in server mode", action="store_true"
         )
-        return parser.parse_args(args)
+        return parser
