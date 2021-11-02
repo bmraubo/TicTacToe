@@ -40,22 +40,36 @@ class TestLogic(unittest.TestCase):
     def test_request_data_check(self):
         test_move = "1"
         request_data = TestLogic.server_process_test_set_up(test_move)
-        self.assertTrue(ServerProcess.request_data_check(request_data)[0])
+        data_check_outcome = ServerProcess.request_data_check(request_data)
+        self.assertTrue(data_check_outcome[0])
 
     def test_request_data_check_top_level_key_missing(self):
         test_move = "1"
         request_data = TestLogic.server_process_test_set_up(test_move)
         del request_data["board"]
-        self.assertFalse(ServerProcess.request_data_check(request_data)[0])
+        data_check_outcome = ServerProcess.request_data_check(request_data)
+        expected_error_message = "Error: board information missing from request payload"
+        self.assertFalse(data_check_outcome[0])
+        self.assertEqual(data_check_outcome[1], expected_error_message)
 
     def test_request_data_check_board_data_key_missing(self):
         test_move = "1"
         request_data = TestLogic.server_process_test_set_up(test_move)
         del request_data["board"]["board_data"]
-        self.assertFalse(ServerProcess.request_data_check(request_data)[0])
+        data_check_outcome = ServerProcess.request_data_check(request_data)
+        expected_error_message = (
+            "Error: board.board_data information missing from request payload"
+        )
+        self.assertFalse(data_check_outcome[0])
+        self.assertEqual(data_check_outcome[1], expected_error_message)
 
     def test_request_data_check_player_name_missing(self):
         test_move = "1"
         request_data = TestLogic.server_process_test_set_up(test_move)
         del request_data["player"]["name"]
-        self.assertFalse(ServerProcess.request_data_check(request_data)[0])
+        data_check_outcome = ServerProcess.request_data_check(request_data)
+        expected_error_message = (
+            "Error: player.name information missing from request payload"
+        )
+        self.assertFalse(data_check_outcome[0])
+        self.assertEqual(data_check_outcome[1], expected_error_message)
