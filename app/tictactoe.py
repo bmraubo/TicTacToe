@@ -31,7 +31,9 @@ class TicTacToe:
                 valid_move = False
                 while valid_move == False:
                     player_move = player.get_player_move()
-                    move_outcome = self.board.make_move(player, player_move)
+                    move_outcome = self.board.make_move(
+                        player, player_move, server=self.server
+                    )
                     valid_move = move_outcome[0]
                     if valid_move:
                         self.board = move_outcome[1]
