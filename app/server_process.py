@@ -28,30 +28,50 @@ class ServerProcess:
             }, 400
 
     def request_data_check(request_data):
-        top_level_keys = ["board", "player", "move"]
-        for key in top_level_keys:
-            if key not in request_data:
-                error_message = f"Error: {key} information missing from request payload"
-                return (False, error_message)
-        board_keys = [
-            "board_data",
-            "size",
-            "highest_value",
-            "arrangements",
-            "winner",
-            "moves_made",
-        ]
-        for key in board_keys:
-            if key not in request_data["board"]:
-                return (
-                    False,
-                    f"Error: board.{key} information missing from request payload",
-                )
-        player_keys = ["name", "type", "marker"]
-        for key in player_keys:
-            if key not in request_data["player"]:
-                return (
-                    False,
-                    f"Error: player.{key} information missing from request payload",
-                )
+        def check_top_level_keys(request_data):
+            top_level_keys = ["board", "player", "move"]
+            for key in top_level_keys:
+                if key not in request_data:
+                    error_message = (
+                        f"Error: {key} information missing from request payload"
+                    )
+                    return (False, error_message)
+            return (True, "OK")
+
+        def check_board_data(request_data):
+            board_keys = [
+                "board_data",
+                "size",
+                "highest_value",
+                "arrangements",
+                "winner",
+                "moves_made",
+            ]
+            for key in board_keys:
+                if key not in request_data["board"]:
+                    return (
+                        False,
+                        f"Error: board.{key} information missing from request payload",
+                    )
+            return (True, "OK")
+
+        def check_player_data(request_data):
+            player_keys = ["name", "type", "marker"]
+            for key in player_keys:
+                if key not in request_data["player"]:
+                    return (
+                        False,
+                        f"Error: player.{key} information missing from request payload",
+                    )
+            return (True, "OK")
+
+        check_outcome = check_top_level_keys(request_data)
+        if check_outcome[0] == False:
+            return check_outcome
+        check_outcome = check_board_data(request_data)
+        if check_outcome[0] == False:
+            return check_outcome
+        check_outcome = check_player_data(request_data)
+        if check_outcome[0] == False:
+            return check_outcome
         return (True, "Request Data Check - OK")
