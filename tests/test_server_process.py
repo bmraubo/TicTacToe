@@ -41,3 +41,9 @@ class TestLogic(unittest.TestCase):
         test_move = "1"
         request_data = TestLogic.server_process_test_set_up(test_move)
         self.assertTrue(ServerProcess.request_data_check(request_data))
+
+    def test_request_data_check_top_level_key_missing(self):
+        test_move = "1"
+        request_data = TestLogic.server_process_test_set_up(test_move)
+        del request_data["board"]
+        self.assertFalse(ServerProcess.request_data_check(request_data))
