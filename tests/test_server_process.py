@@ -73,3 +73,12 @@ class TestLogic(unittest.TestCase):
         )
         self.assertFalse(data_check_outcome[0])
         self.assertEqual(data_check_outcome[1], expected_error_message)
+
+    def test_integration_request_data_check(self):
+        test_move = "1"
+        request_data = TestLogic.server_process_test_set_up(test_move)
+        del request_data["board"]
+        expected_error_message = "Error: board information missing from request payload"
+        response_data = ServerProcess.server_process(request_data)
+        self.assertFalse(response_data[0])
+        self.assertEqual(response_data[1], expected_error_message)
