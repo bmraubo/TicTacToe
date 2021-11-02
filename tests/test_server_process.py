@@ -36,3 +36,8 @@ class TestLogic(unittest.TestCase):
         request_data = TestLogic.server_process_test_set_up(test_move)
         response_data = ServerProcess.server_process(request_data)
         self.assertEqual(response_data[0]["game_data"]["board"]["moves_made"], 1)
+
+    def test_request_data_check(self):
+        test_move = "1"
+        request_data = TestLogic.server_process_test_set_up(test_move)
+        self.assertTrue(ServerProcess.request_data_check(request_data))
