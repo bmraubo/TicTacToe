@@ -29,7 +29,7 @@ class Logic:
     def end_game(GameBoard, player):
         # Checks if the most recent player's move has won them the game
         if Logic.win_check(GameBoard, player.marker):
-            winner = player
+            winner = player.name
             return winner
         # If the most recent move has not won the game, the outcome might be a draw
         elif GameBoard.moves_made == GameBoard.highest_value:

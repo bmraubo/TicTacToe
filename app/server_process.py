@@ -23,6 +23,7 @@ class ServerProcess:
                 received_board.board_data, received_move, received_player.marker
             )
             received_board.increase_moves_made_total()
+            received_board.winner = Logic.end_game(received_board, received_player)
             payload = Utilities.generate_payload(
                 received_board, received_player, received_move
             )
