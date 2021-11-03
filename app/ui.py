@@ -9,9 +9,9 @@ class UserInterface:
         instructions = f"Each square on the board have a value from 1-{size*size}. Select which square you would like to play by inputting the correct value when promoted."
         print(instructions)
 
-    def declare_error(invalid_move):
-        print(invalid_move)
-        return invalid_move
+    def display_message(message):
+        print(message)
+        return message
 
     def declare_winner(winner_name):
         if winner_name == "Draw!":
@@ -88,15 +88,15 @@ class UserInterface:
     def validate_custom_marker(custom_marker, custom_marker_list):
         if custom_marker in custom_marker_list:
             error_message = f"{custom_marker} invalid: Custom marker already used"
-            UserInterface.declare_error(error_message)
+            UserInterface.display_message(error_message)
             return False
         elif custom_marker in [str(x) for x in list(range(0, 10))]:
             error_message = f"{custom_marker} invalid: Custom marker cannot be a number"
-            UserInterface.declare_error(error_message)
+            UserInterface.display_message(error_message)
             return False
         elif len(custom_marker) > 1:
             error_message = f"{custom_marker} invalid: Custom marker cannot take up more than one space"
-            UserInterface.declare_error(error_message)
+            UserInterface.display_message(error_message)
             return False
         else:
             return True
@@ -109,13 +109,13 @@ class UserInterface:
                     return True
                 else:
                     error_message = f"{choice} is not a valid option, please try again."
-                    UserInterface.declare_error(error_message)
+                    UserInterface.display_message(error_message)
                     return False
 
             try:
                 if int(size) not in [3, 4]:
                     warning_message = f"{size} is not supported - do you wish to continue at own risk?"
-                    UserInterface.declare_error(warning_message)
+                    UserInterface.display_message(warning_message)
                     valid_choice = False
                     while valid_choice == False:
                         choice = input("Y/N: ")
@@ -130,7 +130,7 @@ class UserInterface:
                 error_message = (
                     f"ValueError: {size} is not a valid choice. Please try again."
                 )
-                UserInterface.declare_error(error_message)
+                UserInterface.display_message(error_message)
                 return False
 
         info_message = "The game is played on an N x N board.\n Currently supported sizes are: 3x3 and 4x4... but you can try higher values. No promises."
