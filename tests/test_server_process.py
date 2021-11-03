@@ -38,22 +38,21 @@ class TestServerProcess(unittest.TestCase):
         self.assertEqual(response_data[0]["game_data"]["board"]["moves_made"], 1)
 
     def test_server_process_declare_endgame(self):
-        test_move = "1"
         test_board = Board()
         test_board.create_board(3)
         test_player = HumanPlayer(["Marx", "human", "X"])
-        test_board.board_data = {
-            "1": "1",
-            "2": "X",
-            "3": "X",
-            "4": "4",
-            "5": "5",
-            "6": "6",
-            "7": "7",
-            "8": "8",
-            "9": "9",
-        }
-        request_data = Utilities.generate_payload(test_board, test_player, test_move)
+        setup_move = "1"
+        test_board.board_data = Utilities.change_board_value(
+            test_board.board_data, setup_move, test_player.marker
+        )
+        setup_move = "2"
+        test_board.board_data = Utilities.change_board_value(
+            test_board.board_data, setup_move, test_player.marker
+        )
+        test_winning_move = "3"
+        request_data = Utilities.generate_payload(
+            test_board, test_player, test_winning_move
+        )
         response_data = ServerProcess.server_process(request_data)
         self.assertEqual(response_data[0]["game_data"]["board"]["winner"], "Marx")
 
