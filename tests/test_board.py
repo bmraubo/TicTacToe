@@ -110,7 +110,7 @@ class TestBoard(unittest.TestCase):
     def test_winning_move(self):
         test_board = TestBoard.create_test_board(3)
         test_player = HumanPlayer(["Marx", "human", "X"])
-        winning_arrangement = ["1", "4", "7"]
+        winning_arrangement = TestBoard.expected_board_information["size3"]["rows"][1]
         for value in winning_arrangement:
             test_board = test_board.make_move(test_player, value)[1]
         self.assertEqual(test_board.winner, test_player.name)
