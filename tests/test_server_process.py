@@ -5,7 +5,7 @@ from app.util import Utilities
 from app.server_process import ServerProcess
 
 
-class TestLogic(unittest.TestCase):
+class TestServerProcess(unittest.TestCase):
     def server_process_test_set_up(test_move):
         test_board = Board()
         test_board.create_board(3)
@@ -15,7 +15,7 @@ class TestLogic(unittest.TestCase):
 
     def test_server_process(self):
         test_move = "1"
-        request_data = TestLogic.server_process_test_set_up(test_move)
+        request_data = TestServerProcess.server_process_test_set_up(test_move)
         response_data = ServerProcess.server_process(request_data)
         self.assertTrue(response_data[0]["move_success"])
         self.assertEqual(
@@ -27,13 +27,13 @@ class TestLogic(unittest.TestCase):
 
     def test_server_process_bad_move(self):
         test_move = "g"
-        request_data = TestLogic.server_process_test_set_up(test_move)
+        request_data = TestServerProcess.server_process_test_set_up(test_move)
         response_data = ServerProcess.server_process(request_data)
         self.assertFalse(response_data[0]["move_success"])
 
     def test_server_process_increase_moves_made(self):
         test_move = "1"
-        request_data = TestLogic.server_process_test_set_up(test_move)
+        request_data = TestServerProcess.server_process_test_set_up(test_move)
         response_data = ServerProcess.server_process(request_data)
         self.assertEqual(response_data[0]["game_data"]["board"]["moves_made"], 1)
 
@@ -59,13 +59,13 @@ class TestLogic(unittest.TestCase):
 
     def test_request_data_check(self):
         test_move = "1"
-        request_data = TestLogic.server_process_test_set_up(test_move)
+        request_data = TestServerProcess.server_process_test_set_up(test_move)
         data_check_outcome = ServerProcess.request_data_check(request_data)
         self.assertTrue(data_check_outcome[0])
 
     def test_request_data_check_top_level_key_missing(self):
         test_move = "1"
-        request_data = TestLogic.server_process_test_set_up(test_move)
+        request_data = TestServerProcess.server_process_test_set_up(test_move)
         del request_data["board"]
         data_check_outcome = ServerProcess.request_data_check(request_data)
         expected_error_message = "Error: board information missing from request payload"
@@ -74,7 +74,7 @@ class TestLogic(unittest.TestCase):
 
     def test_request_data_check_board_data_key_missing(self):
         test_move = "1"
-        request_data = TestLogic.server_process_test_set_up(test_move)
+        request_data = TestServerProcess.server_process_test_set_up(test_move)
         del request_data["board"]["board_data"]
         data_check_outcome = ServerProcess.request_data_check(request_data)
         expected_error_message = (
@@ -85,7 +85,7 @@ class TestLogic(unittest.TestCase):
 
     def test_request_data_check_player_name_missing(self):
         test_move = "1"
-        request_data = TestLogic.server_process_test_set_up(test_move)
+        request_data = TestServerProcess.server_process_test_set_up(test_move)
         del request_data["player"]["name"]
         data_check_outcome = ServerProcess.request_data_check(request_data)
         expected_error_message = (
@@ -96,7 +96,7 @@ class TestLogic(unittest.TestCase):
 
     def test_integration_request_data_check(self):
         test_move = "1"
-        request_data = TestLogic.server_process_test_set_up(test_move)
+        request_data = TestServerProcess.server_process_test_set_up(test_move)
         del request_data["board"]
         expected_error_message = "Error: board information missing from request payload"
         response_data = ServerProcess.server_process(request_data)
