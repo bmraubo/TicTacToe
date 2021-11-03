@@ -82,39 +82,12 @@ class TestBoard(unittest.TestCase):
 
     # Testing Board generation
     def test_generate_board_3x3(self):
-        expected_board = {
-            "1": "1",
-            "2": "2",
-            "3": "3",
-            "4": "4",
-            "5": "5",
-            "6": "6",
-            "7": "7",
-            "8": "8",
-            "9": "9",
-        }
+        expected_board = TestBoard.expected_board_information["size3"]["board"]
         test_board = TestBoard.create_test_board(3)
         self.assertEqual(test_board.board_data, expected_board)
 
     def test_generate_board_4x4(self):
-        expected_board = {
-            "1": "1",
-            "2": "2",
-            "3": "3",
-            "4": "4",
-            "5": "5",
-            "6": "6",
-            "7": "7",
-            "8": "8",
-            "9": "9",
-            "10": "10",
-            "11": "11",
-            "12": "12",
-            "13": "13",
-            "14": "14",
-            "15": "15",
-            "16": "16",
-        }
+        expected_board = TestBoard.expected_board_information["size4"]["board"]
         test_board = TestBoard.create_test_board(4)
         self.assertEqual(test_board.board_data, expected_board)
 
