@@ -6,6 +6,58 @@ from app.server_process import ServerProcess
 
 
 class TestBoard(unittest.TestCase):
+    expected_board_information = {
+        "size3": {
+            "board": {
+                "1": "1",
+                "2": "2",
+                "3": "3",
+                "4": "4",
+                "5": "5",
+                "6": "6",
+                "7": "7",
+                "8": "8",
+                "9": "9",
+            },
+            "rows": [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]],
+            "columns": [["1", "4", "7"], ["2", "5", "8"], ["3", "6", "9"]],
+            "diagonals": [["1", "5", "9"], ["3", "5", "7"]],
+        },
+        "size4": {
+            "board": {
+                "1": "1",
+                "2": "2",
+                "3": "3",
+                "4": "4",
+                "5": "5",
+                "6": "6",
+                "7": "7",
+                "8": "8",
+                "9": "9",
+                "10": "10",
+                "11": "11",
+                "12": "12",
+                "13": "13",
+                "14": "14",
+                "15": "15",
+                "16": "16",
+            },
+            "rows": [
+                ["1", "2", "3", "4"],
+                ["5", "6", "7", "8"],
+                ["9", "10", "11", "12"],
+                ["13", "14", "15", "16"],
+            ],
+            "columns": [
+                ["1", "5", "9", "13"],
+                ["2", "6", "10", "14"],
+                ["3", "7", "11", "15"],
+                ["4", "8", "12", "16"],
+            ],
+            "diagonals": [["1", "6", "11", "16"], ["4", "7", "10", "13"]],
+        },
+    }
+
     def create_test_board(size):
         test_board = Board()
         test_board.create_board(size)
@@ -28,6 +80,7 @@ class TestBoard(unittest.TestCase):
         else:
             return (False, server_response["error"])
 
+    # Testing Board generation
     def test_generate_board_3x3(self):
         expected_board = {
             "1": "1",
@@ -65,7 +118,7 @@ class TestBoard(unittest.TestCase):
         test_board = TestBoard.create_test_board(4)
         self.assertEqual(test_board.board_data, expected_board)
 
-    # Testing win check
+    # Testing Win Arrangement Generator
     def test_win_arrangement_generator_3x3(self):
         test_board = TestBoard.create_test_board(3)
         expected_rows = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
