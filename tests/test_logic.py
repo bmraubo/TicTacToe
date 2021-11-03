@@ -81,8 +81,8 @@ class TestLogic(unittest.TestCase):
             ["1", "6", "11", "16"],
         ]
         for arrangement in winning_arrangements:
-            test_board = Board()
-            test_board.create_board(4)
+            size = 4
+            test_board = TestLogic.create_test_board(size)
             test_marker = "X"
             for value in arrangement:
                 Utilities.change_board_value(test_board.board_data, value, test_marker)
