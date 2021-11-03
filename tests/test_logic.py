@@ -50,6 +50,12 @@ class TestLogic(unittest.TestCase):
         self.assertTrue(Logic.validate_move(test_board, player_move)[0])
 
     # Win Checks
+
+    # Sets a new board to a winning arrangement for testing
+    def set_board_to_win_arrangement(test_board, arrangement, test_marker):
+        for value in arrangement:
+            Utilities.change_board_value(test_board.board_data, value, test_marker)
+
     def test_no_win_3x3(self):
         # test win check where no win or draw state exists
         size = 3
