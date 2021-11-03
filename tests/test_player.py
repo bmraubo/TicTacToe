@@ -4,6 +4,12 @@ from app.board import Board
 from app.util import Utilities
 
 
+def create_test_board(size):
+    test_board = Board()
+    test_board.create_board(size)
+    return test_board
+
+
 class TestHumanPlayer(unittest.TestCase):
     def test_get_human_player_move(self):
         test_player_info = ["Marx", "human", "X"]
@@ -16,8 +22,8 @@ class TestHumanPlayer(unittest.TestCase):
 
 class TestComputerPlayer(unittest.TestCase):
     def test_get_computer_player_move(self):
-        test_board = Board()
-        test_board.create_board(3)
+        size = 3
+        test_board = create_test_board(size)
         test_player_info = ["Rosa", "computer", "Y"]
         test_player = ComputerPlayer(test_player_info, test_board)
         expected_move = "1"
@@ -26,8 +32,8 @@ class TestComputerPlayer(unittest.TestCase):
 
 class TestServerPlayer(unittest.TestCase):
     def test_create_server_player_object(self):
-        test_board = Board()
-        test_board.create_board(3)
+        size = 3
+        test_board = create_test_board(size)
         test_player = HumanPlayer(["Marx", "human", "X"])
         test_move = "1"
         request_data = Utilities.generate_payload(test_board, test_player, test_move)
