@@ -11,5 +11,6 @@ if __name__ == "__main__":
     UserInterface.display_game_instructions(size)
     game = TicTacToe(size, players, server=args.server)
     game.play_game()
-    print("Game is closing gracefully")
+    game_close_message = "Game is closing gracefully"
+    UserInterface.display_message(game_close_message)
     exit()
