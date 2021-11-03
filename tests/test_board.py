@@ -94,28 +94,18 @@ class TestBoard(unittest.TestCase):
     # Testing Win Arrangement Generator
     def test_win_arrangement_generator_3x3(self):
         test_board = TestBoard.create_test_board(3)
-        expected_rows = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
-        expected_columns = [["1", "4", "7"], ["2", "5", "8"], ["3", "6", "9"]]
-        expected_diagonals = [["1", "5", "9"], ["3", "5", "7"]]
+        expected_rows = TestBoard.expected_board_information["size3"]["rows"]
+        expected_columns = TestBoard.expected_board_information["size3"]["columns"]
+        expected_diagonals = TestBoard.expected_board_information["size3"]["diagonals"]
         self.assertEqual(test_board.arrangements["rows"], expected_rows)
         self.assertEqual(test_board.arrangements["columns"], expected_columns)
         self.assertEqual(test_board.arrangements["diagonals"], expected_diagonals)
 
     def test_win_arrangement_generator_4x4(self):
         test_board = TestBoard.create_test_board(4)
-        expected_rows = [
-            ["1", "2", "3", "4"],
-            ["5", "6", "7", "8"],
-            ["9", "10", "11", "12"],
-            ["13", "14", "15", "16"],
-        ]
-        expected_columns = [
-            ["1", "5", "9", "13"],
-            ["2", "6", "10", "14"],
-            ["3", "7", "11", "15"],
-            ["4", "8", "12", "16"],
-        ]
-        expected_diagonals = [["1", "6", "11", "16"], ["4", "7", "10", "13"]]
+        expected_rows = TestBoard.expected_board_information["size4"]["rows"]
+        expected_columns = TestBoard.expected_board_information["size4"]["columns"]
+        expected_diagonals = TestBoard.expected_board_information["size4"]["diagonals"]
         self.assertEqual(test_board.arrangements["rows"], expected_rows)
         self.assertEqual(test_board.arrangements["columns"], expected_columns)
         self.assertEqual(test_board.arrangements["diagonals"], expected_diagonals)
