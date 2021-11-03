@@ -2,7 +2,8 @@ class UserInterface:
 
     # Display Welcome Message
     def display_welcome_message():
-        print("Welcome to Tic Tac Toe")
+        welcome_message = "Welcome to Tic Tac Toe"
+        return UserInterface.display_message(welcome_message)
 
     # Display Game Instructions
     def display_game_instructions(size):
