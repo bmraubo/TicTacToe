@@ -7,7 +7,7 @@ from app.player import HumanPlayer
 
 class TestUserInterface(unittest.TestCase):
 
-    # Testing welcome message and game instructions
+    # Testing Game Info messages
     def test_display_welcome_message(self):
         # Tests display of welcome message
         captured_output = StringIO()
@@ -24,6 +24,23 @@ class TestUserInterface(unittest.TestCase):
         validate_instructions = "Each square on the board have a value from 1-9. Select which square you would like to play by inputting the correct value when promoted."
         output = captured_output.getvalue().strip()
         self.assertEqual(output, validate_instructions)
+
+    def test_declare_invalid_move_reason(self):
+        invalid_move = (False, "Value Error: g is not between 1-9")
+        expected_message = "Value Error: g is not between 1-9"
+        self.assertEqual(
+            UserInterface.declare_invalid_move_reason(invalid_move), expected_message
+        )
+
+    def test_declare_winner(self):
+        winner = HumanPlayer(["Marx", "human", "X"])
+        expected_declaration = f"{winner.name} has won the game\N{Party Popper}"
+        self.assertEqual(
+            UserInterface.declare_winner(winner.name), expected_declaration
+        )
+        winner = "Draw!"
+        expected_declaration = "It's a Draw!"
+        self.assertEqual(UserInterface.declare_winner(winner), expected_declaration)
 
     # Testing User Input of Player Information\
     # Testing obtaining player name
@@ -83,23 +100,6 @@ class TestUserInterface(unittest.TestCase):
         self.assertFalse(
             UserInterface.validate_custom_marker(custom_marker, custom_marker_list)
         )
-
-    def test_declare_invalid_move_reason(self):
-        invalid_move = (False, "Value Error: g is not between 1-9")
-        expected_message = "Value Error: g is not between 1-9"
-        self.assertEqual(
-            UserInterface.declare_invalid_move_reason(invalid_move), expected_message
-        )
-
-    def test_declare_winner(self):
-        winner = HumanPlayer(["Marx", "human", "X"])
-        expected_declaration = f"{winner.name} has won the game\N{Party Popper}"
-        self.assertEqual(
-            UserInterface.declare_winner(winner.name), expected_declaration
-        )
-        winner = "Draw!"
-        expected_declaration = "It's a Draw!"
-        self.assertEqual(UserInterface.declare_winner(winner), expected_declaration)
 
 
 if __name__ == "__main__":
