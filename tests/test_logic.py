@@ -12,6 +12,7 @@ class TestLogic(unittest.TestCase):
         return test_board
 
     # Test move validation
+
     def test_validate_good_move(self):
         size = 3
         test_board = TestLogic.create_test_board(size)
@@ -76,8 +77,7 @@ class TestLogic(unittest.TestCase):
             size = 3
             test_board = TestLogic.create_test_board(size)
             test_marker = "X"
-            for value in arrangement:
-                Utilities.change_board_value(test_board.board_data, value, test_marker)
+            TestLogic.set_board_to_win_arrangement(test_board, arrangement, test_marker)
             self.assertTrue(Logic.win_check(test_board, test_marker))
 
     def test_wins_4x4(self):
@@ -90,6 +90,5 @@ class TestLogic(unittest.TestCase):
             size = 4
             test_board = TestLogic.create_test_board(size)
             test_marker = "X"
-            for value in arrangement:
-                Utilities.change_board_value(test_board.board_data, value, test_marker)
+            TestLogic.set_board_to_win_arrangement(test_board, arrangement, test_marker)
             self.assertTrue(Logic.win_check(test_board, test_marker))
