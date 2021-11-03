@@ -52,8 +52,8 @@ class TestLogic(unittest.TestCase):
     # Win Checks
     def test_no_win_3x3(self):
         # test win check where no win or draw state exists
-        test_board = Board()
-        test_board.create_board(3)
+        size = 3
+        test_board = TestLogic.create_test_board(size)
         test_marker = "X"
         self.assertFalse(Logic.win_check(test_board, test_marker))
 
