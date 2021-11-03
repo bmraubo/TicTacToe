@@ -159,13 +159,13 @@ class TestBoard(unittest.TestCase):
     def test_make_winning_move_on_server(self):
         test_board = TestBoard.create_test_board(3)
         test_player = HumanPlayer(["Marx", "human", "X"])
-        test_move = "1"
+        setup_move = "1"
         test_board.board_data = Utilities.change_board_value(
-            test_board.board_data, test_move, test_player.marker
+            test_board.board_data, setup_move, test_player.marker
         )
-        test_move = "2"
+        setup_move = "2"
         test_board.board_data = Utilities.change_board_value(
-            test_board.board_data, test_move, test_player.marker
+            test_board.board_data, setup_move, test_player.marker
         )
         test_winning_move = "3"
         move_outcome = TestBoard.mock_server_make_move(
