@@ -5,6 +5,8 @@ from app.player import HumanPlayer
 
 
 class TestUtilities(unittest.TestCase):
+
+    # Testing reading and writing board values
     def test_check_board_value(self):
         test_board = Board()
         test_board.create_board(3)
@@ -23,6 +25,7 @@ class TestUtilities(unittest.TestCase):
             Utilities.check_board_value(test_board.board_data, test_input), "X"
         )
 
+    # Testing game info payload generation
     def test_generate_payload(self):
         test_board = Board()
         test_board.create_board(3)
