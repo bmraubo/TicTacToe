@@ -63,24 +63,8 @@ class TestBoard(unittest.TestCase):
         test_board.create_board(size)
         return test_board
 
-    def mock_server_make_move(GameBoard, Player, move, server=True):
-        def __mock_make_server_request(GameBoard, Player, move):
-            request_data = Utilities.generate_payload(GameBoard, Player, move)
-            server_response = ServerProcess.server_process(request_data)
-            return server_response  # As server_process does not return a json, production code should return server_response.json()
-
-        server_response = __mock_make_server_request(GameBoard, Player, move)[
-            0
-        ]  # the index is only here because we are not dealing with a json
-        if server_response["move_success"]:
-            new_board = Board.create_new_board_object(
-                server_response["game_data"]["board"]
-            )
-            return (True, new_board)
-        else:
-            return (False, server_response["error"])
-
     # Testing Board generation
+
     def test_generate_board_3x3(self):
         expected_board = TestBoard.expected_board_information["size3"]["board"]
         test_board = TestBoard.create_test_board(3)
@@ -92,6 +76,7 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(test_board.board_data, expected_board)
 
     # Testing Win Arrangement Generator
+
     def test_win_arrangement_generator_3x3(self):
         test_board = TestBoard.create_test_board(3)
         expected_rows = TestBoard.expected_board_information["size3"]["rows"]
@@ -110,6 +95,8 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(test_board.arrangements["columns"], expected_columns)
         self.assertEqual(test_board.arrangements["diagonals"], expected_diagonals)
 
+    # Testing local make_move method
+
     def test_make_move(self):
         test_board = TestBoard.create_test_board(3)
         test_player = HumanPlayer(["Marx", "human", "X"])
@@ -119,6 +106,34 @@ class TestBoard(unittest.TestCase):
             Utilities.check_board_value(test_board.board_data, test_move),
             test_player.marker,
         )
+
+    def test_winning_move(self):
+        test_board = TestBoard.create_test_board(3)
+        test_player = HumanPlayer(["Marx", "human", "X"])
+        winning_arrangement = ["1", "4", "7"]
+        for value in winning_arrangement:
+            test_board = test_board.make_move(test_player, value)[1]
+        self.assertEqual(test_board.winner, test_player.name)
+
+    # Testing server make_move method
+
+    # Mocking server make_move -- this does not use a json, so implementation must take this into account
+    def mock_server_make_move(GameBoard, Player, move, server=True):
+        def __mock_make_server_request(GameBoard, Player, move):
+            request_data = Utilities.generate_payload(GameBoard, Player, move)
+            server_response = ServerProcess.server_process(request_data)
+            return server_response  # As server_process does not return a json, production code should return server_response.json()
+
+        server_response = __mock_make_server_request(GameBoard, Player, move)[
+            0
+        ]  # the index is only here because we are not dealing with a json
+        if server_response["move_success"]:
+            new_board = Board.create_new_board_object(
+                server_response["game_data"]["board"]
+            )
+            return (True, new_board)
+        else:
+            return (False, server_response["error"])
 
     def test_make_move_using_server(self):
         test_board = TestBoard.create_test_board(3)
@@ -160,14 +175,6 @@ class TestBoard(unittest.TestCase):
             test_board, test_player, test_move, server=True
         )
         self.assertEqual(move_outcome[1].winner, "Marx")
-
-    def test_winning_move(self):
-        test_board = TestBoard.create_test_board(3)
-        test_player = HumanPlayer(["Marx", "human", "X"])
-        winning_arrangement = ["1", "4", "7"]
-        for value in winning_arrangement:
-            test_board = test_board.make_move(test_player, value)[1]
-        self.assertEqual(test_board.winner, test_player.name)
 
     def test_create_board_object_to_send_to_server(self):
         test_board = TestBoard.create_test_board(3)
