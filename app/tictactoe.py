@@ -39,7 +39,7 @@ class TicTacToe:
                         self.board = move_outcome[1]
                         self.update_computer_player_boards()
                     else:
-                        UserInterface.declare_invalid_move_reason(move_outcome)
+                        UserInterface.display_message(move_outcome[1])
                 # Board is re-drawn based on the new move
                 Display.draw_board(self.board)
                 # Once each move is played, the board is checked to see if the most recent player won, or the game is drawn

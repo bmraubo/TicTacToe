@@ -2,28 +2,27 @@ class UserInterface:
 
     # Display Welcome Message
     def display_welcome_message():
-        print("Welcome to Tic Tac Toe")
+        welcome_message = "Welcome to Tic Tac Toe"
+        return UserInterface.display_message(welcome_message)
 
     # Display Game Instructions
     def display_game_instructions(size):
         instructions = f"Each square on the board have a value from 1-{size*size}. Select which square you would like to play by inputting the correct value when promoted."
-        print(instructions)
+        return UserInterface.display_message(instructions)
 
-    def declare_invalid_move_reason(invalid_move):
-        print(invalid_move[1])
-        return invalid_move[1]
+    def display_message(message):
+        print(message)
+        return message
 
     def declare_winner(winner_name):
         if winner_name == "Draw!":
             message = f"It's a {winner_name}"
-            print(message)
-            return message
+            return UserInterface.display_message(message)
         elif winner_name == None:
             pass
         else:
             message = f"{winner_name} has won the game\N{Party Popper}"
-            print(message)
-            return message
+            return UserInterface.display_message(message)
 
     # Get Player Information from User
     def get_player_info():
@@ -87,15 +86,16 @@ class UserInterface:
 
     def validate_custom_marker(custom_marker, custom_marker_list):
         if custom_marker in custom_marker_list:
-            print(f"{custom_marker} invalid: Custom marker already used")
+            error_message = f"{custom_marker} invalid: Custom marker already used"
+            UserInterface.display_message(error_message)
             return False
         elif custom_marker in [str(x) for x in list(range(0, 10))]:
-            print(f"{custom_marker} invalid: Custom marker cannot be a number")
+            error_message = f"{custom_marker} invalid: Custom marker cannot be a number"
+            UserInterface.display_message(error_message)
             return False
         elif len(custom_marker) > 1:
-            print(
-                f"{custom_marker} invalid: Custom marker cannot take up more than one space"
-            )
+            error_message = f"{custom_marker} invalid: Custom marker cannot take up more than one space"
+            UserInterface.display_message(error_message)
             return False
         else:
             return True
@@ -107,14 +107,14 @@ class UserInterface:
                 if choice.upper() in ["Y", "N"]:
                     return True
                 else:
-                    print(f"{choice} is not a valid option, please try again.")
+                    error_message = f"{choice} is not a valid option, please try again."
+                    UserInterface.display_message(error_message)
                     return False
 
             try:
                 if int(size) not in [3, 4]:
-                    print(
-                        f"{size} is not supported - do you wish to continue at own risk?"
-                    )
+                    warning_message = f"{size} is not supported - do you wish to continue at own risk?"
+                    UserInterface.display_message(warning_message)
                     valid_choice = False
                     while valid_choice == False:
                         choice = input("Y/N: ")
@@ -126,11 +126,14 @@ class UserInterface:
                 else:
                     return True
             except ValueError:
-                print(f"ValueError: {size} is not a valid choice. Please try again.")
+                error_message = (
+                    f"ValueError: {size} is not a valid choice. Please try again."
+                )
+                UserInterface.display_message(error_message)
                 return False
 
         info_message = "The game is played on an N x N board.\n Currently supported sizes are: 3x3 and 4x4... but you can try higher values. No promises."
-        print(info_message)
+        UserInterface.display_message(info_message)
         valid_player_choice = False
         while valid_player_choice == False:
             player_choice = input("Please enter board size: ")

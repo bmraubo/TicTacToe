@@ -25,12 +25,15 @@ class TestUserInterface(unittest.TestCase):
         output = captured_output.getvalue().strip()
         self.assertEqual(output, validate_instructions)
 
-    def test_declare_invalid_move_reason(self):
+    def test_display_message(self):
+        captured_output = StringIO()
+        sys.stdout = captured_output
         invalid_move = (False, "Value Error: g is not between 1-9")
         expected_message = "Value Error: g is not between 1-9"
-        self.assertEqual(
-            UserInterface.declare_invalid_move_reason(invalid_move), expected_message
-        )
+        displayed_message = UserInterface.display_message(invalid_move[1])
+        output = captured_output.getvalue().strip()
+        self.assertEqual(displayed_message, expected_message)
+        self.assertEqual(output, expected_message)
 
     def test_declare_winner(self):
         winner = HumanPlayer(["Marx", "human", "X"])
