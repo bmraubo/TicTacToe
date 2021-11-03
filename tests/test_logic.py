@@ -12,6 +12,12 @@ class TestLogic(unittest.TestCase):
         return test_board
 
     # Test move validation
+    def test_validate_good_move(self):
+        size = 3
+        test_board = TestLogic.create_test_board(size)
+        test_move = "1"
+        self.assertTrue(Logic.validate_move(test_board, test_move))
+
     def test_validate_move_valueerror(self):
         # Test for value error exception handling
         size = 3
