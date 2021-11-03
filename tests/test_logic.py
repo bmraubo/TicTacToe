@@ -21,8 +21,7 @@ class TestLogic(unittest.TestCase):
     def test_validate_move_valueerror(self):
         # Test for value error exception handling
         size = 3
-        test_board = Board()
-        test_board.create_board(3)
+        test_board = TestLogic.create_test_board(size)
         player_move = "j"
         self.assertFalse(Logic.validate_move(test_board, player_move)[0])
 
