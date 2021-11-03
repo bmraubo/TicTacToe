@@ -173,7 +173,9 @@ class TestBoard(unittest.TestCase):
         )
         self.assertEqual(move_outcome[1].winner, "Marx")
 
-    def test_create_board_object_to_send_to_server(self):
+    # Create board objects from dictionary
+
+    def test_create_board_object_from_request_dict(self):
         test_board = TestBoard.create_test_board(3)
         test_player = HumanPlayer(["Marx", "human", "X"])
         test_move = "1"
@@ -181,7 +183,7 @@ class TestBoard(unittest.TestCase):
         new_board = Board.create_new_board_object(request_data["board"])
         self.assertTrue(new_board.size == 3)
 
-    def test_create_new_board_from_server_data(self):
+    def test_create_new_board_from_response_dict(self):
         test_board = TestBoard.create_test_board(3)
         test_player = HumanPlayer(["Marx", "human", "X"])
         test_move = "1"
