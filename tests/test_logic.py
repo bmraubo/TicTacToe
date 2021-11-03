@@ -38,8 +38,7 @@ class TestLogic(unittest.TestCase):
     def test_validate_move_already_played(self):
         # Rejects move if it has already been played
         size = 3
-        test_board = Board()
-        test_board.create_board(size)
+        test_board = TestLogic.create_test_board(size)
         test_input = "1"
         test_marker = "X"
         Utilities.change_board_value(test_board.board_data, test_input, test_marker)
