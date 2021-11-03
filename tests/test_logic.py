@@ -6,8 +6,12 @@ from app.player import HumanPlayer
 
 
 class TestLogic(unittest.TestCase):
+    def create_test_board(size):
+        test_board = Board()
+        test_board.create_board(size)
+        return test_board
 
-    # Validate Move
+    # Test move validation
     def test_validate_move_valueerror(self):
         # Test for value error exception handling
         size = 3
