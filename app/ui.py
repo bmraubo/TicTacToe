@@ -7,7 +7,7 @@ class UserInterface:
     # Display Game Instructions
     def display_game_instructions(size):
         instructions = f"Each square on the board have a value from 1-{size*size}. Select which square you would like to play by inputting the correct value when promoted."
-        print(instructions)
+        return UserInterface.display_message(instructions)
 
     def display_message(message):
         print(message)
@@ -16,14 +16,12 @@ class UserInterface:
     def declare_winner(winner_name):
         if winner_name == "Draw!":
             message = f"It's a {winner_name}"
-            print(message)
-            return message
+            return UserInterface.display_message(message)
         elif winner_name == None:
             pass
         else:
             message = f"{winner_name} has won the game\N{Party Popper}"
-            print(message)
-            return message
+            return UserInterface.display_message(message)
 
     # Get Player Information from User
     def get_player_info():
@@ -134,7 +132,7 @@ class UserInterface:
                 return False
 
         info_message = "The game is played on an N x N board.\n Currently supported sizes are: 3x3 and 4x4... but you can try higher values. No promises."
-        print(info_message)
+        UserInterface.display_message(info_message)
         valid_player_choice = False
         while valid_player_choice == False:
             player_choice = input("Please enter board size: ")
