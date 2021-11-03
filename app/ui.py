@@ -9,9 +9,9 @@ class UserInterface:
         instructions = f"Each square on the board have a value from 1-{size*size}. Select which square you would like to play by inputting the correct value when promoted."
         print(instructions)
 
-    def declare_invalid_move_reason(invalid_move):
-        print(invalid_move[1])
-        return invalid_move[1]
+    def declare_error(invalid_move):
+        print(invalid_move)
+        return invalid_move
 
     def declare_winner(winner_name):
         if winner_name == "Draw!":
