@@ -160,19 +160,16 @@ class TestBoard(unittest.TestCase):
         test_board = TestBoard.create_test_board(3)
         test_player = HumanPlayer(["Marx", "human", "X"])
         test_move = "1"
-        test_board.board_data = {
-            "1": "1",
-            "2": "X",
-            "3": "X",
-            "4": "4",
-            "5": "5",
-            "6": "6",
-            "7": "7",
-            "8": "8",
-            "9": "9",
-        }
+        test_board.board_data = Utilities.change_board_value(
+            test_board.board_data, test_move, test_player.marker
+        )
+        test_move = "2"
+        test_board.board_data = Utilities.change_board_value(
+            test_board.board_data, test_move, test_player.marker
+        )
+        test_winning_move = "3"
         move_outcome = TestBoard.mock_server_make_move(
-            test_board, test_player, test_move, server=True
+            test_board, test_player, test_winning_move, server=True
         )
         self.assertEqual(move_outcome[1].winner, "Marx")
 
