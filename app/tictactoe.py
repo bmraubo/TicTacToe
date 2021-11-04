@@ -37,6 +37,9 @@ class TicTacToe:
                     valid_move = move_outcome[0]
                     if valid_move:
                         self.board = move_outcome[1]
+                        UserInterface.display_move_notification(
+                            player_move, player.name
+                        )
                         self.update_computer_player_boards()
                     else:
                         UserInterface.display_message(move_outcome[1])

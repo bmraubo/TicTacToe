@@ -45,6 +45,15 @@ class TestUserInterface(unittest.TestCase):
         expected_declaration = "It's a Draw!"
         self.assertEqual(UserInterface.declare_winner(winner), expected_declaration)
 
+    def test_display_move_notification(self):
+        response_stub = {"move_success": True, "game_data": {"move": "1"}}
+        test_player = HumanPlayer(["Marx", "human", "X"])
+        expected_message = "Marx has played 1"
+        displayed_message = UserInterface.display_move_notification(
+            response_stub["game_data"]["move"], test_player.name
+        )
+        self.assertEqual(displayed_message, expected_message)
+
     # Testing User Input of Player Information\
     # Testing obtaining player name
     def test_input_player_name(self):
