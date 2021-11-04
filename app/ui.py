@@ -24,6 +24,10 @@ class UserInterface:
             message = f"{winner_name} has won the game\N{Party Popper}"
             return UserInterface.display_message(message)
 
+    def display_move_notification(move, player_name):
+        move_notification = f"{player_name} has played {move}"
+        return UserInterface.display_message(move_notification)
+
     # Get Player Information from User
     def get_player_info():
         # Obtains player names from user
