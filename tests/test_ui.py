@@ -50,7 +50,7 @@ class TestUserInterface(unittest.TestCase):
         test_player = HumanPlayer(["Marx", "human", "X"])
         expected_message = "Marx has played 1"
         displayed_message = UserInterface.display_move_notification(
-            response_stub["game_data"]["move"]
+            response_stub["game_data"]["move"], test_player.name
         )
         self.assertEqual(displayed_message, expected_message)
 
